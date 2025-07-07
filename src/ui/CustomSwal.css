@@ -1,0 +1,179 @@
+/* Custom SweetAlert2 Styles with Blue Theme (#3B82F6) */
+
+/* Popup container */
+.custom-popup {
+  border-radius: 12px !important;
+  box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25) !important;
+  border: 1px solid rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Title styling */
+.custom-title {
+  color: #1e40af !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+}
+
+/* Content text styling */
+.custom-content {
+  color: #374151 !important;
+  font-size: 1rem !important;
+}
+
+/* Confirm button styling */
+.custom-confirm-btn {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 24px !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3) !important;
+}
+
+.custom-confirm-btn:hover {
+  background-color: #2563eb !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 10px -1px rgba(59, 130, 246, 0.4) !important;
+}
+
+.custom-confirm-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 4px -1px rgba(59, 130, 246, 0.3) !important;
+}
+
+.custom-confirm-btn:focus {
+  outline: none !important;
+  ring: 2px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Cancel button styling */
+.custom-cancel-btn {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  padding: 12px 24px !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease !important;
+  margin-right: 8px !important;
+}
+
+.custom-cancel-btn:hover {
+  background-color: #e5e7eb !important;
+  border-color: #9ca3af !important;
+  transform: translateY(-1px) !important;
+}
+
+.custom-cancel-btn:active {
+  transform: translateY(0) !important;
+}
+
+.custom-cancel-btn:focus {
+  outline: none !important;
+  ring: 2px solid rgba(156, 163, 175, 0.5) !important;
+}
+
+/* Icon customizations */
+.swal2-icon.swal2-success {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-fix {
+  background-color: white !important;
+}
+
+.swal2-icon.swal2-success [class^="swal2-success-line"] {
+  background-color: #3b82f6 !important;
+}
+
+.swal2-icon.swal2-info {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+.swal2-icon.swal2-question {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+.swal2-icon.swal2-error {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+
+/* Timer progress bar */
+.swal2-timer-progress-bar {
+  background-color: #3b82f6 !important;
+}
+
+/* Toast styling */
+.swal2-toast .swal2-title {
+  color: #374151 !important;
+  font-weight: 500 !important;
+}
+
+.swal2-toast {
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Loading spinner */
+.swal2-loader {
+  border-color: rgba(59, 130, 246, 0.2) rgba(59, 130, 246, 0.2)
+    rgba(59, 130, 246, 0.2) #3b82f6 !important;
+}
+
+/* Backdrop */
+.swal2-backdrop-show {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Animation classes */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.animate__animated {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+.animate__fadeInDown {
+  animation-name: fadeInDown;
+}
+
+.animate__fadeOutUp {
+  animation-name: fadeOutUp;
+}

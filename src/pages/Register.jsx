@@ -1,38 +1,47 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import registerImg from "../assets/login.jpg";
 import GoogleSignIn from "../components/GoogleSignIn";
+import { showSuccess, showError, showLoading } from "../ui/CustomSwal";
+import { useAuth } from "../hooks/useAuth";
+import { uploadImageToImgBB } from "../utils/uploadImage";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isRoleOpen, setIsRoleOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role: "",
-    bankAccountNo: "",
-    salary: "",
-    designation: "",
-    photo: null,
-  });
-  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { createUser, updateUserProfile } = useAuth();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    trigger,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      role: "",
+      bankAccountNo: "",
+      salary: "",
+      designation: "",
+      photo: null,
+    },
+  });
+
+  const watchedRole = watch("role");
   const roles = ["Employee", "HR"];
 
   const handleRoleSelect = (role) => {
-    setFormData((prev) => ({ ...prev, role }));
+    setValue("role", role);
     setIsRoleOpen(false);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "photo") {
-      setFormData((prev) => ({ ...prev, [name]: files[0] }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    trigger("role");
   };
 
   const validatePassword = (password) => {
@@ -46,19 +55,95 @@ const Register = () => {
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
       errors.push("Password must contain at least one special character");
     }
-    return errors;
+    return errors.length === 0 || errors.join(", ");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const passwordErrors = validatePassword(formData.password);
-    if (passwordErrors.length > 0) {
-      setErrors({ password: passwordErrors });
+  const onSubmit = async (data) => {
+    if (!data.photo || data.photo.length === 0) {
+      showError("Validation Error", "Please upload a profile photo");
       return;
     }
-    setErrors({});
-    // Handle registration logic here
-    console.log("Registration data:", formData);
+
+    setIsLoading(true);
+
+    try {
+      // Show loading alert
+      const loadingAlert = showLoading("Creating your account...");
+
+      // Upload image to ImgBB
+      const photoURL = await uploadImageToImgBB(data.photo[0]);
+
+      // Create user with Firebase Auth
+      const result = await createUser(data.email, data.password);
+
+      // Update user profile with name and photo
+      await updateUserProfile({
+        displayName: data.name,
+        photoURL: photoURL,
+      });
+
+      // Prepare user data for database
+      const userData = {
+        uid: result.user.uid,
+        name: data.name,
+        email: data.email,
+        role: data.role,
+        bank_account_no: data.bankAccountNo,
+        salary: parseFloat(data.salary),
+        designation: data.designation,
+        photo: photoURL,
+        isVerified: false,
+        isFired: false,
+        createdAt: new Date().toISOString(),
+      };
+
+      // Save user to database
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save user data");
+      }
+
+      // Close loading alert
+      loadingAlert.close();
+
+      // Show success message
+      await showSuccess(
+        "Registration Successful!",
+        "Your account has been created successfully. Welcome to PayNode!"
+      );
+
+      // Navigate to login or dashboard
+      navigate("/");
+    } catch (error) {
+      console.error("Registration error:", error);
+      setIsLoading(false);
+
+      let errorMessage = "An error occurred during registration";
+
+      // Handle specific Firebase errors
+      if (error.code === "auth/email-already-in-use") {
+        errorMessage =
+          "This email is already registered. Please use a different email.";
+      } else if (error.code === "auth/weak-password") {
+        errorMessage =
+          "Password is too weak. Please choose a stronger password.";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email address. Please enter a valid email.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      showError("Registration Failed", errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -84,7 +169,7 @@ const Register = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Grid Layout for Form Fields */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Name Field */}
@@ -94,13 +179,21 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
+                  {...register("name", {
+                    required: "Full name is required",
+                    minLength: {
+                      value: 2,
+                      message: "Name must be at least 2 characters",
+                    },
+                  })}
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your full name"
-                  required
                 />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               {/* Email Field */}
@@ -110,13 +203,21 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your email"
-                  required
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* Password Field */}
@@ -127,12 +228,12 @@ const Register = () => {
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
+                    {...register("password", {
+                      required: "Password is required",
+                      validate: validatePassword,
+                    })}
                     className="w-full px-3 py-2 pr-10 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your password"
-                    required
                   />
                   <button
                     type="button"
@@ -147,11 +248,9 @@ const Register = () => {
                   </button>
                 </div>
                 {errors.password && (
-                  <div className="mt-1 text-sm text-red-600">
-                    {errors.password.map((error, index) => (
-                      <div key={index}>• {error}</div>
-                    ))}
-                  </div>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
@@ -161,12 +260,16 @@ const Register = () => {
                   Role
                 </label>
                 <div className="flex flex-col w-full text-sm relative">
+                  <input
+                    type="hidden"
+                    {...register("role", { required: "Please select a role" })}
+                  />
                   <button
                     type="button"
                     onClick={() => setIsRoleOpen(!isRoleOpen)}
                     className="w-full text-left px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 outline-none hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <span>{formData.role || "Select your role"}</span>
+                    <span>{watchedRole || "Select your role"}</span>
                     <svg
                       className={`w-5 h-5 inline float-right transition-transform duration-200 ${
                         isRoleOpen ? "rotate-0" : "-rotate-90"
@@ -199,6 +302,11 @@ const Register = () => {
                     </ul>
                   )}
                 </div>
+                {errors.role && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.role.message}
+                  </p>
+                )}
               </div>
 
               {/* Bank Account Number */}
@@ -208,13 +316,26 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  name="bankAccountNo"
-                  value={formData.bankAccountNo}
-                  onChange={handleInputChange}
+                  {...register("bankAccountNo", {
+                    required: "Bank account number is required",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message:
+                        "Bank account number should contain only numbers",
+                    },
+                    minLength: {
+                      value: 8,
+                      message: "Bank account number must be at least 8 digits",
+                    },
+                  })}
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your bank account number"
-                  required
                 />
+                {errors.bankAccountNo && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.bankAccountNo.message}
+                  </p>
+                )}
               </div>
 
               {/* Salary */}
@@ -224,13 +345,25 @@ const Register = () => {
                 </label>
                 <input
                   type="number"
-                  name="salary"
-                  value={formData.salary}
-                  onChange={handleInputChange}
+                  {...register("salary", {
+                    required: "Expected salary is required",
+                    min: {
+                      value: 1000,
+                      message: "Salary must be at least 1000",
+                    },
+                    max: {
+                      value: 1000000,
+                      message: "Salary cannot exceed 1,000,000",
+                    },
+                  })}
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter expected salary"
-                  required
                 />
+                {errors.salary && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.salary.message}
+                  </p>
+                )}
               </div>
 
               {/* Designation */}
@@ -240,13 +373,21 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  name="designation"
-                  value={formData.designation}
-                  onChange={handleInputChange}
+                  {...register("designation", {
+                    required: "Designation is required",
+                    minLength: {
+                      value: 2,
+                      message: "Designation must be at least 2 characters",
+                    },
+                  })}
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g. Sales Assistant, Marketer"
-                  required
                 />
+                {errors.designation && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.designation.message}
+                  </p>
+                )}
               </div>
 
               {/* Photo Upload */}
@@ -256,21 +397,49 @@ const Register = () => {
                 </label>
                 <input
                   type="file"
-                  name="photo"
-                  onChange={handleInputChange}
+                  {...register("photo", {
+                    required: "Profile photo is required",
+                    validate: {
+                      fileType: (files) => {
+                        if (!files[0]) return true;
+                        const allowedTypes = [
+                          "image/jpeg",
+                          "image/jpg",
+                          "image/png",
+                          "image/gif",
+                        ];
+                        return (
+                          allowedTypes.includes(files[0].type) ||
+                          "Only image files are allowed"
+                        );
+                      },
+                      fileSize: (files) => {
+                        if (!files[0]) return true;
+                        return (
+                          files[0].size <= 5000000 ||
+                          "File size must be less than 5MB"
+                        );
+                      },
+                    },
+                  })}
                   accept="image/*"
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                  required
                 />
+                {errors.photo && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.photo.message}
+                  </p>
+                )}
               </div>
             </div>
 
             {/* Register Button */}
             <button
               type="submit"
-              className="mt-8 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer"
+              disabled={isLoading}
+              className="mt-8 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Create Account
+              {isLoading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 

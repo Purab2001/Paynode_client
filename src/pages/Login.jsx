@@ -1,8 +1,79 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import loginImg from "../assets/login.jpg";
-import { Link } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import GoogleSignIn from "../components/GoogleSignIn";
+import { useAuth } from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import logo from "../assets/logo.png";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+
+    try {
+      const result = await signIn(data.email, data.password);
+
+      if (result.user) {
+        toast.success("Welcome back! Login successful", {
+          duration: 3000,
+          position: "top-center",
+        });
+
+        // Navigate to the page user was trying to access or home
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+
+      let errorMessage = "Login failed. Please try again.";
+
+      // Handle specific Firebase errors
+      if (error.code === "auth/user-not-found") {
+        errorMessage = "No account found with this email address.";
+      } else if (error.code === "auth/wrong-password") {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email address format.";
+      } else if (error.code === "auth/user-disabled") {
+        errorMessage = "This account has been disabled.";
+      } else if (error.code === "auth/too-many-requests") {
+        errorMessage =
+          "Too many failed login attempts. Please try again later.";
+      } else if (error.code === "auth/invalid-credential") {
+        errorMessage =
+          "Invalid email or password. Please check your credentials.";
+      }
+
+      toast.error(errorMessage, {
+        duration: 4000,
+        position: "top-center",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="flex h-screen w-full">
       <div className="w-1/2 hidden md:inline-block">
@@ -14,7 +85,14 @@ const Login = () => {
       </div>
 
       <div className="w-full flex flex-col items-center justify-center">
-        <form className="md:w-96 w-80 flex flex-col items-center justify-center">
+        {/* Logo at the top, links to home */}
+        <Link to="/" className="mb-6 flex items-center justify-center">
+          <img src={logo} alt="logo" className="h-12" />
+        </Link>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="md:w-96 w-80 flex flex-col items-center justify-center"
+        >
           <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
           <p className="text-sm text-gray-500/90 mt-3">
             Welcome back! Please sign in to continue
@@ -47,11 +125,22 @@ const Login = () => {
             </svg>
             <input
               type="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                },
+              })}
               placeholder="Email id"
               className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
-              required
             />
           </div>
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-600 self-start">
+              {errors.email.message}
+            </p>
+          )}
 
           <div className="flex items-center mt-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
             <svg
@@ -67,17 +156,39 @@ const Login = () => {
               />
             </svg>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
               placeholder="Password"
-              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
-              required
+              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full pr-10"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="pr-3 flex items-center"
+            >
+              {showPassword ? (
+                <FaEyeSlash className="text-gray-400" />
+              ) : (
+                <FaEye className="text-gray-400" />
+              )}
+            </button>
           </div>
+          {errors.password && (
+            <p className="mt-1 text-sm text-red-600 self-start">
+              {errors.password.message}
+            </p>
+          )}
 
           <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
             <div className="flex items-center gap-2">
               <input className="h-5" type="checkbox" id="checkbox" />
-              <label className="text-sm" for="checkbox">
+              <label className="text-sm" htmlFor="checkbox">
                 Remember me
               </label>
             </div>
@@ -88,13 +199,14 @@ const Login = () => {
 
           <button
             type="submit"
-            className="mt-8 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer"
+            disabled={isLoading}
+            className="mt-8 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {isLoading ? "Signing in..." : "Login"}
           </button>
           <p className="text-gray-500/90 text-sm mt-4">
             Don’t have an account?{" "}
-            <Link to="/register" class="text-blue-600 hover:underline" href="#">
+            <Link to="/register" className="text-blue-600 hover:underline">
               Sign up
             </Link>
           </p>
