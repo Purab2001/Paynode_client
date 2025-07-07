@@ -1,11 +1,10 @@
-import React from "react";
 import logo from "../assets/logo.png";
 import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="px-6 pt-8 md:px-16 lg:px-36 w-full bg-black text-gray-300">
-      <div className="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-500 pb-10">
+    <footer className="bg-black text-gray-300">
+      <div className="container mx-auto px-4 pt-8 md:px-16 lg:px-24 xl:px-32  flex flex-col md:flex-row justify-between gap-10 border-b border-gray-500 pb-10">
         <div className="md:max-w-96">
           <Link to="/" className="flex items-center gap-2">
             <img className="h-9" src={logo} alt="logo" />

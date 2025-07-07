@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import Swal from "sweetalert2";
 
 // Custom SweetAlert2 configuration with blue theme (#3B82F6)

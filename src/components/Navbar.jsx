@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+import ProfileImage from "../ui/ProfileImage";
 import logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router";
 import { useAuth } from "../hooks/useAuth";
@@ -50,12 +52,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 bg-[#3B82F6] w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 ${
+      className={`fixed top-0 left-0 bg-[#3B82F6] w-full transition-all duration-500 z-50 ${
         isScrolled
           ? "bg-white/80 shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4"
           : "py-4 md:py-6"
       }`}
     >
+      <div className="container mx-auto flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-2">
           <img src={logo} alt="logo" className="h-9" />
@@ -110,16 +113,7 @@ const Navbar = () => {
                 className="flex items-center gap-2 p-1 rounded-full hover:bg-white/10 transition-all duration-200"
               >
                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20">
-                  <img
-                    src={user.photoURL || "/default-avatar.png"}
-                    alt={user.displayName || "User"}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                        user.displayName || user.email || "User"
-                      )}&background=3B82F6&color=fff&size=40`;
-                    }}
-                  />
+                  <ProfileImage user={user} size={40} />
                 </div>
                 {/* Name beside profile icon intentionally removed for requirements compliance */}
                 <svg
@@ -146,9 +140,7 @@ const Navbar = () => {
                     <p className="text-sm font-medium text-gray-900">
                       {user.displayName || "User"}
                     </p>
-                    <p className="text-sm text-gray-500 truncate">
-                      {user.email}
-                    </p>
+                    <p className="text-sm text-gray-500 truncate">{user.email}</p>
                   </div>
 
                   <div className="py-1">
@@ -270,16 +262,7 @@ const Navbar = () => {
           {user && (
             <div className="flex flex-col items-center gap-3 mb-4 pb-4 border-b border-gray-200 w-full max-w-xs">
               <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-blue-500">
-                <img
-                  src={user.photoURL || "/default-avatar.png"}
-                  alt={user.displayName || "User"}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      user.displayName || user.email || "User"
-                    )}&background=3B82F6&color=fff&size=64`;
-                  }}
-                />
+                <ProfileImage user={user} size={64} />
               </div>
               {/* Name/email block intentionally left for mobile dropdown, as per requirements only desktop navbar should hide name */}
               <div className="text-center">
@@ -322,7 +305,8 @@ const Navbar = () => {
             </Link>
           )}
         </div>
-      </nav>
+      </div>
+    </nav>
   );
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import ProfileImage from "../ui/ProfileImage";
 
 const Profile = () => {
   const { user, updateUserProfile } = useAuth();
@@ -29,7 +30,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -39,25 +40,17 @@ const Profile = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Profile Picture Section */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6">
+        {/* Single Profile Card */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Profile Picture Section */}
+            <div className="lg:col-span-1">
               <h2 className="text-lg font-medium text-gray-900 mb-4">
                 Profile Picture
               </h2>
               <div className="flex flex-col items-center">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 mb-4">
-                  <img
-                    src={user?.photoURL || "/default-avatar.png"}
-                    alt={user?.displayName || "User"}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                        user?.displayName || user?.email || "User"
-                      )}&background=3B82F6&color=fff&size=128`;
-                    }}
-                  />
+                  <ProfileImage user={user} size={128} />
                 </div>
                 <p className="text-sm text-gray-600 text-center mb-4">
                   Your profile picture is managed through your authentication
@@ -70,11 +63,9 @@ const Profile = () => {
                 )}
               </div>
             </div>
-          </div>
 
-          {/* Profile Information */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-6">
+            {/* Profile Information */}
+            <div className="lg:col-span-3">
               <h2 className="text-lg font-medium text-gray-900 mb-6">
                 Personal Information
               </h2>
@@ -128,34 +119,36 @@ const Profile = () => {
                   </p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Account Type
-                  </label>
-                  <div className="mt-1">
-                    <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">
-                      Employee
-                    </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Account Type
+                    </label>
+                    <div className="mt-1">
+                      <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100/60 rounded-full">
+                        Employee
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Authentication Provider
-                  </label>
-                  <div className="mt-1">
-                    <span className="inline-block px-3 py-1 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">
-                      {user?.providerData?.[0]?.providerId === "google.com"
-                        ? "Google"
-                        : "Email/Password"}
-                    </span>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Authentication Provider
+                    </label>
+                    <div className="mt-1">
+                      <span className="inline-block px-3 py-1 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">
+                        {user?.providerData?.[0]?.providerId === "google.com"
+                          ? "Google"
+                          : "Email/Password"}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium"
+                    className="bg-[#3B82F6] text-white px-6 py-2 rounded-md hover:opacity-90 transition-colors duration-200 font-medium cursor-pointer"
                   >
                     Update Profile
                   </button>
@@ -163,33 +156,35 @@ const Profile = () => {
               </form>
             </div>
           </div>
-        </div>
 
-        {/* Account Information */}
-        <div className="mt-8 bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">
-            Account Information
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Account Created
-              </label>
-              <p className="text-sm text-gray-600">
-                {user?.metadata?.creationTime
-                  ? new Date(user.metadata.creationTime).toLocaleDateString()
-                  : "Unknown"}
-              </p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Last Sign In
-              </label>
-              <p className="text-sm text-gray-600">
-                {user?.metadata?.lastSignInTime
-                  ? new Date(user.metadata.lastSignInTime).toLocaleDateString()
-                  : "Unknown"}
-              </p>
+          {/* Account Information Section */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">
+              Account Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Account Created
+                </label>
+                <p className="text-sm text-gray-600">
+                  {user?.metadata?.creationTime
+                    ? new Date(user.metadata.creationTime).toLocaleDateString()
+                    : "Unknown"}
+                </p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Last Sign In
+                </label>
+                <p className="text-sm text-gray-600">
+                  {user?.metadata?.lastSignInTime
+                    ? new Date(
+                        user.metadata.lastSignInTime
+                      ).toLocaleDateString()
+                    : "Unknown"}
+                </p>
+              </div>
             </div>
           </div>
         </div>

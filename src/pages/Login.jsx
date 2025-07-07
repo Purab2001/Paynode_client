@@ -86,7 +86,7 @@ const Login = () => {
 
       <div className="w-full flex flex-col items-center justify-center">
         {/* Logo at the top, links to home */}
-        <Link to="/" className="mb-6 flex items-center justify-center">
+        <Link to="/" className="mb-4 flex items-center justify-center">
           <img src={logo} alt="logo" className="h-12" />
         </Link>
         <form
@@ -94,7 +94,7 @@ const Login = () => {
           className="md:w-96 w-80 flex flex-col items-center justify-center"
         >
           <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
-          <p className="text-sm text-gray-500/90 mt-3">
+          <p className="text-sm text-gray-500/90 my-3">
             Welcome back! Please sign in to continue
           </p>
 

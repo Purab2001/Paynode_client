@@ -4,9 +4,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import registerImg from "../assets/login.jpg";
 import GoogleSignIn from "../components/GoogleSignIn";
-import { showSuccess, showError, showLoading } from "../ui/CustomSwal";
 import { useAuth } from "../hooks/useAuth";
 import { uploadImageToImgBB } from "../utils/uploadImage";
+import toast from "react-hot-toast";
+import { showSuccess, showError } from "../ui/CustomSwal";
+import logo from "../assets/logo.png";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,6 +35,7 @@ const Register = () => {
       designation: "",
       photo: null,
     },
+    mode: "onBlur",
   });
 
   const watchedRole = watch("role");
@@ -60,16 +63,12 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     if (!data.photo || data.photo.length === 0) {
-      showError("Validation Error", "Please upload a profile photo");
+      toast.error("Please upload a profile photo");
       return;
     }
 
     setIsLoading(true);
-
     try {
-      // Show loading alert
-      const loadingAlert = showLoading("Creating your account...");
-
       // Upload image to ImgBB
       const photoURL = await uploadImageToImgBB(data.photo[0]);
 
@@ -110,40 +109,34 @@ const Register = () => {
         throw new Error("Failed to save user data");
       }
 
-      // Close loading alert
-      loadingAlert.close();
-
-      // Show success message
       await showSuccess(
         "Registration Successful!",
         "Your account has been created successfully. Welcome to PayNode!"
       );
-
-      // Navigate to login or dashboard
       navigate("/");
     } catch (error) {
       console.error("Registration error:", error);
-      setIsLoading(false);
-
       let errorMessage = "An error occurred during registration";
-
-      // Handle specific Firebase errors
       if (error.code === "auth/email-already-in-use") {
-        errorMessage =
-          "This email is already registered. Please use a different email.";
+        errorMessage = "This email is already registered. Please use a different email.";
       } else if (error.code === "auth/weak-password") {
-        errorMessage =
-          "Password is too weak. Please choose a stronger password.";
+        errorMessage = "Password is too weak. Please choose a stronger password.";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "Invalid email address. Please enter a valid email.";
       } else if (error.message) {
         errorMessage = error.message;
       }
-
-      showError("Registration Failed", errorMessage);
+      await showError("Registration Failed", errorMessage);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Show toast for field validation errors
+  const showFieldErrorToasts = () => {
+    Object.values(errors).forEach((err) => {
+      if (err && err.message) toast.error(err.message);
+    });
   };
 
   return (
@@ -160,6 +153,13 @@ const Register = () => {
       {/* Right side - Registration Form */}
       <div className="w-full md:w-2/3 flex items-center justify-center bg-gray-50 p-4">
         <div className="w-full max-w-4xl">
+
+          {/* Logo at the top, links to home */}
+          <Link to="/" className="mb-3 flex items-center justify-center gap-2">
+            <img src={logo} alt="logo" className="h-8" />
+            <span className="text-xl font-bold">PayNode</span>
+          </Link>
+
           <div className="text-center mb-8">
             <h2 className="text-4xl text-gray-900 font-medium">
               Create Account
@@ -169,7 +169,10 @@ const Register = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmit, showFieldErrorToasts)}
+            className="space-y-4"
+          >
             {/* Grid Layout for Form Fields */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Name Field */}
@@ -189,11 +192,6 @@ const Register = () => {
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your full name"
                 />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.name.message}
-                  </p>
-                )}
               </div>
 
               {/* Email Field */}
@@ -213,11 +211,6 @@ const Register = () => {
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your email"
                 />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.email.message}
-                  </p>
-                )}
               </div>
 
               {/* Password Field */}
@@ -247,11 +240,6 @@ const Register = () => {
                     )}
                   </button>
                 </div>
-                {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.password.message}
-                  </p>
-                )}
               </div>
 
               {/* Role Field */}
@@ -302,11 +290,6 @@ const Register = () => {
                     </ul>
                   )}
                 </div>
-                {errors.role && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.role.message}
-                  </p>
-                )}
               </div>
 
               {/* Bank Account Number */}
@@ -331,11 +314,6 @@ const Register = () => {
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your bank account number"
                 />
-                {errors.bankAccountNo && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.bankAccountNo.message}
-                  </p>
-                )}
               </div>
 
               {/* Salary */}
@@ -359,11 +337,6 @@ const Register = () => {
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter expected salary"
                 />
-                {errors.salary && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.salary.message}
-                  </p>
-                )}
               </div>
 
               {/* Designation */}
@@ -383,11 +356,6 @@ const Register = () => {
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g. Sales Assistant, Marketer"
                 />
-                {errors.designation && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.designation.message}
-                  </p>
-                )}
               </div>
 
               {/* Photo Upload */}
@@ -425,11 +393,6 @@ const Register = () => {
                   accept="image/*"
                   className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
-                {errors.photo && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.photo.message}
-                  </p>
-                )}
               </div>
             </div>
 
@@ -437,14 +400,14 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="mt-8 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-4 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 
           {/* Divider */}
-          <div className="flex items-center gap-4 w-full my-5">
+          <div className="flex items-center gap-4 w-full my-3">
             <div className="w-full h-px bg-gray-300/90"></div>
             <p className="w-full text-center text-sm text-gray-500/90">
               or continue with

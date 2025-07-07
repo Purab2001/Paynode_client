@@ -5,8 +5,8 @@ const Dashboard = () => {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 py-8">
+      <div className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
@@ -35,7 +35,7 @@ const Dashboard = () => {
                 {user?.displayName || "User"}
               </h2>
               <p className="text-gray-600">{user?.email}</p>
-              <span className="inline-block px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full mt-1">
+              <span className="inline-block px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100/60 rounded-full mt-1">
                 Employee
               </span>
             </div>
