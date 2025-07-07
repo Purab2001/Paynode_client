@@ -5,7 +5,14 @@ import { Toaster } from "react-hot-toast";
 
 const RootLayout = () => {
   const location = useLocation();
-  const hideNavAndFooter = ["/login", "/register"].includes(location.pathname);
+  const hideNavAndFooter = [
+    "/login",
+    "/register",
+    "/dashboard",
+    "/overview",
+    "/chat",
+    "/profile",
+  ].includes(location.pathname);
 
   return (
     <div>

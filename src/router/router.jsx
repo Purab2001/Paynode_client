@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
+import Overview from "../pages/Overview";
+import Chat from "../pages/Chat";
 import PrivateRoute from "../routes/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -29,6 +31,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "overview",
+        element: (
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "chat",
+        element: (
+          <PrivateRoute>
+            <Chat />
           </PrivateRoute>
         ),
       },

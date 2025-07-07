@@ -3,6 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import ProfileImage from "../ui/ProfileImage";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 const Profile = () => {
   const { user, updateUserProfile } = useAuth();
@@ -30,8 +31,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <DashboardLayout>
+      <div className="space-y-6">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
@@ -189,7 +190,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

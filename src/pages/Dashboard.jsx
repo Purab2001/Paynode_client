@@ -1,13 +1,14 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
+import DashboardLayout from "../layouts/DashboardLayout";
+import ProfileImage from "../ui/ProfileImage";
 
 const Dashboard = () => {
   const { user } = useAuth();
 
   return (
-    <div className="bg-gray-50 py-8">
-      <div className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32">
-        {/* Header */}
+    <DashboardLayout>
+      <div className="space-y-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
           <p className="mt-2 text-gray-600">
@@ -19,16 +20,7 @@ const Dashboard = () => {
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-blue-500">
-              <img
-                src={user?.photoURL || "/default-avatar.png"}
-                alt={user?.displayName || "User"}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    user?.displayName || user?.email || "User"
-                  )}&background=3B82F6&color=fff&size=64`;
-                }}
-              />
+              <ProfileImage user={user} size={64} />
             </div>
             <div>
               <h2 className="text-xl font-semibold text-gray-900">
@@ -138,7 +130,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
