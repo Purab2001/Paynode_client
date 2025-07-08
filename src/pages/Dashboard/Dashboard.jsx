@@ -2,12 +2,18 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import ProfileImage from "../../ui/ProfileImage";
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
+import { useEmployeeDashboardStats, useEmployeeRecentActivity } from "../../hooks/useEmployeeDashboardData";
+import useUserRole from "../../hooks/useUserRole";
 
 const Dashboard = () => {
   const { user } = useAuth();
   const location = useLocation();
-  
+  const navigate = useNavigate();
+  const { role, roleLoading } = useUserRole();
+  const { data: stats, isLoading: statsLoading } = useEmployeeDashboardStats();
+  const { data: activity, isLoading: activityLoading } = useEmployeeRecentActivity();
+
   // Show nested content if on a sub-route
   if (location.pathname !== "/dashboard") {
     return (
@@ -39,88 +45,72 @@ const Dashboard = () => {
               </h2>
               <p className="text-gray-600">{user?.email}</p>
               <span className="inline-block px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100/60 rounded-full mt-1">
-                Employee
+                {roleLoading ? "..." : role}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Dashboard Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium text-gray-900">Profile</h3>
-                <p className="text-gray-600">Manage your profile information</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-blue-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-              </div>
-            </div>
+        {/* Employee Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <h3 className="text-lg font-medium text-gray-900">This Month</h3>
+            <p className="text-3xl font-bold text-blue-600 mt-2">
+              {statsLoading ? "..." : stats?.hoursThisMonth ?? 0}
+            </p>
+            <p className="text-sm text-gray-500">Hours Worked</p>
           </div>
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <h3 className="text-lg font-medium text-gray-900">Entries</h3>
+            <p className="text-3xl font-bold text-green-600 mt-2">
+              {statsLoading ? "..." : stats?.entriesThisMonth ?? 0}
+            </p>
+            <p className="text-sm text-gray-500">Work Entries</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <h3 className="text-lg font-medium text-gray-900">Last Payment</h3>
+            <p className="text-3xl font-bold text-purple-600 mt-2">
+              {statsLoading ? "..." : stats?.lastPaymentAmount ? `৳${stats.lastPaymentAmount}` : "N/A"}
+            </p>
+            <p className="text-sm text-gray-500">
+              {statsLoading ? "" : stats?.lastPaymentDate ? `on ${stats.lastPaymentDate}` : ""}
+            </p>
+          </div>
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <h3 className="text-lg font-medium text-gray-900">Pending Tasks</h3>
+            <p className="text-3xl font-bold text-orange-600 mt-2">
+              {statsLoading ? "..." : stats?.pendingTasks ?? 0}
+            </p>
+            <p className="text-sm text-gray-500">To Complete</p>
+          </div>
+        </div>
 
-          {/* Card 2 */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium text-gray-900">Tasks</h3>
-                <p className="text-gray-600">View and manage your tasks</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-green-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium text-gray-900">Reports</h3>
-                <p className="text-gray-600">Generate and view reports</p>
-              </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-purple-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
+        {/* Action Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <button
+            className="bg-blue-100 hover:bg-blue-200 rounded-lg shadow-md p-6 flex flex-col items-center transition cursor-pointer"
+            onClick={() => navigate("/work-sheet")}
+          >
+            <span className="text-2xl mb-2">📝</span>
+            <span className="font-medium text-gray-900">Work Sheet</span>
+            <span className="text-sm text-gray-500 mt-1">Add/View your work entries</span>
+          </button>
+          <button
+            className="bg-green-100 hover:bg-green-200 rounded-lg shadow-md p-6 flex flex-col items-center transition cursor-pointer"
+            onClick={() => navigate("/payment-history")}
+          >
+            <span className="text-2xl mb-2">💸</span>
+            <span className="font-medium text-gray-900">Payment History</span>
+            <span className="text-sm text-gray-500 mt-1">View your salary records</span>
+          </button>
+          <button
+            className="bg-purple-100 hover:bg-purple-200 rounded-lg shadow-md p-6 flex flex-col items-center transition cursor-pointer"
+            onClick={() => navigate("/profile")}
+          >
+            <span className="text-2xl mb-2">👤</span>
+            <span className="font-medium text-gray-900">Profile</span>
+            <span className="text-sm text-gray-500 mt-1">Manage your profile</span>
+          </button>
         </div>
 
         {/* Recent Activity */}
@@ -131,13 +121,30 @@ const Dashboard = () => {
             </h3>
           </div>
           <div className="p-6">
-            <div className="text-center py-8 text-gray-500">
-              <p>No recent activity to display.</p>
-              <p className="text-sm mt-1">
-                Your activities will appear here once you start using the
-                system.
-              </p>
-            </div>
+            {activityLoading ? (
+              <div className="text-center py-8 text-gray-500">Loading...</div>
+            ) : activity && activity.length > 0 ? (
+              <ul className="space-y-4">
+                {activity.map((item, idx) => (
+                  <li key={idx} className="flex items-center gap-3">
+                    <span className="text-xl">{item.icon || "•"}</span>
+                    <div>
+                      <p className="font-medium text-gray-900">{item.title}</p>
+                      <p className="text-sm text-gray-500">{item.description}</p>
+                      <p className="text-xs text-gray-400">{item.date}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <p>No recent activity to display.</p>
+                <p className="text-sm mt-1">
+                  Your activities will appear here once you start using the
+                  system.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

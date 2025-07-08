@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
+import useUserRole from "../hooks/useUserRole";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import ProfileImage from "../ui/ProfileImage";
@@ -30,6 +31,7 @@ const Profile = () => {
     }
   };
 
+  const { role, roleLoading } = useUserRole();
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -127,7 +129,7 @@ const Profile = () => {
                     </label>
                     <div className="mt-1">
                       <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100/60 rounded-full">
-                        Employee
+                        {roleLoading ? "..." : role}
                       </span>
                     </div>
                   </div>

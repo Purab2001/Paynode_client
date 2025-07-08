@@ -1,7 +1,11 @@
 import React from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
+import { useEmployeeOverviewMetrics, useEmployeeRecentWork } from "../../hooks/useEmployeeOverviewData";
 
 const Overview = () => {
+  const { data: metrics, isLoading: metricsLoading } = useEmployeeOverviewMetrics();
+  const { data: recentWork, isLoading: workLoading } = useEmployeeRecentWork();
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -16,22 +20,30 @@ const Overview = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-900">This Week</h3>
-            <p className="text-3xl font-bold text-blue-600 mt-2">40</p>
+            <p className="text-3xl font-bold text-blue-600 mt-2">
+              {metricsLoading ? "..." : metrics?.hoursThisWeek ?? 0}
+            </p>
             <p className="text-sm text-gray-500">Hours Worked</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-900">This Month</h3>
-            <p className="text-3xl font-bold text-green-600 mt-2">168</p>
+            <p className="text-3xl font-bold text-green-600 mt-2">
+              {metricsLoading ? "..." : metrics?.hoursThisMonth ?? 0}
+            </p>
             <p className="text-sm text-gray-500">Hours Worked</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-gray-900">Projects</h3>
-            <p className="text-3xl font-bold text-purple-600 mt-2">12</p>
-            <p className="text-sm text-gray-500">Active Projects</p>
+            <h3 className="text-lg font-semibold text-gray-900">Tasks Completed</h3>
+            <p className="text-3xl font-bold text-purple-600 mt-2">
+              {metricsLoading ? "..." : metrics?.tasksCompleted ?? 0}
+            </p>
+            <p className="text-sm text-gray-500">Work Entries</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-900">Efficiency</h3>
-            <p className="text-3xl font-bold text-orange-600 mt-2">94%</p>
+            <p className="text-3xl font-bold text-orange-600 mt-2">
+              {metricsLoading ? "..." : metrics?.efficiency ?? "N/A"}
+            </p>
             <p className="text-sm text-gray-500">Task Completion</p>
           </div>
         </div>
@@ -43,65 +55,52 @@ const Overview = () => {
               Weekly Progress
             </h2>
             <div className="h-64 flex items-center justify-center text-gray-500">
-              <p>Chart placeholder - Weekly progress visualization</p>
+              {/* Placeholder for weekly progress chart */}
+              <p>Chart will display weekly work hours (integrate chart library)</p>
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Project Distribution
+              Task Distribution
             </h2>
             <div className="h-64 flex items-center justify-center text-gray-500">
-              <p>Chart placeholder - Project distribution pie chart</p>
+              {/* Placeholder for task distribution pie chart */}
+              <p>Chart will display task types breakdown (integrate chart library)</p>
             </div>
           </div>
         </div>
-
+        
         {/* Recent Work */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
             Recent Work
           </h2>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <h3 className="font-medium text-gray-900">
-                  Website Development
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Frontend optimization and bug fixes
+            {workLoading ? (
+              <div className="text-center py-8 text-gray-500">Loading...</div>
+            ) : recentWork && recentWork.length > 0 ? (
+              recentWork.map((entry, idx) => (
+                <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <h3 className="font-medium text-gray-900">{entry.task}</h3>
+                    <p className="text-sm text-gray-500">
+                      {entry.description || entry.details}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-green-600">{entry.status}</p>
+                    <p className="text-xs text-gray-500">{entry.date}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <p>No recent work entries to display.</p>
+                <p className="text-sm mt-1">
+                  Your recent work will appear here once you start using the system.
                 </p>
               </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-green-600">Completed</p>
-                <p className="text-xs text-gray-500">Today</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <h3 className="font-medium text-gray-900">
-                  Database Migration
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Moving data to new server infrastructure
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-blue-600">In Progress</p>
-                <p className="text-xs text-gray-500">Due: Tomorrow</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <h3 className="font-medium text-gray-900">API Documentation</h3>
-                <p className="text-sm text-gray-500">
-                  Update API endpoints documentation
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-orange-600">Pending</p>
-                <p className="text-xs text-gray-500">Due: Next Week</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
