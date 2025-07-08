@@ -2,9 +2,20 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import ProfileImage from "../../ui/ProfileImage";
+import { Outlet, useLocation } from "react-router";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const location = useLocation();
+  
+  // Show nested content if on a sub-route
+  if (location.pathname !== "/dashboard") {
+    return (
+      <DashboardLayout>
+        <Outlet />
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
