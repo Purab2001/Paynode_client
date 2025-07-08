@@ -10,6 +10,7 @@ import Overview from "../pages/Dashboard/Overview";
 import Chat from "../pages/Dashboard/Chat";
 import Services from "../pages/Services";
 import ContactUs from "../pages/ContactUs";
+import About from "../pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "contact-us",
         Component: ContactUs
+      },
+      {
+        path: "about-us",
+        Component: About
       },
       {
         path: "dashboard",

@@ -62,7 +62,7 @@ const OurServices = () => {
             team and streamlines HR operations.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-10 max-w-5xl mx-auto">
           {services.map((service) => (
             <div
               key={service.title}
@@ -76,7 +76,7 @@ const OurServices = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-center items-center gap-2 md:gap-6 mb-8">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 mb-8">
           {benefits.map((b) => (
             <div
               key={b.label}
