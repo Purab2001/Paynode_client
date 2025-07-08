@@ -8,7 +8,7 @@ import "./index.css";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <div className="bg-slate-50">
+      <div className="bg-gray-50">
         <RouterProvider router={router} />
       </div>
     </AuthProvider>

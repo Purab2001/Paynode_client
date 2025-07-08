@@ -10,8 +10,8 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Products", path: "/" },
-    { name: "Contact", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "Contact", path: "/contact-us" },
     { name: "About", path: "/" },
   ];
 

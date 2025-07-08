@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import { Outlet, useLocation } from "react-router";
 import Footer from "../components/Footer";
 import { Toaster } from "react-hot-toast";
+import ScrollToTop from "../components/ScrollToTop";
 
 const RootLayout = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const RootLayout = () => {
 
   return (
     <div>
+      <ScrollToTop />
       {/* React Hot Toast Notifications */}
       <Toaster
         position="top-center"

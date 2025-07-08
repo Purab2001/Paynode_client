@@ -8,7 +8,7 @@ const Banner = () => {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#F5F7FF] via-[#fffbee] to-[#E6EFFF]">
+      <section className="">
         <main className="flex flex-col md:flex-row items-center max-md:text-center justify-between py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto min-h-full lg:min-h-[calc(100vh-88px)]">
           <div className="flex flex-col items-center md:items-start">
             <button

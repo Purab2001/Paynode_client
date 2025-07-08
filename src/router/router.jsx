@@ -8,6 +8,8 @@ import PrivateRoute from "../routes/PrivateRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Overview from "../pages/Dashboard/Overview";
 import Chat from "../pages/Dashboard/Chat";
+import Services from "../pages/Services";
+import ContactUs from "../pages/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "services",
+        Component: Services
+      },
+      {
+        path: "contact-us",
+        Component: ContactUs
       },
       {
         path: "dashboard",
