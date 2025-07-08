@@ -8,7 +8,7 @@ import Profile from "../pages/Profile";
 import PrivateRoute from "../routes/PrivateRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Overview from "../pages/Dashboard/Overview";
-import WorkSheet from "../pages/Dashboard/WorkSheet";
+import WorkSheet from "../pages/Dashboard/worksheet/WorkSheet";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 import Employees from "../pages/Dashboard/Employees";
 import Reports from "../pages/Dashboard/Reports";

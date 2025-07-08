@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import useUserRole from "../hooks/useUserRole";
 import ProfileImage from "../ui/ProfileImage";
 import logo from "../assets/logo.png";
+import { Toaster } from "react-hot-toast";
 import {
   FiGrid,
   FiBarChart2,
@@ -104,6 +105,32 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* React Hot Toast Container */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+          success: {
+            duration: 3000,
+            style: {
+              background: "#10B981",
+              color: "#fff",
+            },
+          },
+          error: {
+            duration: 5000,
+            style: {
+              background: "#EF4444",
+              color: "#fff",
+            },
+          },
+        }}
+      />
+
       {/* Top Header */}
       <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
         <Link to="/" className="flex items-center gap-2">
@@ -148,7 +175,9 @@ const DashboardLayout = ({ children }) => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-6">{children}</div>
+        <div className="flex-1 p-4 md:p-6 min-w-0 overflow-x-hidden">
+          {children}
+        </div>
       </div>
     </div>
   );
