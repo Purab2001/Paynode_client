@@ -3,11 +3,11 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
-import Overview from "../pages/Overview";
-import Chat from "../pages/Chat";
 import PrivateRoute from "../routes/PrivateRoute";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import Overview from "../pages/Dashboard/Overview";
+import Chat from "../pages/Dashboard/Chat";
 
 export const router = createBrowserRouter([
   {

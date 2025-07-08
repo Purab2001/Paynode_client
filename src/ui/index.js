@@ -9,9 +9,3 @@ export {
   showLoading,
   showToast,
 } from "./CustomSwal";
-
-// Export the example component
-export { default as SwalExample } from "./SwalExample";
-
-// Don't forget to import the CSS file in your main component or App.js
-// import './ui/CustomSwal.css';

@@ -1,7 +1,7 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuth";
-import DashboardLayout from "../layouts/DashboardLayout";
-import ProfileImage from "../ui/ProfileImage";
+import { useAuth } from "../../hooks/useAuth";
+import DashboardLayout from "../../layouts/DashboardLayout";
+import ProfileImage from "../../ui/ProfileImage";
 
 const Dashboard = () => {
   const { user } = useAuth();

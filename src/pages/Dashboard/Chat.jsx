@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DashboardLayout from "../layouts/DashboardLayout";
-import ProfileImage from "../ui/ProfileImage";
+import DashboardLayout from "../../layouts/DashboardLayout";
+import ProfileImage from "../../ui/ProfileImage";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
