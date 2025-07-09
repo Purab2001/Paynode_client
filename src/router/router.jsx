@@ -10,13 +10,14 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Overview from "../pages/Dashboard/Overview";
 import WorkSheet from "../pages/Dashboard/worksheet/WorkSheet";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
-import Employees from "../pages/Dashboard/Employees";
-import Reports from "../pages/Dashboard/Reports";
-import Settings from "../pages/Dashboard/Settings";
+import EmployeeList from "../pages/Dashboard/HR/EmployeeList";
+import EmployeeDetails from "../pages/Dashboard/HR/EmployeeDetails";
+import Progress from "../pages/Dashboard/HR/Progress";
 import Chat from "../pages/Dashboard/Chat";
 import Services from "../pages/Services";
 import ContactUs from "../pages/ContactUs";
 import About from "../pages/About";
+import Forbidden from "../pages/Forbidden";
 
 export const router = createBrowserRouter([
   {
@@ -94,23 +95,23 @@ export const router = createBrowserRouter([
     path: "employees",
     element: (
       <PrivateRoute>
-        <Employees />
+        <EmployeeList />
       </PrivateRoute>
     ),
   },
   {
-    path: "reports",
+    path: "details/:slug",
     element: (
       <PrivateRoute>
-        <Reports />
+        <EmployeeDetails />
       </PrivateRoute>
     ),
   },
   {
-    path: "settings",
+    path: "progress",
     element: (
       <PrivateRoute>
-        <Settings />
+        <Progress />
       </PrivateRoute>
     ),
   },
@@ -121,5 +122,9 @@ export const router = createBrowserRouter([
         <Profile />
       </PrivateRoute>
     ),
+  },
+  {
+    path: "forbidden",
+    element: <Forbidden />,
   },
 ]);

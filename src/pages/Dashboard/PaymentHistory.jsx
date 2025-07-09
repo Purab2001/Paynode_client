@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -9,13 +8,14 @@ import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-tabl
 const PAGE_SIZE = 5;
 
 const PaymentHistory = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [page, setPage] = useState(1);
 
+  // Wait for auth to load before making API calls
   const { data, isLoading } = useQuery({
     queryKey: ["payments", user?.email, page],
-    enabled: !!user?.email,
+    enabled: !!user?.email && !authLoading,
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/api/payments/${user.email}/paginated?page=${page}`
@@ -24,7 +24,6 @@ const PaymentHistory = () => {
     },
     keepPreviousData: true,
   });
-
 
   const payments = data?.payments || [];
   const totalPages = data?.totalPages || 1;
@@ -70,6 +69,16 @@ const PaymentHistory = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  // Wait for auth to load before rendering content
+  if (authLoading) {
+    return (
+      <DashboardLayout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="text-blue-600 text-lg font-semibold">Loading payment history...</div>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>

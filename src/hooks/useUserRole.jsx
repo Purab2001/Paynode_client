@@ -19,7 +19,6 @@ const useUserRole = () => {
     },
   });
 
-  console.log("[useUserRole] user.email:", user && user.email, "role:", role);
   return { role, roleLoading: authLoading || roleLoading, refetch };
 };
 

@@ -12,9 +12,7 @@ import {
   FiUser,
   FiFileText,
   FiDollarSign,
-  FiUsers,
-  FiTrendingUp,
-  FiSettings,
+  FiUsers
 } from "react-icons/fi";
 import { Button } from "@material-tailwind/react";
 
@@ -30,8 +28,6 @@ const DashboardLayout = ({ children }) => {
   const worksheeticon = <FiFileText className="w-6 h-6" />;
   const paymenticon = <FiDollarSign className="w-6 h-6" />;
   const employeesicon = <FiUsers className="w-6 h-6" />;
-  const reportsicon = <FiTrendingUp className="w-6 h-6" />;
-  const settingsicon = <FiSettings className="w-6 h-6" />;
 
   // Define all possible sidebar links
   const allSidebarLinks = [
@@ -53,6 +49,7 @@ const DashboardLayout = ({ children }) => {
       icon: worksheeticon,
       roles: ["Employee"],
     },
+    // Progress navlink will be moved below Employees
     {
       name: "Payment History",
       path: "/payment-history",
@@ -66,22 +63,16 @@ const DashboardLayout = ({ children }) => {
       roles: ["HR", "Admin"],
     },
     {
-      name: "Reports",
-      path: "/reports",
-      icon: reportsicon,
-      roles: ["HR", "Admin"],
+      name: "Progress",
+      path: "/progress",
+      icon: overviewicon,
+      roles: ["HR"],
     },
     {
       name: "Chat",
       path: "/chat",
       icon: chaticon,
       roles: ["Employee", "HR", "Admin"],
-    },
-    {
-      name: "Settings",
-      path: "/settings",
-      icon: settingsicon,
-      roles: ["Admin"],
     },
     {
       name: "Profile",

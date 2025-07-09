@@ -23,7 +23,7 @@ const TASK_OPTIONS = [
 ];
 
 const WorkSheet = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const [date, setDate] = useState(new Date());
@@ -61,10 +61,10 @@ const WorkSheet = () => {
     },
   });
 
-  // Fetch worksheet entries
+  // Fetch worksheet entries (for Employee: use their email)
   const { data, isLoading, error } = useQuery({
     queryKey: ["worksheets", user?.email],
-    enabled: !!user?.email,
+    enabled: !!user?.email && !authLoading,
     queryFn: async () => {
       const res = await axiosSecure.get(`/api/worksheets/${user.email}`);
       return res.data.worksheets;
@@ -185,6 +185,17 @@ const WorkSheet = () => {
     editReset();
     setEditModalDate(new Date());
   };
+
+  // Wait for auth to load before rendering content
+  if (authLoading) {
+    return (
+      <DashboardLayout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="text-blue-600 text-lg font-semibold">Loading worksheet...</div>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
