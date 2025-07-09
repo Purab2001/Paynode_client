@@ -11,6 +11,7 @@ import TaskDropdown from "./TaskDropdown";
 import EditModal from "./EditModal";
 import WorksheetTable from "./WorksheetTable";
 import { showConfirm } from "../../../ui/CustomSwal";
+import { Button } from "@material-tailwind/react";
 
 const TASK_OPTIONS = [
   "Sales",
@@ -200,7 +201,7 @@ const WorkSheet = () => {
           className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 items-end">
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700">
                 Tasks
@@ -253,13 +254,15 @@ const WorkSheet = () => {
             </div>
 
             <div className="flex items-end">
-              <button
+              <Button
                 type="submit"
+                color="blue"
+                ripple={true}
                 disabled={mutation.isLoading}
-                className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="shadow-none"
               >
                 {mutation.isLoading ? "Adding..." : "Add Entry"}
-              </button>
+              </Button>
             </div>
           </div>
         </form>

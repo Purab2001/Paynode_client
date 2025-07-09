@@ -33,6 +33,7 @@ const Banner = () => {
               <Link to="/register">
                 <Button
                   color="blue"
+                  ripple={true}
                   className="rounded-full flex items-center gap-2 normal-case text-sm shadow-none"
                   type="button"
                 >
@@ -45,6 +46,7 @@ const Banner = () => {
                   <Button
                     className="rounded-full normal-case text-sm shadow-none"
                     type="button"
+                    ripple={true}
                   >
                     Go to Dashboard
                   </Button>
@@ -53,7 +55,8 @@ const Banner = () => {
                 <Link to="/dashboard">
                   <Button
                     className="rounded-full normal-case text-sm shadow-none"
-                    type="button"
+                      type="button"
+                      ripple={true}
                   >
                     Sign In
                   </Button>

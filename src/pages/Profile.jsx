@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@material-tailwind/react";
 import { useAuth } from "../hooks/useAuth";
 import useUserRole from "../hooks/useUserRole";
 import { useForm } from "react-hook-form";
@@ -19,7 +20,15 @@ const Profile = () => {
     },
   });
 
+  // useForm already called above, so get getValues from that instance
+  // Remove unused formState and currentValues
+
   const onSubmit = async (data) => {
+    // Only update if something actually changed
+    if (data.displayName === user?.displayName) {
+      toast("No changes to update.", { icon: "ℹ️" });
+      return;
+    }
     try {
       await updateUserProfile({
         displayName: data.displayName,
@@ -128,7 +137,7 @@ const Profile = () => {
                       Account Type
                     </label>
                     <div className="mt-1">
-                      <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100/60 rounded-full">
+                      <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-50/80 rounded-full">
                         {roleLoading ? "..." : role}
                       </span>
                     </div>
@@ -149,12 +158,14 @@ const Profile = () => {
                 </div>
 
                 <div className="pt-4">
-                  <button
+                  <Button
                     type="submit"
-                    className="bg-[#3B82F6] text-white px-6 py-2 rounded-md hover:opacity-90 transition-colors duration-200 font-medium cursor-pointer"
+                    color="blue"
+                    className="font-semibold shadow-none"
+                    ripple={true}
                   >
                     Update Profile
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>

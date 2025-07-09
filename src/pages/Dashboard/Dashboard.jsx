@@ -44,7 +44,7 @@ const Dashboard = () => {
                 {user?.displayName || "User"}
               </h2>
               <p className="text-gray-600">{user?.email}</p>
-              <span className="inline-block px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100/60 rounded-full mt-1">
+              <span className="inline-block px-2 py-1 text-xs font-medium text-blue-800 bg-blue-50/80 rounded-full mt-1">
                 {roleLoading ? "..." : role}
               </span>
             </div>

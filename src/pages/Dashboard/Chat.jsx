@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import ProfileImage from "../../ui/ProfileImage";
+import { Button } from "@material-tailwind/react";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -102,12 +103,14 @@ const Chat = () => {
                 placeholder="Type your message..."
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
-              <button
+              <Button
                 type="submit"
-                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                color="blue"
+                className="shadow-none"
+                ripple={true}
               >
                 Send
-              </button>
+              </Button>
             </form>
           </div>
         </div>
