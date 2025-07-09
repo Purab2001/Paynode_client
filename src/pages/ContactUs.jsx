@@ -30,7 +30,7 @@ const ContactUs = () => {
 
   return (
     <div className="bg-gradient-to-b from-[#F5F7FF] to-[#E6EFFF] py-16">
-      <div className="px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
+      <div className="px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto pt-10 md:pt-0">
         {/* Header Section */}
         <div
           className="text-center mb-16"

@@ -44,7 +44,7 @@ const values = [
 ];
 
 const About = () => (
-  <main className="pt-10 pb-20 bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] min-h-screen">
+  <main className="pt-10 pb-20 bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF]">
     {/* Hero Section */}
     <section
       className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 text-center py-16"

@@ -154,7 +154,7 @@ const faqs = [
 ];
 
 const Services = () => (
-  <div className="bg-white">
+  <div className="bg-white pt-10 md:pt-0">
     {/* Hero Section */}
     <section
       className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] py-16 px-4 md:px-16 lg:px-24 xl:px-32 text-center"
