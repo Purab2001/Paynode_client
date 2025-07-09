@@ -16,6 +16,7 @@ import {
   FiTrendingUp,
   FiSettings,
 } from "react-icons/fi";
+import { Button } from "@material-tailwind/react";
 
 const DashboardLayout = ({ children }) => {
   const { user, logOut } = useAuth();
@@ -146,12 +147,14 @@ const DashboardLayout = ({ children }) => {
               Hi! {user?.displayName || user?.email}
             </p>
           </div>
-          <button
+          <Button
             onClick={handleLogout}
-            className="border rounded-full text-sm px-4 py-1 hover:bg-gray-100 transition-colors cursor-pointer"
+            variant="outlined"
+            size="sm"
+            className="rounded-full text-gray-500 border-gray-500"
           >
             Logout
-          </button>
+          </Button>
         </div>
       </div>
 

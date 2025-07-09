@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Button } from "@material-tailwind/react";
 import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -22,7 +23,7 @@ const Banner = () => {
             </button>
             <h1 className="text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight">
               Complete Employee Management
-              <span className="text-blue-600"> Solution</span>
+              <span className="text-blue-500"> Solution</span>
             </h1>
             <p className="mt-4 text-gray-600 max-w-md text-sm sm:text-lg leading-relaxed">
               Monitor workload, track salaries, manage contracts, and enable
@@ -30,27 +31,32 @@ const Banner = () => {
             </p>
             <div className="flex flex-col md:flex-row items-center mt-8 gap-3">
               <Link to="/register">
-                <button
-                  className="bg-blue-500 text-white px-6 pr-2.5 py-2.5 rounded-full text-base font-medium flex items-center space-x-2 hover:bg-blue-600 transition cursor-pointer"
+                <Button
+                  color="blue"
+                  className="rounded-full flex items-center gap-2 normal-case text-sm shadow-none"
                   type="button"
                 >
-                  <span>Start Managing Today</span>
-                  <FiArrowRight size={20} color="#fff" />
-                </button>
+                  Start Managing Today
+                  <FiArrowRight size={15} color="#fff" />
+                </Button>
               </Link>
               {user ? (
-                <Link
-                  className="text-blue-600 bg-blue-100 px-5 py-2 rounded-full text-base font-medium hover:bg-blue-200 transition"
-                  to="/dashboard"
-                >
-                  Go to Dashboard
+                <Link to="/dashboard">
+                  <Button
+                    className="rounded-full normal-case text-sm shadow-none"
+                    type="button"
+                  >
+                    Go to Dashboard
+                  </Button>
                 </Link>
               ) : (
-                <Link
-                  className="text-blue-600 bg-blue-100 px-5 py-2 rounded-full text-base font-medium hover:bg-blue-200 transition"
-                  to="/login"
-                >
-                  Sign In
+                <Link to="/dashboard">
+                  <Button
+                    className="rounded-full normal-case text-sm shadow-none"
+                    type="button"
+                  >
+                    Sign In
+                  </Button>
                 </Link>
               )}
             </div>

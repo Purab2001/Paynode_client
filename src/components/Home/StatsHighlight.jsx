@@ -58,7 +58,7 @@ const StatsHighlight = () => (
       {features.map((feature) => (
         <span
           key={feature}
-          className="bg-blue-50 text-blue-700 px-5 py-2 rounded-full text-sm font-medium shadow"
+          className="bg-blue-50/80 text-blue-700 px-5 py-2 rounded-full text-sm font-medium shadow"
         >
           {feature}
         </span>

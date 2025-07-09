@@ -14,6 +14,7 @@ import {
   FiSmartphone,
 } from "react-icons/fi";
 import { Link } from "react-router";
+import { Button } from "@material-tailwind/react";
 
 const coreServices = [
   {
@@ -403,11 +404,8 @@ const Services = () => (
       <p className="text-lg text-gray-600 mb-8">
         Contact us for a personalized demo or to discuss your business needs.
       </p>
-      <Link
-        to="/contact-us"
-        className="inline-block bg-blue-500 text-white px-8 py-3 rounded-full font-semibold text-base hover:bg-blue-600 transition"
-      >
-        Contact Us
+      <Link to="/contact-us">
+        <Button className="rounded-full bg-blue-500 shadow-none normal-case text-sm">Contact Us</Button>
       </Link>
     </section>
   </div>
