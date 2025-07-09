@@ -46,7 +46,11 @@ const values = [
 const About = () => (
   <main className="pt-10 pb-20 bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] min-h-screen">
     {/* Hero Section */}
-    <section className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 text-center py-16">
+    <section
+      className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 text-center py-16"
+      data-aos="fade-down"
+      data-aos-duration="800"
+    >
       <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
         About PayNode
       </h1>
@@ -58,7 +62,11 @@ const About = () => (
     </section>
 
     {/* Company Story & Mission */}
-    <section className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 py-12 grid md:grid-cols-2 gap-12 items-center">
+    <section
+      className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 py-12 grid md:grid-cols-2 gap-12 items-center"
+      data-aos="fade-up"
+      data-aos-duration="800"
+    >
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-3">Our Mission</h2>
         <p className="text-gray-700 text-base mb-4">
@@ -99,10 +107,13 @@ const About = () => (
         Meet Our Leadership Team
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-        {team.map((member) => (
+        {team.map((member, i) => (
           <div
             key={member.name}
             className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center"
+            data-aos="zoom-in"
+            data-aos-delay={i * 100}
+            data-aos-duration="700"
           >
             <img
               src={member.image}
@@ -128,10 +139,13 @@ const About = () => (
         Our Core Values
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-        {values.map((value) => (
+        {values.map((value, i) => (
           <div
             key={value.title}
             className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center"
+            data-aos="fade-up"
+            data-aos-delay={i * 120}
+            data-aos-duration="700"
           >
             <h3 className="text-lg font-semibold text-blue-600 mb-2">
               {value.title}
@@ -148,30 +162,20 @@ const About = () => (
         Certifications & Achievements
       </h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
-        <div className="bg-white rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center">
-          <FiAward className="text-blue-500 w-6 h-6 sm:w-7 sm:h-7" />
-          <span className="text-blue-600 font-semibold mt-3 text-sm sm:text-base">
-            Best HR Tech 2025
-          </span>
-        </div>
-        <div className="bg-white rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center">
-          <FiAward className="text-blue-500 w-6 h-6 sm:w-7 sm:h-7" />
-          <span className="text-blue-600 font-semibold mt-3 text-sm sm:text-base">
-            ISO 27001 Compliant
-          </span>
-        </div>
-        <div className="bg-white rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center">
-          <FiAward className="text-blue-500 w-6 h-6 sm:w-7 sm:h-7" />
-          <span className="text-blue-600 font-semibold mt-3 text-sm sm:text-base">
-            SOC 2 Certified
-          </span>
-        </div>
-        <div className="bg-white rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center">
-          <FiAward className="text-blue-500 w-6 h-6 sm:w-7 sm:h-7" />
-          <span className="text-blue-600 font-semibold mt-3 text-sm sm:text-base">
-            GDPR Ready
-          </span>
-        </div>
+        {[0, 1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="bg-white rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center"
+            data-aos="zoom-in"
+            data-aos-delay={i * 100}
+            data-aos-duration="700"
+          >
+            <FiAward className="text-blue-500 w-6 h-6 sm:w-7 sm:h-7" />
+            <span className="text-blue-600 font-semibold mt-3 text-sm sm:text-base">
+              {["Best HR Tech 2025", "ISO 27001 Compliant", "SOC 2 Certified", "GDPR Ready"][i]}
+            </span>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -181,7 +185,11 @@ const About = () => (
         Contact & Office Locations
       </h2>
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-stretch">
-        <div className="flex items-center gap-3 bg-white rounded-xl shadow p-6 w-full md:w-1/2 h-24">
+        <div
+          className="flex items-center gap-3 bg-white rounded-xl shadow p-6 w-full md:w-1/2 h-24"
+          data-aos="fade-right"
+          data-aos-duration="700"
+        >
           <FiMapPin className="text-blue-500 w-7 h-7" />
           <div>
             <h3 className="font-semibold text-gray-900">Global HQ</h3>
@@ -190,7 +198,11 @@ const About = () => (
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-3 bg-white rounded-xl shadow p-6 w-full md:w-1/2 h-24">
+        <div
+          className="flex items-center gap-3 bg-white rounded-xl shadow p-6 w-full md:w-1/2 h-24"
+          data-aos="fade-left"
+          data-aos-duration="700"
+        >
           <FiMail className="text-blue-500 w-7 h-7" />
           <div>
             <h3 className="font-semibold text-gray-900">Contact</h3>

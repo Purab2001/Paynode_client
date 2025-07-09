@@ -43,10 +43,12 @@ const StatsHighlight = () => (
       </p>
     </div>
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 mb-10">
-      {stats.map((stat) => (
+      {stats.map((stat, idx) => (
         <div
           key={stat.label}
           className="flex flex-col items-center bg-gray-50 rounded-xl p-6 shadow"
+          data-aos="fade-up"
+          data-aos-delay={100 + idx * 100}
         >
           {stat.icon}
           <span className="text-2xl font-bold text-blue-600">{stat.value}</span>
@@ -55,10 +57,12 @@ const StatsHighlight = () => (
       ))}
     </div>
     <div className="flex flex-wrap justify-center gap-4 mt-8">
-      {features.map((feature) => (
+      {features.map((feature, idx) => (
         <span
           key={feature}
           className="bg-blue-50/80 text-blue-700 px-5 py-2 rounded-full text-sm font-medium shadow"
+          data-aos="zoom-in"
+          data-aos-delay={100 + idx * 100}
         >
           {feature}
         </span>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import ProfileImage from "../ui/ProfileImage";
 import logo from "../assets/logo.png";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
 
@@ -14,6 +14,7 @@ const Navbar = () => {
     { name: "Contact", path: "/contact-us" },
     { name: "About", path: "/about-us" },
   ];
+  const location = useLocation();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -77,9 +78,11 @@ const Navbar = () => {
             <NavLink
               key={i}
               to={link.path}
-              className={`group flex flex-col gap-0.5 ${
-                isScrolled ? "text-gray-700" : "text-white"
-              }`}
+              className={({ isActive }) =>
+                `group flex flex-col gap-0.5 ${
+                  isScrolled ? "text-gray-700" : "text-white"
+                } ${isActive ? "font-bold active" : ""}`
+              }
             >
               {link.name}
               <div
@@ -255,7 +258,14 @@ const Navbar = () => {
           )}
 
           {navLinks.map((link, i) => (
-            <Link key={i} to={link.path} onClick={() => setIsMenuOpen(false)}>
+            <Link
+              key={i}
+              to={link.path}
+              onClick={() => setIsMenuOpen(false)}
+              className={`${
+                location.pathname === link.path ? "font-bold underline underline-offset-4 active text-blue-600" : ""
+              }`}
+            >
               {link.name}
             </Link>
           ))}

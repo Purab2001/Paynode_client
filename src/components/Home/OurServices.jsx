@@ -1,5 +1,13 @@
 import React from "react";
-import { FiUsers, FiDollarSign, FiFolder, FiMessageCircle, FiShield, FiBarChart2, FiLock } from "react-icons/fi";
+import {
+  FiUsers,
+  FiDollarSign,
+  FiFolder,
+  FiMessageCircle,
+  FiShield,
+  FiBarChart2,
+  FiLock,
+} from "react-icons/fi";
 
 const services = [
   {
@@ -63,10 +71,12 @@ const OurServices = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-10 max-w-5xl mx-auto">
-          {services.map((service) => (
+          {services.map((service, idx) => (
             <div
               key={service.title}
               className="bg-white rounded-xl shadow p-7 flex flex-col items-center text-center hover:shadow-lg transition"
+              data-aos="fade-up"
+              data-aos-delay={100 + idx * 100}
             >
               {service.icon}
               <h3 className="text-xl font-semibold mb-2 text-gray-900">
@@ -77,10 +87,12 @@ const OurServices = () => {
           ))}
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 mb-8">
-          {benefits.map((b) => (
+          {benefits.map((b, idx) => (
             <div
               key={b.label}
               className="flex items-center gap-2 bg-white rounded-full px-5 py-2 shadow text-gray-700 font-medium text-sm"
+              data-aos="zoom-in"
+              data-aos-delay={100 + idx * 100}
             >
               {b.icon}
               {b.label}

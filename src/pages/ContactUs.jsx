@@ -29,10 +29,14 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F5F7FF] to-[#E6EFFF] py-16 px-4 md:px-16 lg:px-24 xl:px-32">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-gradient-to-b from-[#F5F7FF] to-[#E6EFFF] py-16">
+      <div className="px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16">
+        <div
+          className="text-center mb-16"
+          data-aos="fade-down"
+          data-aos-duration="800"
+        >
           <p className="text-lg text-blue-600 font-medium mb-2">
             Contact PayNode
           </p>
@@ -48,7 +52,12 @@ const ContactUs = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
           {/* Contact Information */}
-          <div className="bg-white rounded-xl shadow p-8">
+          <div
+            className="bg-white rounded-xl shadow p-8"
+            data-aos="fade-right"
+            data-aos-delay="100"
+            data-aos-duration="800"
+          >
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Contact Information
             </h2>
@@ -107,7 +116,12 @@ const ContactUs = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-xl shadow p-8">
+          <div
+            className="bg-white rounded-xl shadow p-8"
+            data-aos="fade-left"
+            data-aos-delay="200"
+            data-aos-duration="800"
+          >
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Send us a Message
             </h2>
@@ -216,7 +230,11 @@ const ContactUs = () => {
         </div>
 
         {/* Additional Information */}
-        <div className="mt-4 md:mt-8 bg-white rounded-xl shadow p-8 text-center">
+        <div
+          className="mt-4 md:mt-8 bg-white rounded-xl shadow p-8 text-center"
+          data-aos="zoom-in"
+          data-aos-duration="800"
+        >
           <h3 className="text-xl font-bold text-gray-900 mb-4">
             Need Immediate Assistance?
           </h3>
@@ -235,7 +253,14 @@ const ContactUs = () => {
               </Button>
             </Link>
             <Link to="mailto:support@paynode.com">
-              <Button color="blue" size="lg" variant="outlined" className="normal-case shadow-none rounded-full">Email Support</Button>
+              <Button
+                color="blue"
+                size="lg"
+                variant="outlined"
+                className="normal-case shadow-none rounded-full"
+              >
+                Email Support
+              </Button>
             </Link>
           </div>
         </div>

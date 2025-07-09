@@ -4,8 +4,7 @@ import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import { useAuth } from "../../hooks/useAuth";
 
 const Banner = () => {
-
-    const { user } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div>
@@ -15,21 +14,34 @@ const Banner = () => {
             <button
               className="mb-6 flex items-center space-x-2 border border-blue-500 text-blue-500 text-xs rounded-full px-4 pr-1.5 py-1.5 hover:bg-blue-50 transition"
               type="button"
+              data-aos="fade-down"
             >
               <span>Streamline your workforce management.</span>
               <span className="flex items-center justify-center size-6 p-1 rounded-full bg-blue-500">
                 <FiArrowUpRight size={16} color="#fff" />
               </span>
             </button>
-            <h1 className="text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight">
+            <h1
+              className="text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
               Complete Employee Management
               <span className="text-blue-500"> Solution</span>
             </h1>
-            <p className="mt-4 text-gray-600 max-w-md text-sm sm:text-lg leading-relaxed">
+            <p
+              className="mt-4 text-gray-600 max-w-md text-sm sm:text-lg leading-relaxed"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               Monitor workload, track salaries, manage contracts, and enable
               seamless communication between employees and HR executives.
             </p>
-            <div className="flex flex-col md:flex-row items-center mt-8 gap-3">
+            <div
+              className="flex flex-col md:flex-row items-center mt-8 gap-3"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
               <Link to="/register">
                 <Button
                   color="blue"
@@ -55,8 +67,8 @@ const Banner = () => {
                 <Link to="/dashboard">
                   <Button
                     className="rounded-full normal-case text-sm shadow-none"
-                      type="button"
-                      ripple={true}
+                    type="button"
+                    ripple={true}
                   >
                     Sign In
                   </Button>
@@ -74,6 +86,8 @@ const Banner = () => {
               height="140"
               src="https://images.unsplash.com/photo-1560472355-536de3962603?q=80&w=726&auto=format&fit=crop"
               width="120"
+              data-aos="zoom-in"
+              data-aos-delay="100"
             />
             <img
               alt="HR professional reviewing documents"
@@ -81,6 +95,8 @@ const Banner = () => {
               height="140"
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop"
               width="120"
+              data-aos="zoom-in"
+              data-aos-delay="200"
             />
             <img
               alt="Team collaboration meeting"
@@ -88,6 +104,8 @@ const Banner = () => {
               height="140"
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1171&auto=format&fit=crop"
               width="120"
+              data-aos="zoom-in"
+              data-aos-delay="300"
             />
             <img
               alt="Professional using dashboard"
@@ -95,6 +113,8 @@ const Banner = () => {
               height="140"
               src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1170&auto=format&fit=crop"
               width="120"
+              data-aos="zoom-in"
+              data-aos-delay="400"
             />
           </div>
         </main>

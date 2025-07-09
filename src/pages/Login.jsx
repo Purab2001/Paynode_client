@@ -200,7 +200,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="mt-8 w-full h-11 rounded-full text-white bg-[#3B82F6] hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="mt-8 w-full h-11 rounded-full text-white bg-blue-500 hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? "Signing in..." : "Login"}
           </button>

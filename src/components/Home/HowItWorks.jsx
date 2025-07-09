@@ -41,6 +41,8 @@ const HowItWorks = () => (
           <div
             key={step.title}
             className="flex flex-col items-center bg-white rounded-xl p-7 shadow text-center hover:shadow-lg transition relative"
+            data-aos="fade-up"
+            data-aos-delay={100 + idx * 100}
           >
             <div className="mb-2">{step.icon}</div>
             <h3 className="text-lg font-semibold mb-1 text-gray-900">
