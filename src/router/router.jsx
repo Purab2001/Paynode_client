@@ -18,35 +18,43 @@ import Services from "../pages/Services";
 import ContactUs from "../pages/ContactUs";
 import About from "../pages/About";
 import Forbidden from "../pages/Forbidden";
+import Error from "../pages/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <Error />,
     children: [
       {
         index: true,
         Component: Home,
+        errorElement: <Error />,
       },
       {
         path: "login",
         Component: Login,
+        errorElement: <Error />,
       },
       {
         path: "register",
         Component: Register,
+        errorElement: <Error />,
       },
       {
         path: "services",
         Component: Services,
+        errorElement: <Error />,
       },
       {
         path: "contact-us",
         Component: ContactUs,
+        errorElement: <Error />,
       },
       {
         path: "about-us",
         Component: About,
+        errorElement: <Error />,
       },
     ],
   },
@@ -58,6 +66,7 @@ export const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "work-sheet",
@@ -66,6 +75,7 @@ export const router = createBrowserRouter([
         <WorkSheet />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "payment-history",
@@ -74,6 +84,7 @@ export const router = createBrowserRouter([
         <PaymentHistory />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "overview",
@@ -82,6 +93,7 @@ export const router = createBrowserRouter([
         <Overview />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "chat",
@@ -90,6 +102,7 @@ export const router = createBrowserRouter([
         <Chat />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "employees",
@@ -98,6 +111,7 @@ export const router = createBrowserRouter([
         <EmployeeList />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "details/:slug",
@@ -106,6 +120,7 @@ export const router = createBrowserRouter([
         <EmployeeDetails />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "progress",
@@ -114,6 +129,7 @@ export const router = createBrowserRouter([
         <Progress />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "profile",
@@ -122,9 +138,15 @@ export const router = createBrowserRouter([
         <Profile />
       </PrivateRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "forbidden",
     element: <Forbidden />,
+    errorElement: <Error />,
+  },
+  {
+    path: "*",
+    element: <Error />,
   },
 ]);

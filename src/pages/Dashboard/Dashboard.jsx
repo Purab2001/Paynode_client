@@ -38,14 +38,9 @@ const Dashboard = () => {
   });
 
   // Show loading spinner until auth and role are loaded
+  // (Handled by PrivateRoute, so skip here)
   if (authLoading || roleLoading) {
-    return (
-      <DashboardLayout>
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <div className="text-blue-600 text-lg font-semibold">Loading dashboard...</div>
-        </div>
-      </DashboardLayout>
-    );
+    return null;
   }
 
   // Show nested content if on a sub-route

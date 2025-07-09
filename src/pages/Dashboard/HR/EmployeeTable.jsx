@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { Button, Switch } from "@material-tailwind/react";
 import { Link } from "react-router";
+import DataLoader from "../../../ui/DataLoader";
 
 const EmployeeTable = ({ data, isLoading, onVerify, onPay }) => {
   // Table columns for desktop
@@ -67,7 +68,7 @@ const EmployeeTable = ({ data, isLoading, onVerify, onPay }) => {
   });
 
   if (isLoading) {
-    return <div className="text-center py-8 text-gray-500">Loading...</div>;
+    return <DataLoader className="py-8" />;
   }
 
   if (!data.length) {

@@ -5,8 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 import { Bar } from "react-chartjs-2";
-import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+import {
+  Chart,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import DashboardLayout from "../../../layouts/DashboardLayout";
+import DataLoader from "../../../ui/DataLoader";
 
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -36,16 +44,18 @@ const EmployeeDetails = () => {
   const chartData = React.useMemo(() => {
     if (!paymentsData) return { labels: [], datasets: [] };
     // Sort and take last 12 months
-    const sorted = [...paymentsData].sort((a, b) => {
-      if (a.year !== b.year) return a.year - b.year;
-      return a.month - b.month;
-    }).slice(-12);
+    const sorted = [...paymentsData]
+      .sort((a, b) => {
+        if (a.year !== b.year) return a.year - b.year;
+        return a.month - b.month;
+      })
+      .slice(-12);
     return {
-      labels: sorted.map(p => `${p.month}/${p.year}`),
+      labels: sorted.map((p) => `${p.month}/${p.year}`),
       datasets: [
         {
           label: "Salary",
-          data: sorted.map(p => p.amount),
+          data: sorted.map((p) => p.amount),
           backgroundColor: "#3B82F6",
         },
       ],
@@ -56,7 +66,7 @@ const EmployeeDetails = () => {
     <DashboardLayout>
       <div className="max-w-7xl mx-auto py-8 px-2">
         {loadingEmployee ? (
-          <div>Loading...</div>
+          <DataLoader label="Loading employee details..." />
         ) : (
           <Card className="mb-6">
             <CardBody>
@@ -67,9 +77,15 @@ const EmployeeDetails = () => {
                   className="w-24 h-24 rounded-full object-cover"
                 />
                 <div className="text-center sm:text-left">
-                  <Typography variant="h4" className="break-words">{employeeData?.name}</Typography>
-                  <Typography color="gray" className="break-words">{employeeData?.designation}</Typography>
-                  <Typography color="gray" className="break-words">{employeeData?.email}</Typography>
+                  <Typography variant="h4" className="break-words">
+                    {employeeData?.name}
+                  </Typography>
+                  <Typography color="gray" className="break-words">
+                    {employeeData?.designation}
+                  </Typography>
+                  <Typography color="gray" className="break-words">
+                    {employeeData?.email}
+                  </Typography>
                 </div>
               </div>
             </CardBody>
@@ -81,7 +97,7 @@ const EmployeeDetails = () => {
               Salary (Last 12 Months)
             </Typography>
             {loadingPayments ? (
-              <div>Loading chart...</div>
+              <DataLoader label="Loading chart..." />
             ) : (
               <div className="overflow-x-auto">
                 <Bar

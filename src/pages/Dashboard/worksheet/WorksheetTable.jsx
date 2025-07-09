@@ -5,6 +5,7 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import DataLoader from "../../../ui/DataLoader";
 
 const WorksheetTable = ({ data, onEdit, onDelete, isLoading }) => {
   const columns = useMemo(
@@ -65,7 +66,7 @@ const WorksheetTable = ({ data, onEdit, onDelete, isLoading }) => {
   });
 
   if (isLoading) {
-    return <div className="text-center py-8 text-gray-500">Loading...</div>;
+    return <DataLoader className="py-8" label="Loading worksheet..." />;
   }
 
   if (!data.length) {

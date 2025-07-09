@@ -5,6 +5,7 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
+import DataLoader from "../../../ui/DataLoader";
 
 const ProgressTable = ({ data, isLoading }) => {
   // Table columns for desktop
@@ -17,21 +18,13 @@ const ProgressTable = ({ data, isLoading }) => {
         header: "Date",
         accessorKey: "date",
         cell: ({ row }) => (
-          <span>
-            {row.original.date
-              ? row.original.date.slice(0, 10)
-              : ""}
-          </span>
+          <span>{row.original.date ? row.original.date.slice(0, 10) : ""}</span>
         ),
       },
       {
         header: "Status",
         accessorKey: "status",
-        cell: ({ row }) => (
-          <span>
-            {row.original.status || "Completed"}
-          </span>
-        ),
+        cell: ({ row }) => <span>{row.original.status || "Completed"}</span>,
       },
     ],
     []
@@ -44,7 +37,7 @@ const ProgressTable = ({ data, isLoading }) => {
   });
 
   if (isLoading) {
-    return <div className="text-center py-8 text-gray-500">Loading...</div>;
+    return <DataLoader className="py-8" label="Loading progress..." />;
   }
 
   if (!data.length) {

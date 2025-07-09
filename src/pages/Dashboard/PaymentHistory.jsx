@@ -3,7 +3,12 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../hooks/useAuth";
 import DashboardLayout from "../../layouts/DashboardLayout";
-import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
+import {
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+import DataLoader from "../../ui/DataLoader";
 
 const PAGE_SIZE = 5;
 
@@ -74,7 +79,9 @@ const PaymentHistory = () => {
     return (
       <DashboardLayout>
         <div className="min-h-[60vh] flex items-center justify-center">
-          <div className="text-blue-600 text-lg font-semibold">Loading payment history...</div>
+          <div className="text-blue-600 text-lg font-semibold">
+            Loading payment history...
+          </div>
         </div>
       </DashboardLayout>
     );
@@ -88,9 +95,11 @@ const PaymentHistory = () => {
         {/* Desktop Table */}
         <div className="hidden md:block bg-white rounded shadow">
           {isLoading ? (
-            <div className="text-center py-8 text-gray-500">Loading...</div>
+            <DataLoader className="py-8" label="Loading payment history..." />
           ) : !payments.length ? (
-            <div className="text-center py-6 text-gray-500">No payment history found.</div>
+            <div className="text-center py-6 text-gray-500">
+              No payment history found.
+            </div>
           ) : (
             <table className="w-full">
               <thead>
@@ -115,7 +124,10 @@ const PaymentHistory = () => {
                   <tr key={row.id} className="hover:bg-gray-50">
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id} className="py-3 px-4 text-sm">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -128,9 +140,11 @@ const PaymentHistory = () => {
         {/* Mobile Cards */}
         <div className="md:hidden space-y-3">
           {isLoading ? (
-            <div className="text-center py-8 text-gray-500">Loading...</div>
+            <DataLoader className="py-8" label="Loading payment history..." />
           ) : !payments.length ? (
-            <div className="text-center py-6 text-gray-500">No payment history found.</div>
+            <div className="text-center py-6 text-gray-500">
+              No payment history found.
+            </div>
           ) : (
             payments.map((entry) => (
               <div
@@ -148,7 +162,9 @@ const PaymentHistory = () => {
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="text-sm text-gray-600">Amount</span>
-                    <span className="font-medium text-gray-900">{entry.amount}</span>
+                    <span className="font-medium text-gray-900">
+                      {entry.amount}
+                    </span>
                   </div>
                 </div>
               </div>
