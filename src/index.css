@@ -16,3 +16,12 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100vw;
+}
+
+body {
+  position: relative;
+}
