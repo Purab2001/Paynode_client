@@ -1,4 +1,4 @@
-// EmployeeDetails.jsx
+ // EmployeeDetails.jsx
 import React from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -32,11 +32,24 @@ const EmployeeDetails = () => {
   });
 
   // Fetch salary payments for last 12 months
-  const { data: paymentsData, isLoading: loadingPayments } = useQuery({
+  const {
+    data: paymentsData,
+    isLoading: loadingPayments,
+    isError: paymentsError,
+    error: paymentsErrorObj,
+  } = useQuery({
     queryKey: ["payments", slug],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payments/${slug}`);
-      return res.data.payments || [];
+      try {
+        const res = await axiosSecure.get(`/api/payments/${slug}`);
+        return res.data.payments || [];
+      } catch (err) {
+        if (err.response && err.response.status === 403) {
+          // Forbidden: not allowed to see payment history
+          return null;
+        }
+        throw err;
+      }
     },
   });
 
@@ -98,6 +111,14 @@ const EmployeeDetails = () => {
             </Typography>
             {loadingPayments ? (
               <DataLoader label="Loading chart..." />
+            ) : paymentsError && paymentsErrorObj?.response?.status === 403 ? (
+              <div className="text-center text-gray-500 py-4">
+                You do not have permission to view payment history for this employee.
+              </div>
+            ) : paymentsData === null ? (
+              <div className="text-center text-gray-500 py-4">
+                No payment history available.
+              </div>
             ) : (
               <div className="overflow-x-auto">
                 <Bar

@@ -1,8 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQueryClient } from "@tanstack/react-query";
 
-const PaymentForm = ({ payrollData }) => {
+const PaymentForm = ({ payrollData, clientSecret, onPaymentSuccess }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(null);
+
+    if (!stripe || !elements) {
+      setError("Stripe is not loaded.");
+      return;
+    }
+
+    setProcessing(true);
+
+    // Confirm card payment
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          email: payrollData?.employeeEmail || "",
+        },
+      },
+    });
+
+    if (result.error) {
+      setError(result.error.message);
+      toast.error(result.error.message);
+      setProcessing(false);
+      return;
+    }
+
+    if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
+      // Update payroll status in backend and verify before updating UI
+      try {
+        const res = await axiosSecure.put(
+          `/api/admin/payroll/${payrollData._id}/approve`,
+          {
+            status: "approved",
+            processedBy: "admin",
+            transactionId: result.paymentIntent.id,
+          }
+        );
+        if (res.status === 200) {
+          toast.success("Payment successful and payroll updated!");
+          // Invalidate employee payment history for bar chart update
+          queryClient.invalidateQueries(["payments", payrollData.employeeEmail]);
+          if (onPaymentSuccess) onPaymentSuccess(result.paymentIntent);
+        } else {
+          toast.error("Payment succeeded but failed to update payroll status.");
+        }
+      } catch {
+        toast.error("Payment succeeded but failed to update payroll status.");
+      }
+    } else {
+      toast.error("Payment did not complete.");
+    }
+
+    setProcessing(false);
+  };
+
   return (
-    <div className="">
+    <div>
       <div className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-600 to-blue-400 rounded-t-xl py-8">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +90,7 @@ const PaymentForm = ({ payrollData }) => {
         <span className="text-blue-100 text-sm mt-1">Payroll Payment</span>
       </div>
       <div className="p-8">
-        <form className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div>
             <label className="block mb-2 text-sm font-semibold text-gray-700">
               Email
@@ -39,37 +107,20 @@ const PaymentForm = ({ payrollData }) => {
             <label className="block mb-2 text-sm font-semibold text-gray-700">
               Card Details
             </label>
-            <input
-              type="text"
-              className="w-full bg-gray-50 placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 focus:outline-none focus:border-blue-500 shadow-sm"
-              placeholder="1234 5678 9012 3456"
-            />
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <label className="block mb-2 text-sm font-semibold text-gray-700">
-                Expiration Date
-              </label>
-              <input
-                type="text"
-                className="w-full bg-gray-50 placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 focus:outline-none focus:border-blue-500 shadow-sm"
-                placeholder="MM/YY"
-              />
-            </div>
-            <div className="flex-1">
-              <label className="block mb-2 text-sm font-semibold text-gray-700">
-                CVV
-              </label>
-              <input
-                type="text"
-                className="w-full bg-gray-50 placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 focus:outline-none focus:border-blue-500 shadow-sm"
-                placeholder="123"
-              />
+            <div className="w-full bg-gray-50 border border-gray-300 rounded-md px-3 py-2">
+              <CardElement options={{ hidePostalCode: true }} />
             </div>
           </div>
-          <button className="w-full mt-2 rounded-md bg-blue-600 py-2 px-4 border border-transparent text-center text-sm font-semibold text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-700 hover:bg-blue-700 active:bg-blue-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-            Pay Now
+          <button
+            className="w-full mt-2 rounded-md bg-blue-600 py-2 px-4 border border-transparent text-center text-sm font-semibold text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-700 hover:bg-blue-700 active:bg-blue-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="submit"
+            disabled={!stripe || processing}
+          >
+            {processing ? "Processing..." : "Pay Now"}
           </button>
+          {error && (
+            <p className="text-red-500 text-xs mt-2">{error}</p>
+          )}
           <p className="mt-2 flex items-center justify-center gap-2 text-xs text-gray-500 font-light">
             <svg
               xmlns="http://www.w3.org/2000/svg"
