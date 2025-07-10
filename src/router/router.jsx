@@ -8,17 +8,17 @@ import Profile from "../pages/Profile";
 import PrivateRoute from "../routes/PrivateRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Overview from "../pages/Dashboard/Overview";
-import WorkSheet from "../pages/Dashboard/worksheet/WorkSheet";
-import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 import EmployeeList from "../pages/Dashboard/HR/EmployeeList";
 import EmployeeDetails from "../pages/Dashboard/HR/EmployeeDetails";
 import Progress from "../pages/Dashboard/HR/Progress";
 import Chat from "../pages/Dashboard/Chat";
-import Services from "../pages/Services";
 import ContactUs from "../pages/ContactUs";
 import About from "../pages/About";
 import Forbidden from "../pages/Forbidden";
 import Error from "../pages/Error";
+import PaymentHistory from "../pages/Dashboard/Employee/PaymentHistory";
+import WorkSheet from "../pages/Dashboard/Employee/WorkSheet";
+import Services from "../pages/Services/Services";
 
 export const router = createBrowserRouter([
   {

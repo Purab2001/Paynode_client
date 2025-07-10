@@ -1,14 +1,14 @@
 import React, { useState, useMemo } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../hooks/useAuth";
-import DashboardLayout from "../../layouts/DashboardLayout";
+import { useAuth } from "../../../hooks/useAuth";
+import DashboardLayout from "../../../layouts/DashboardLayout";
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import DataLoader from "../../ui/DataLoader";
+import DataLoader from "../../../ui/DataLoader";
 
 const PAGE_SIZE = 5;
 
