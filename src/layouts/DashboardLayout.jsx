@@ -35,13 +35,13 @@ const DashboardLayout = ({ children }) => {
       name: "Dashboard",
       path: "/dashboard",
       icon: dashboardicon,
-      roles: ["Employee", "HR", "Admin"],
+      roles: ["Employee", "HR", "admin"],
     },
     {
       name: "Overview",
       path: "/overview",
       icon: overviewicon,
-      roles: ["Employee", "HR", "Admin"],
+      roles: ["Employee", "HR", "admin"],
     },
     {
       name: "Work Sheet",
@@ -60,7 +60,19 @@ const DashboardLayout = ({ children }) => {
       name: "Employees",
       path: "/employees",
       icon: employeesicon,
-      roles: ["HR", "Admin"],
+      roles: ["HR"],
+    },
+    {
+      name: "All Employees",
+      path: "/admin/all-employee-list",
+      icon: employeesicon,
+      roles: ["admin"],
+    },
+    {
+      name: "Payroll",
+      path: "/admin/payroll",
+      icon: paymenticon,
+      roles: ["admin"],
     },
     {
       name: "Progress",
@@ -72,13 +84,13 @@ const DashboardLayout = ({ children }) => {
       name: "Chat",
       path: "/chat",
       icon: chaticon,
-      roles: ["Employee", "HR", "Admin"],
+      roles: ["Employee", "HR", "admin"],
     },
     {
       name: "Profile",
       path: "/profile",
       icon: profileicon,
-      roles: ["Employee", "HR", "Admin"],
+      roles: ["Employee", "HR", "admin"],
     },
   ];
 

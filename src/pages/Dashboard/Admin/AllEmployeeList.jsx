@@ -1,0 +1,98 @@
+import React from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import DashboardLayout from "../../../layouts/DashboardLayout";
+import AdminEmployeeTable from "./AdminEmployeeTable";
+import { toast } from "react-hot-toast";
+
+const AllEmployeeList = () => {
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  // Fetch all employees and HRs
+  const { data, isLoading } = useQuery({
+    queryKey: ["admin-employees"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/api/admin/employees");
+      return res.data.employees;
+    },
+  });
+
+  // Verify/unverify employee or HR
+  const verifyMutation = useMutation({
+    mutationFn: async ({ email, isVerified }) => {
+      await axiosSecure.put(`/api/employee/${email}/verify`, { isVerified });
+    },
+    onSuccess: () => queryClient.invalidateQueries(["admin-employees"]),
+  });
+
+  // Fire employee or HR
+  const fireMutation = useMutation({
+    mutationFn: async (email) => {
+      await axiosSecure.put(`/api/admin/employees/${email}/fire`);
+    },
+    onSuccess: (_data, email) => {
+      queryClient.invalidateQueries(["admin-employees"]);
+      toast.success(`Fired ${email}`);
+    },
+  });
+
+  // Promote to HR
+  const promoteMutation = useMutation({
+    mutationFn: async (email) => {
+      await axiosSecure.put(`/api/admin/employees/${email}/promote`);
+    },
+    onSuccess: () => queryClient.invalidateQueries(["admin-employees"]),
+  });
+
+  // Salary change
+  const salaryMutation = useMutation({
+    mutationFn: async ({ email, salary }) => {
+      await axiosSecure.put(`/api/admin/employees/${email}/salary`, { salary });
+    },
+    onSuccess: () => queryClient.invalidateQueries(["admin-employees"]),
+  });
+
+  // Demote HR to Employee
+  const demoteMutation = useMutation({
+    mutationFn: async (email) => {
+      await axiosSecure.put(`/api/admin/employees/${email}/demote`);
+    },
+    onSuccess: (_data, email) => {
+      queryClient.invalidateQueries(["admin-employees"]);
+      toast.success(`Rehired ${email}`);
+    },
+  });
+
+  // Rehire fired employee or HR
+  const rehireMutation = useMutation({
+    mutationFn: async (email) => {
+      await axiosSecure.put(`/api/admin/employees/${email}/rehire`);
+      return email;
+    },
+    onSuccess: (email) => {
+      queryClient.invalidateQueries(["admin-employees"]);
+      toast.success(`Rehired ${email}`);
+    },
+  });
+
+  return (
+    <DashboardLayout>
+      <div className="max-w-7xl mx-auto py-8">
+        <h2 className="text-3xl font-bold mb-6">All Employees & HRs</h2>
+        <AdminEmployeeTable
+          data={data || []}
+          isLoading={isLoading}
+          onVerify={verifyMutation.mutate}
+          onFire={fireMutation.mutate}
+          onPromote={promoteMutation.mutate}
+          onDemote={demoteMutation.mutate}
+          onRehire={rehireMutation.mutate}
+          onSalaryChange={salaryMutation.mutate}
+        />
+      </div>
+    </DashboardLayout>
+  );
+};
+
+export default AllEmployeeList;

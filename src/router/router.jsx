@@ -9,6 +9,8 @@ import PrivateRoute from "../routes/PrivateRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Overview from "../pages/Dashboard/Overview";
 import EmployeeList from "../pages/Dashboard/HR/EmployeeList";
+import AllEmployeeList from "../pages/Dashboard/Admin/AllEmployeeList";
+import Payroll from "../pages/Dashboard/Admin/Payroll";
 import EmployeeDetails from "../pages/Dashboard/HR/EmployeeDetails";
 import Progress from "../pages/Dashboard/HR/Progress";
 import Chat from "../pages/Dashboard/Chat";
@@ -109,6 +111,24 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <EmployeeList />
+      </PrivateRoute>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "admin/all-employee-list",
+    element: (
+      <PrivateRoute>
+        <AllEmployeeList />
+      </PrivateRoute>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "admin/payroll",
+    element: (
+      <PrivateRoute>
+        <Payroll />
       </PrivateRoute>
     ),
     errorElement: <Error />,
