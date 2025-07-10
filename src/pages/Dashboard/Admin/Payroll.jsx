@@ -1,13 +1,18 @@
-import React from "react";
+// import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import DataLoader from "../../../ui/DataLoader";
 import { Button } from "@material-tailwind/react";
+import PaymentModal from "../../../components/PaymentModal";
 
 const Payroll = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+
+  // Modal state
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [selectedPayroll, setSelectedPayroll] = useState(null);
 
   // Fetch payroll requests
   const { data, isLoading } = useQuery({
@@ -21,7 +26,9 @@ const Payroll = () => {
   // Approve payroll payment
   const payMutation = useMutation({
     mutationFn: async (id) => {
-      await axiosSecure.put(`/api/admin/payroll/${id}/approve`, { processedBy: "admin" });
+      await axiosSecure.put(`/api/admin/payroll/${id}/approve`, {
+        processedBy: "admin",
+      });
     },
     onSuccess: () => queryClient.invalidateQueries(["admin-payroll-requests"]),
   });
@@ -33,7 +40,9 @@ const Payroll = () => {
       <DashboardLayout>
         <div className="max-w-3xl mx-auto py-8">
           <h2 className="text-2xl font-bold mb-4">Payroll Approval Requests</h2>
-          <div className="text-center py-6 text-gray-500">No payroll requests found.</div>
+          <div className="text-center py-6 text-gray-500">
+            No payroll requests found.
+          </div>
         </div>
       </DashboardLayout>
     );
@@ -133,6 +142,13 @@ const Payroll = () => {
           ))}
         </div>
       </div>
+      {/*
+      <PaymentModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        payrollData={selectedPayroll}
+      />
+      */}
     </DashboardLayout>
   );
 };
