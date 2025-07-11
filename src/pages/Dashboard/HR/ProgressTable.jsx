@@ -5,9 +5,10 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
+import { Button } from "@material-tailwind/react";
 import DataLoader from "../../../ui/DataLoader";
 
-const ProgressTable = ({ data, isLoading }) => {
+const ProgressTable = ({ data, isLoading, onDetails }) => {
   // Table columns for desktop
   const columns = React.useMemo(
     () => [
@@ -26,8 +27,21 @@ const ProgressTable = ({ data, isLoading }) => {
         accessorKey: "status",
         cell: ({ row }) => <span>{row.original.status || "Completed"}</span>,
       },
+      {
+        header: "Details",
+        cell: ({ row }) => (
+          <Button
+            size="sm"
+            color="blue"
+            className="shadow-none"
+            onClick={() => onDetails && onDetails(row.original)}
+          >
+            View
+          </Button>
+        ),
+      },
     ],
-    []
+    [onDetails]
   );
 
   const table = useReactTable({
@@ -42,7 +56,9 @@ const ProgressTable = ({ data, isLoading }) => {
 
   if (!data.length) {
     return (
-      <div className="text-center py-6 text-gray-500">No records found.</div>
+      <div className="text-center py-6 text-gray-500">
+        No progress records found.
+      </div>
     );
   }
 
@@ -98,8 +114,15 @@ const ProgressTable = ({ data, isLoading }) => {
                 <h3 className="font-medium text-gray-900 text-lg">
                   {entry.task}
                 </h3>
-                <p className="text-sm text-gray-500 mt-1">
-                  {entry.employeeEmail}
+                <p
+                  className="text-sm text-gray-500 mt-1 break-all max-w-[140px] truncate"
+                  title={entry.employeeEmail}
+                >
+                  {entry.employeeEmail.length > 18
+                    ? entry.employeeEmail.slice(0, 8) +
+                      "..." +
+                      entry.employeeEmail.slice(-8)
+                    : entry.employeeEmail}
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
                   Date: {entry.date ? entry.date.slice(0, 10) : ""}
@@ -110,6 +133,16 @@ const ProgressTable = ({ data, isLoading }) => {
                 <p className="text-sm text-gray-500 mt-1">
                   Status: {entry.status || "Completed"}
                 </p>
+              </div>
+              <div className="flex flex-col items-end gap-2">
+                <Button
+                  size="sm"
+                  color="blue"
+                  className="shadow-none"
+                  onClick={() => onDetails && onDetails(entry)}
+                >
+                  View
+                </Button>
               </div>
             </div>
           </div>

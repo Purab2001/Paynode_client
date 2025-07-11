@@ -89,32 +89,69 @@ const Payroll = () => {
         </div>
         {/* Desktop Table */}
         <div className="hidden md:block">
-          <table className="w-full border">
+          <table className="w-full">
             <thead>
               <tr className="bg-gray-50 border-b">
-                <th className="py-3 px-4">Name</th>
-                <th className="py-3 px-4">Salary</th>
-                <th className="py-3 px-4">Month</th>
-                <th className="py-3 px-4">Year</th>
-                <th className="py-3 px-4">Payment Date</th>
-                <th className="py-3 px-4">Pay</th>
+                <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider w-1/6">
+                  Name
+                </th>
+                <th className="py-3 px-4 text-left w-1/6">Email</th>
+                <th className="py-3 px-4 text-center w-1/12">Month</th>
+                <th className="py-3 px-4 text-center w-1/12">Year</th>
+                <th className="py-3 px-4 text-right w-1/12">Salary</th>
+                <th className="py-3 px-4 text-center w-1/12">Status</th>
+                <th className="py-3 px-4 text-center w-1/6">Payment Date</th>
+                <th className="py-3 px-4 text-center w-1/12">Pay</th>
+                {/* Details column removed */}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white divide-y divide-gray-200">
               {data
                 .filter((req) => req.status === filterStatus)
                 .map((req) => (
-                  <tr key={req._id}>
-                    <td className="py-3 px-4">{req.employeeName}</td>
-                    <td className="py-3 px-4">{req.salary}</td>
-                    <td className="py-3 px-4">{req.month}</td>
-                    <td className="py-3 px-4">{req.year}</td>
-                    <td className="py-3 px-4">
+                  <tr
+                    key={req._id}
+                    className={req.status === "approved" ? "opacity-70" : ""}
+                  >
+                    <td className="py-3 px-4 text-sm text-left w-1/6">
+                      {req.employeeName}
+                    </td>
+                    <td
+                      className="py-3 px-4 text-sm text-left w-1/6 break-all max-w-[180px] truncate"
+                      title={req.employeeEmail}
+                    >
+                      {req.employeeEmail.length > 18
+                        ? req.employeeEmail.slice(0, 8) +
+                          "..." +
+                          req.employeeEmail.slice(-8)
+                        : req.employeeEmail}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-center w-1/12">
+                      {req.month}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-center w-1/12">
+                      {req.year}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-right w-1/12">
+                      {req.salary}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-center w-1/12">
+                      <span
+                        className={
+                          req.status === "pending"
+                            ? "text-orange-600"
+                            : "text-green-600 font-bold"
+                        }
+                      >
+                        {req.status}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-sm text-center w-1/6">
                       {req.status === "approved" && req.processedAt
                         ? new Date(req.processedAt).toLocaleDateString()
                         : ""}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-4 text-sm text-center w-1/12">
                       <Button
                         size="sm"
                         color={req.status === "pending" ? "green" : "gray"}
@@ -125,11 +162,14 @@ const Payroll = () => {
                             setModalOpen(true);
                           }
                         }}
-                        disabled={req.status !== "pending" || payMutation.isLoading}
+                        disabled={
+                          req.status !== "pending" || payMutation.isLoading
+                        }
                       >
                         {req.status === "pending" ? "Pay" : "Paid"}
                       </Button>
                     </td>
+                    {/* Details cell removed */}
                   </tr>
                 ))}
             </tbody>
@@ -142,18 +182,42 @@ const Payroll = () => {
             .map((req) => (
               <div
                 key={req._id}
-                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+                className={`bg-white border border-gray-200 rounded-lg p-4 shadow-sm ${
+                  req.status === "approved" ? "opacity-70" : ""
+                }`}
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <h3 className="font-medium text-gray-900 text-lg">
                       {req.employeeName}
                     </h3>
+                    <p
+                      className="text-sm text-gray-500 mt-1 break-all max-w-[140px] truncate"
+                      title={req.employeeEmail}
+                    >
+                      {req.employeeEmail.length > 18
+                        ? req.employeeEmail.slice(0, 8) +
+                          "..." +
+                          req.employeeEmail.slice(-8)
+                        : req.employeeEmail}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Month: {req.month}, Year: {req.year}
+                    </p>
                     <p className="text-sm text-gray-500 mt-1">
                       Salary: {req.salary}
                     </p>
                     <p className="text-sm text-gray-500 mt-1">
-                      Month: {req.month}, Year: {req.year}
+                      Status:{" "}
+                      <span
+                        className={
+                          req.status === "pending"
+                            ? "text-orange-600"
+                            : "text-green-600 font-bold"
+                        }
+                      >
+                        {req.status}
+                      </span>
                     </p>
                     <p className="text-sm text-gray-500 mt-1">
                       Payment Date:{" "}
@@ -163,22 +227,23 @@ const Payroll = () => {
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    {req.status === "pending" ? (
-                      <Button
-                        size="sm"
-                        color="green"
-                        className="shadow-none"
-                        onClick={() => {
+                    <Button
+                      size="sm"
+                      color={req.status === "pending" ? "green" : "gray"}
+                      className="shadow-none"
+                      onClick={() => {
+                        if (req.status === "pending") {
                           setSelectedPayroll(req);
                           setModalOpen(true);
-                        }}
-                        disabled={payMutation.isLoading}
-                      >
-                        Pay
-                      </Button>
-                    ) : (
-                      <span className="text-green-600 font-bold">Paid</span>
-                    )}
+                        }
+                      }}
+                      disabled={
+                        req.status !== "pending" || payMutation.isLoading
+                      }
+                    >
+                      {req.status === "pending" ? "Pay" : "Paid"}
+                    </Button>
+                    {/* View link removed from mobile card */}
                   </div>
                 </div>
               </div>

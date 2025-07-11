@@ -35,24 +35,33 @@ const AdminEmployeeTable = ({
         <table className="w-full">
           <thead>
             <tr className="bg-gray-50 border-b">
-              <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider">
+              <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider w-1/12">
                 Name
               </th>
-              <th className="py-3 px-4">Email</th>
-              <th className="py-3 px-4">Role</th>
-              <th className="py-3 px-4">Verified</th>
-              <th className="py-3 px-4">Bank Account</th>
-              <th className="py-3 px-4">Salary</th>
-              <th className="py-3 px-4">Promote</th>
-              <th className="py-3 px-4">Fire</th>
-              <th className="py-3 px-4">Details</th>
+              <th className="py-3 px-4 text-left w-2/12">Email</th>
+              <th className="py-3 px-4 text-center w-1/12">Role</th>
+              <th className="py-3 px-4 text-center w-1/12">Verified</th>
+              <th className="py-3 px-4 text-left w-2/12">Bank Account</th>
+              <th className="py-3 px-4 text-right w-1/12">Salary</th>
+              <th className="py-3 px-4 text-center w-1/12">Promote</th>
+              <th className="py-3 px-4 text-center w-1/12">Fire</th>
+              <th className="py-3 px-4 text-center w-1/12">Details</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {data.map((emp) => (
               <tr key={emp.email} className={emp.fired ? "opacity-50" : ""}>
-                <td className="py-3 px-4 text-sm">{emp.name}</td>
-                <td className="py-3 px-4 text-sm">{emp.email}</td>
+                <td className="py-3 px-4 text-sm text-left w-1/12">
+                  {emp.name}
+                </td>
+                <td
+                  className="py-3 px-4 text-sm text-left w-2/12 break-all max-w-[180px] truncate"
+                  title={emp.email}
+                >
+                  {emp.email.length > 18
+                    ? emp.email.slice(0, 8) + "..." + emp.email.slice(-8)
+                    : emp.email}
+                </td>
                 <td className="py-3 px-4 text-sm">{emp.role}</td>
                 <td className="py-3 px-4 text-sm">
                   <Switch
@@ -68,8 +77,10 @@ const AdminEmployeeTable = ({
                     disabled={emp.fired}
                   />
                 </td>
-                <td className="py-3 px-4 text-sm">{emp.bank_account_no}</td>
-                <td className="py-3 px-4 text-sm">
+                <td className="py-3 px-4 text-sm text-left w-2/12">
+                  {emp.bank_account_no}
+                </td>
+                <td className="py-3 px-4 text-sm text-right w-1/12">
                   <input
                     type="number"
                     value={emp.salary}
@@ -85,7 +96,7 @@ const AdminEmployeeTable = ({
                     className="w-24 border rounded px-2 py-1"
                   />
                 </td>
-                <td className="py-3 px-4 text-sm">
+                <td className="py-3 px-4 text-sm text-center w-1/12">
                   {emp.role === "Employee" && !emp.fired ? (
                     <Button
                       size="sm"
@@ -108,7 +119,7 @@ const AdminEmployeeTable = ({
                     <span className="text-gray-500">-</span>
                   )}
                 </td>
-                <td className="py-3 px-4 text-sm">
+                <td className="py-3 px-4 text-sm text-center w-1/12">
                   {emp.fired ? (
                     <Button
                       size="sm"
@@ -131,7 +142,7 @@ const AdminEmployeeTable = ({
                     </Button>
                   )}
                 </td>
-                <td className="py-3 px-4 text-sm">
+                <td className="py-3 px-4 text-sm text-center w-1/12">
                   <Link
                     to={`/details/${emp.email}`}
                     className="text-blue-600 underline"
@@ -158,7 +169,14 @@ const AdminEmployeeTable = ({
                 <h3 className="font-medium text-gray-900 text-lg">
                   {emp.name}
                 </h3>
-                <p className="text-sm text-gray-500 mt-1">{emp.email}</p>
+                <p
+                  className="text-sm text-gray-500 mt-1 break-all max-w-[140px] truncate"
+                  title={emp.email}
+                >
+                  {emp.email.length > 18
+                    ? emp.email.slice(0, 8) + "..." + emp.email.slice(-8)
+                    : emp.email}
+                </p>
                 <p className="text-sm text-gray-500 mt-1">Role: {emp.role}</p>
                 <p className="text-sm text-gray-500 mt-1">
                   Bank: {emp.bank_account_no}
