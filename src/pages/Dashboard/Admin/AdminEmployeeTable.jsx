@@ -81,20 +81,57 @@ const AdminEmployeeTable = ({
                   {emp.bank_account_no}
                 </td>
                 <td className="py-3 px-4 text-sm text-right w-1/12">
-                  <input
-                    type="number"
-                    value={emp.salary}
-                    min={0}
-                    disabled={emp.fired}
-                    onChange={(e) =>
-                      onSalaryChange &&
-                      onSalaryChange({
-                        email: emp.email,
-                        salary: Number(e.target.value),
-                      })
-                    }
-                    className="w-24 border rounded px-2 py-1"
-                  />
+                  <span
+                    className={`cursor-pointer text-blue-700 underline ${
+                      emp.fired ? "pointer-events-none opacity-50" : ""
+                    }`}
+                    title="Click to change salary"
+                    onClick={async () => {
+                      if (emp.fired) return;
+                      const { value: newSalary } = await import(
+                        "../../../ui/CustomSwal"
+                      )
+                        .then((m) => m.default)
+                        .then((CustomSwal) =>
+                          CustomSwal.fire({
+                            title: `Enter new salary for ${emp.name}`,
+                            input: "number",
+                            inputValue: emp.salary,
+                            showCancelButton: true,
+                            confirmButtonText: "Update",
+                            cancelButtonText: "Cancel",
+                            customClass: {
+                              actions:
+                                "flex gap-3 flex-row-reverse justify-center",
+                            },
+                            inputValidator: (value) => {
+                              if (!value) {
+                                return "You need to enter a salary!";
+                              }
+                              const parsedValue = parseFloat(value);
+                              if (isNaN(parsedValue)) {
+                                return "Please enter a valid number.";
+                              }
+                              if (parsedValue <= emp.salary) {
+                                return "New salary must be greater than current salary.";
+                              }
+                            },
+                          })
+                        );
+                      if (newSalary !== undefined && newSalary !== null) {
+                        const parsedSalary = parseFloat(newSalary);
+                        if (!isNaN(parsedSalary) && parsedSalary > emp.salary) {
+                          onSalaryChange &&
+                            onSalaryChange({
+                              email: emp.email,
+                              salary: parsedSalary,
+                            });
+                        }
+                      }
+                    }}
+                  >
+                    ${emp.salary}
+                  </span>
                 </td>
                 <td className="py-3 px-4 text-sm text-center w-1/12">
                   {emp.role === "Employee" && !emp.fired ? (
@@ -183,20 +220,57 @@ const AdminEmployeeTable = ({
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
                   Salary:{" "}
-                  <input
-                    type="number"
-                    value={emp.salary}
-                    min={0}
-                    disabled={emp.fired}
-                    onChange={(e) =>
-                      onSalaryChange &&
-                      onSalaryChange({
-                        email: emp.email,
-                        salary: Number(e.target.value),
-                      })
-                    }
-                    className="w-20 border rounded px-2 py-1"
-                  />
+                  <span
+                    className={`cursor-pointer text-blue-700 underline ${
+                      emp.fired ? "pointer-events-none opacity-50" : ""
+                    }`}
+                    title="Click to change salary"
+                    onClick={async () => {
+                      if (emp.fired) return;
+                      const { value: newSalary } = await import(
+                        "../../../ui/CustomSwal"
+                      )
+                        .then((m) => m.default)
+                        .then((CustomSwal) =>
+                          CustomSwal.fire({
+                            title: `Enter new salary for ${emp.name}`,
+                            input: "number",
+                            inputValue: emp.salary,
+                            showCancelButton: true,
+                            confirmButtonText: "Update",
+                            cancelButtonText: "Cancel",
+                            customClass: {
+                              actions:
+                                "flex gap-3 flex-row-reverse justify-center",
+                            },
+                            inputValidator: (value) => {
+                              if (!value) {
+                                return "You need to enter a salary!";
+                              }
+                              const parsedValue = parseFloat(value);
+                              if (isNaN(parsedValue)) {
+                                return "Please enter a valid number.";
+                              }
+                              if (parsedValue <= emp.salary) {
+                                return "New salary must be greater than current salary.";
+                              }
+                            },
+                          })
+                        );
+                      if (newSalary !== undefined && newSalary !== null) {
+                        const parsedSalary = parseFloat(newSalary);
+                        if (!isNaN(parsedSalary) && parsedSalary > emp.salary) {
+                          onSalaryChange &&
+                            onSalaryChange({
+                              email: emp.email,
+                              salary: parsedSalary,
+                            });
+                        }
+                      }
+                    }}
+                  >
+                    ${emp.salary}
+                  </span>
                 </p>
               </div>
               <div className="flex flex-col items-end gap-2">
