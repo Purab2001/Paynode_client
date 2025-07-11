@@ -55,12 +55,10 @@ const AdminEmployeeTable = ({
                   {emp.name}
                 </td>
                 <td
-                  className="py-3 px-4 text-sm text-left w-2/12 break-all max-w-[180px] truncate"
+                  className="py-3 px-4 text-sm text-left w-2/12 break-all"
                   title={emp.email}
                 >
-                  {emp.email.length > 18
-                    ? emp.email.slice(0, 8) + "..." + emp.email.slice(-8)
-                    : emp.email}
+                  {emp.email}
                 </td>
                 <td className="py-3 px-4 text-sm">{emp.role}</td>
                 <td className="py-3 px-4 text-sm">
@@ -207,12 +205,10 @@ const AdminEmployeeTable = ({
                   {emp.name}
                 </h3>
                 <p
-                  className="text-sm text-gray-500 mt-1 break-all max-w-[140px] truncate"
+                  className="text-sm text-gray-500 mt-1 break-all"
                   title={emp.email}
                 >
-                  {emp.email.length > 18
-                    ? emp.email.slice(0, 8) + "..." + emp.email.slice(-8)
-                    : emp.email}
+                  {emp.email}
                 </p>
                 <p className="text-sm text-gray-500 mt-1">Role: {emp.role}</p>
                 <p className="text-sm text-gray-500 mt-1">

@@ -102,14 +102,10 @@ const ProgressTable = ({ data, isLoading }) => {
                   {entry.task}
                 </h3>
                 <p
-                  className="text-sm text-gray-500 mt-1 break-all max-w-[140px] truncate"
+                  className="text-sm text-gray-500 mt-1 break-all"
                   title={entry.employeeEmail}
                 >
-                  {entry.employeeEmail.length > 18
-                    ? entry.employeeEmail.slice(0, 8) +
-                      "..." +
-                      entry.employeeEmail.slice(-8)
-                    : entry.employeeEmail}
+                  {entry.employeeEmail}
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
                   Date: {entry.date ? entry.date.slice(0, 10) : ""}

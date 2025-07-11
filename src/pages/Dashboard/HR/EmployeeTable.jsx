@@ -103,7 +103,7 @@ const EmployeeTable = ({ data, isLoading, onVerify, onPay }) => {
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="hover:bg-gray-50">
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="py-3 px-4 text-sm">
+                  <td key={cell.id} className="py-3 px-4 text-sm break-all">
                     {flexRender(
                       cell.column.columnDef.cell ??
                         cell.column.columnDef.accessorKey,
@@ -129,7 +129,7 @@ const EmployeeTable = ({ data, isLoading, onVerify, onPay }) => {
                 <h3 className="font-medium text-gray-900 text-lg">
                   {entry.name}
                 </h3>
-                <p className="text-sm text-gray-500 mt-1">{entry.email}</p>
+                <p className="text-sm text-gray-500 mt-1 break-all">{entry.email}</p>
                 <p className="text-sm text-gray-500 mt-1">
                   Bank: {entry.bank_account_no}
                 </p>

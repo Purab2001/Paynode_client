@@ -34,7 +34,7 @@ const AdminEmployeeCardGrid = ({
             >
               {employee.name}
             </Typography>
-            <Typography className="font-normal text-gray-700 text-xs">
+            <Typography className="font-normal text-gray-700 text-xs break-all">
               Email: {employee.email}
             </Typography>
             <Typography className="font-normal text-gray-700 text-xs">

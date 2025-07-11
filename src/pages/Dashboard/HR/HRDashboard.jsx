@@ -30,7 +30,7 @@ const HRDashboard = ({
             <h2 className="text-xl font-semibold text-gray-900">
               {user?.displayName || "User"}
             </h2>
-            <p className="text-gray-600">{user?.email}</p>
+            <p className="text-gray-600 break-all">{user?.email}</p>
             <span className="inline-block px-2 py-1 text-xs font-medium text-blue-800 bg-blue-50/80 rounded-full mt-1">
               HR
             </span>
@@ -125,7 +125,7 @@ const HRDashboard = ({
                   <span className="text-xl">💸</span>
                   <div>
                     <p className="font-medium text-gray-900">
-                      {item.employeeName} ({item.employeeEmail})
+                      {item.employeeName} (<span className="break-all">{item.employeeEmail}</span>)
                     </p>
                     <p className="text-sm text-gray-500">
                       {item.month} {item.year} - ৳{item.salary}
