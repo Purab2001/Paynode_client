@@ -1,10 +1,6 @@
 // PaymentModal.jsx
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogBody,
-  Button,
-} from "@material-tailwind/react";
+import { Dialog, DialogBody, Button } from "@material-tailwind/react";
 import PaymentForm from "../pages/Dashboard/Admin/PaymentForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -17,7 +13,7 @@ const PaymentModal = ({ open, onClose, payrollData }) => {
   useEffect(() => {
     // Fetch PaymentIntent client secret from backend when modal opens and payrollData is present
     if (open && payrollData) {
-      fetch("http://localhost:5000/api/create-payment-intent", {
+      fetch("https://paynode-server.vercel.app/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
