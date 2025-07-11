@@ -129,7 +129,6 @@ const Overview = () => {
           payrollBarData={payrollBarData}
           verificationPieData={verificationPieData}
           pendingPayrolls={pendingPayrolls}
-          approvedPayrolls={approvedPayrolls}
         />
       )}
       {role === "Employee" && (

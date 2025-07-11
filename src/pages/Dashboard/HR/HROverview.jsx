@@ -27,7 +27,6 @@ const HROverview = ({
   payrollBarData,
   verificationPieData,
   pendingPayrolls,
-  approvedPayrolls,
 }) => {
   return (
     <div className="space-y-6">
@@ -39,7 +38,7 @@ const HROverview = ({
       </div>
 
       {/* Dynamic Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold text-gray-900">
             Total Employees
@@ -57,9 +56,7 @@ const HROverview = ({
           <p className="text-sm text-gray-500">Verified Employees</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-gray-900">
-            Unverified
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900">Unverified</h3>
           <p className="text-3xl font-bold text-orange-600 mt-2">
             {orgStatsLoading ? "..." : orgStats?.unverifiedEmployees ?? 0}
           </p>
@@ -73,15 +70,6 @@ const HROverview = ({
             {orgPayrollsLoading ? "..." : pendingPayrolls.length}
           </p>
           <p className="text-sm text-gray-500">Awaiting Approval</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-gray-900">
-            Approved Payrolls
-          </h3>
-          <p className="text-3xl font-bold text-teal-600 mt-2">
-            {orgPayrollsLoading ? "..." : approvedPayrolls.length}
-          </p>
-          <p className="text-sm text-gray-500">Approved Payments</p>
         </div>
       </div>
 

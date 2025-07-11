@@ -8,7 +8,7 @@ import {
 import { Button } from "@material-tailwind/react";
 import DataLoader from "../../../ui/DataLoader";
 
-const ProgressTable = ({ data, isLoading, onDetails }) => {
+const ProgressTable = ({ data, isLoading }) => {
   // Table columns for desktop
   const columns = React.useMemo(
     () => [
@@ -27,21 +27,8 @@ const ProgressTable = ({ data, isLoading, onDetails }) => {
         accessorKey: "status",
         cell: ({ row }) => <span>{row.original.status || "Completed"}</span>,
       },
-      {
-        header: "Details",
-        cell: ({ row }) => (
-          <Button
-            size="sm"
-            color="blue"
-            className="shadow-none"
-            onClick={() => onDetails && onDetails(row.original)}
-          >
-            View
-          </Button>
-        ),
-      },
     ],
-    [onDetails]
+    []
   );
 
   const table = useReactTable({
@@ -134,16 +121,7 @@ const ProgressTable = ({ data, isLoading, onDetails }) => {
                   Status: {entry.status || "Completed"}
                 </p>
               </div>
-              <div className="flex flex-col items-end gap-2">
-                <Button
-                  size="sm"
-                  color="blue"
-                  className="shadow-none"
-                  onClick={() => onDetails && onDetails(entry)}
-                >
-                  View
-                </Button>
-              </div>
+              {/* ...existing code... (removed View button) */}
             </div>
           </div>
         ))}
