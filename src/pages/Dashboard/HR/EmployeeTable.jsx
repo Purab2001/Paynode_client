@@ -80,7 +80,7 @@ const EmployeeTable = ({ data, isLoading, onVerify, onPay }) => {
   return (
     <>
       {/* Desktop Table */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -118,7 +118,7 @@ const EmployeeTable = ({ data, isLoading, onVerify, onPay }) => {
       </div>
 
       {/* Mobile Cards */}
-      <div className="md:hidden space-y-3">
+      <div className="block lg:hidden space-y-3">
         {data.map((entry) => (
           <div
             key={entry.email}

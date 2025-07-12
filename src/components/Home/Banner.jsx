@@ -42,7 +42,7 @@ const Banner = () => {
               data-aos="fade-up"
               data-aos-delay="300"
             >
-              <Link to="/register">
+              <Link to="/overview">
                 <Button
                   color="blue"
                   ripple={true}

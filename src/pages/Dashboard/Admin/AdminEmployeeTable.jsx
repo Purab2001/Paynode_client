@@ -31,7 +31,7 @@ const AdminEmployeeTable = ({
   // Desktop Table
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-50 border-b">
@@ -191,7 +191,7 @@ const AdminEmployeeTable = ({
         </table>
       </div>
       {/* Mobile Cards */}
-      <div className="md:hidden space-y-3">
+      <div className="block lg:hidden space-y-3">
         {data.map((emp) => (
           <div
             key={emp.email}

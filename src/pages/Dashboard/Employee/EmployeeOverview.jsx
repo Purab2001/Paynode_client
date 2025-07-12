@@ -2,7 +2,7 @@ import React from "react";
 
 const EmployeeOverview = ({ metrics, metricsLoading, recentWork, workLoading }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Overview</h1>
         <p className="mt-2 text-gray-600">
@@ -20,9 +20,7 @@ const EmployeeOverview = ({ metrics, metricsLoading, recentWork, workLoading }) 
           <p className="text-sm text-gray-500">Hours Worked</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-gray-900">
-            This Month
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900">This Month</h3>
           <p className="text-3xl font-bold text-green-600 mt-2">
             {metricsLoading ? "..." : metrics?.hoursThisMonth ?? 0}
           </p>
@@ -38,9 +36,7 @@ const EmployeeOverview = ({ metrics, metricsLoading, recentWork, workLoading }) 
           <p className="text-sm text-gray-500">Work Entries</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-gray-900">
-            Efficiency
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900">Efficiency</h3>
           <p className="text-3xl font-bold text-orange-600 mt-2">
             {metricsLoading ? "..." : metrics?.efficiency ?? "N/A"}
           </p>
@@ -89,9 +85,7 @@ const EmployeeOverview = ({ metrics, metricsLoading, recentWork, workLoading }) 
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
               >
                 <div>
-                  <h3 className="font-medium text-gray-900">
-                    {entry.task}
-                  </h3>
+                  <h3 className="font-medium text-gray-900">{entry.task}</h3>
                   <p className="text-sm text-gray-500">
                     {entry.description || entry.details}
                   </p>

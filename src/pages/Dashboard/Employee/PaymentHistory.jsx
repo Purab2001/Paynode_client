@@ -89,7 +89,7 @@ const PaymentHistory = () => {
 
   return (
     <DashboardLayout>
-      <div>
+      <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl font-bold mb-4">Payment History</h2>
 
         {/* Desktop Table */}

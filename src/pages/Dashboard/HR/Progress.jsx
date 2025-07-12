@@ -61,7 +61,7 @@ const Progress = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto py-8">
+      <div className="max-w-6xl mx-auto py-8">
         <h1 className="text-3xl font-bold mb-6">Progress</h1>
         <div className="flex gap-4 mb-6 flex-col sm:flex-row">
           <div className="flex-1">

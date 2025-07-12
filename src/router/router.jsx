@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
-import PrivateRoute from "../routes/PrivateRoute";
+import RoleProtectedRoute from "../routes/RoleProtectedRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Overview from "../pages/Dashboard/Overview";
 import EmployeeList from "../pages/Dashboard/HR/EmployeeList";
@@ -64,99 +64,99 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <Dashboard />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "work-sheet",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <WorkSheet />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "payment-history",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <PaymentHistory />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "overview",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <Overview />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "chat",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <Chat />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "employees",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <EmployeeList />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "admin/all-employee-list",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <AllEmployeeList />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "admin/payroll",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <Payroll />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "details/:slug",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <EmployeeDetails />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "progress",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <Progress />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },
   {
     path: "profile",
     element: (
-      <PrivateRoute>
+      <RoleProtectedRoute>
         <Profile />
-      </PrivateRoute>
+      </RoleProtectedRoute>
     ),
     errorElement: <Error />,
   },

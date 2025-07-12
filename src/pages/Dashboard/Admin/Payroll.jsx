@@ -36,7 +36,11 @@ const Payroll = () => {
     onSuccess: () => queryClient.invalidateQueries(["admin-payroll-requests"]),
   });
 
-  if (isLoading) return <DataLoader label="Loading payroll requests..." />;
+  if (isLoading) return (
+    <span className="min-h-screen flex items-center justify-center">
+      <DataLoader label="Loading payroll requests..." />
+    </span>
+  );
 
   if (!data?.length) {
     return (
@@ -69,7 +73,7 @@ const Payroll = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto py-8">
+      <div className="max-w-6xl mx-auto py-8">
         <h2 className="text-2xl font-bold mb-4">Payroll Approval Requests</h2>
         <div className="flex gap-4 mb-4">
           <Button
@@ -82,13 +86,14 @@ const Payroll = () => {
           <Button
             size="sm"
             color={filterStatus === "approved" ? "blue" : "gray"}
+            className="shadow-none"
             onClick={() => setFilterStatus("approved")}
           >
             Approved
           </Button>
         </div>
         {/* Desktop Table */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50 border-b">
@@ -102,7 +107,6 @@ const Payroll = () => {
                 <th className="py-3 px-4 text-center w-1/12">Status</th>
                 <th className="py-3 px-4 text-center w-1/6">Payment Date</th>
                 <th className="py-3 px-4 text-center w-1/12">Pay</th>
-                {/* Details column removed */}
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -165,14 +169,13 @@ const Payroll = () => {
                         {req.status === "pending" ? "Pay" : "Paid"}
                       </Button>
                     </td>
-                    {/* Details cell removed */}
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
         {/* Mobile Cards */}
-        <div className="md:hidden space-y-3">
+        <div className="block lg:hidden space-y-3">
           {data
             .filter((req) => req.status === filterStatus)
             .map((req) => (

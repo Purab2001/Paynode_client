@@ -39,7 +39,7 @@ const Chat = () => {
 
   return (
     <DashboardLayout>
-      <div className="h-full flex flex-col">
+      <div className="max-w-6xl mx-auto h-full flex flex-col">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Team Chat</h1>
           <p className="mt-2 text-gray-600">

@@ -30,7 +30,7 @@ const AdminOverview = ({
   approvedPayrolls,
 }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
           Admin Overview
@@ -39,7 +39,8 @@ const AdminOverview = ({
           </span>
         </h1>
         <p className="mt-2 text-gray-600">
-          Overview of organization-wide payroll, employee stats, and admin actions.
+          Overview of organization-wide payroll, employee stats, and admin
+          actions.
         </p>
       </div>
 
@@ -62,9 +63,7 @@ const AdminOverview = ({
           <p className="text-sm text-gray-500">Verified Employees</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-gray-900">
-            Unverified
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900">Unverified</h3>
           <p className="text-3xl font-bold text-orange-600 mt-2">
             {orgStatsLoading ? "..." : orgStats?.unverifiedEmployees ?? 0}
           </p>

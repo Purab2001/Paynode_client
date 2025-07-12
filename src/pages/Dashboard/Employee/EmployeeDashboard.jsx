@@ -12,7 +12,7 @@ const EmployeeDashboard = ({
   const navigate = useNavigate();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
         <p className="mt-2 text-gray-600">
@@ -55,9 +55,7 @@ const EmployeeDashboard = ({
           <p className="text-sm text-gray-500">Work Entries</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-          <h3 className="text-lg font-medium text-gray-900">
-            Last Payment
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900">Last Payment</h3>
           <p className="text-3xl font-bold text-purple-600 mt-2">
             {statsLoading
               ? "..."
@@ -74,9 +72,7 @@ const EmployeeDashboard = ({
           </p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-          <h3 className="text-lg font-medium text-gray-900">
-            Pending Tasks
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900">Pending Tasks</h3>
           <p className="text-3xl font-bold text-orange-600 mt-2">
             {statsLoading ? "..." : stats?.pendingTasks ?? 0}
           </p>
@@ -121,9 +117,7 @@ const EmployeeDashboard = ({
       {/* Recent Activity */}
       <div className="mt-8 bg-white rounded-lg shadow-md">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-medium text-gray-900">
-            Recent Activity
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900">Recent Activity</h3>
         </div>
         <div className="p-6">
           {activityLoading ? (
@@ -134,12 +128,8 @@ const EmployeeDashboard = ({
                 <li key={idx} className="flex items-center gap-3">
                   <span className="text-xl">{item.icon || "•"}</span>
                   <div>
-                    <p className="font-medium text-gray-900">
-                      {item.title}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {item.description}
-                    </p>
+                    <p className="font-medium text-gray-900">{item.title}</p>
+                    <p className="text-sm text-gray-500">{item.description}</p>
                     <p className="text-xs text-gray-400">{item.date}</p>
                   </div>
                 </li>
