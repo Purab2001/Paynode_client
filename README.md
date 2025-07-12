@@ -12,6 +12,10 @@ _Empowering organizations with seamless HR, payroll, and analytics solutions._
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-4.1.8-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
 [![Firebase](https://img.shields.io/badge/Firebase-Hosting-ffca28?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
 [![Stripe](https://img.shields.io/badge/Stripe-Payments-635bff?style=for-the-badge&logo=stripe)](https://stripe.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=for-the-badge&logo=nodedotjs)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express.js-Server-000000?style=for-the-badge&logo=express)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb)](https://mongodb.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Hosting-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Production-green?style=flat-square)
@@ -92,7 +96,7 @@ Paynode is a comprehensive employee management and payroll platform built with m
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Client Technology Stack
 
 | Technology          | Purpose                     |
 | ------------------- | --------------------------- |
@@ -106,6 +110,21 @@ Paynode is a comprehensive employee management and payroll platform built with m
 | **SweetAlert2**     | Beautiful alerts            |
 | **React Hot Toast** | Notifications               |
 | **Lottie**          | Animations                  |
+
+## 🛠️ Server Technology Stack
+
+| Technology         | Purpose                            |
+| ------------------ | ---------------------------------- |
+| **Node.js**        | JavaScript runtime environment     |
+| **Express**        | Web application framework          |
+| **MongoDB**        | NoSQL database for data storage    |
+| **Firebase Admin** | Authentication and user management |
+| **Stripe**         | Payment gateway integration        |
+| **Vercel**         | Cloud deployment                   |
+| **dotenv**         | Environment variable management    |
+| **ESLint**         | Code linting and quality           |
+| **CORS**           | Cross-origin resource sharing      |
+| **Axios**          | HTTP client for API calls          |
 
 ---
 
