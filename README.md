@@ -1,6 +1,6 @@
 # 🚀 Paynode - Employee Management & Payroll System
 
-[![Live Site](https://img.shields.io/badge/Live%20Site-PayNode-blue?logo=firefox-browser)](https://paynode-2025.web.app)
+[![Live Site](https://img.shields.io/badge/Live%20Site-PayNode-blue?logo=firefox-browser&link=https://paynode-2025.web.app)](https://paynode-2025.web.app)
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![Vite](https://img.shields.io/badge/Vite-Enabled-646cff?logo=vite)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38bdf8?logo=tailwindcss)
@@ -129,7 +129,3 @@
    ```
 
 ---
-
-## 🤝 Contribution Guidelines
-
-[To be added]
