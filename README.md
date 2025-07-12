@@ -129,7 +129,3 @@
    ```
 
 ---
-
-## 🤝 Contribution Guidelines
-
-[To be added]
