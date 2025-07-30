@@ -96,6 +96,10 @@ const Register = () => {
         createdAt: new Date().toISOString(),
       };
 
+      // Debug logs for API URL and payload
+      console.log("API URL:", import.meta.env.VITE_API_URL);
+      console.log("User payload:", userData);
+
       // Save user to database
       const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: "POST",
