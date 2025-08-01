@@ -126,6 +126,9 @@ Paynode is a comprehensive employee management and payroll platform built with m
 | **CORS**           | Cross-origin resource sharing      |
 | **Axios**          | HTTP client for API calls          |
 
+**🔗 Server Repository:**  
+[https://github.com/Purab2001/Paynode_server](https://github.com/Purab2001/Paynode_server)
+
 ---
 
 ## ⚡ Quick Start
