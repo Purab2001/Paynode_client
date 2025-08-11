@@ -40,8 +40,8 @@ Paynode is a comprehensive employee management and payroll platform built with m
     <td align="center"><b>Dashboard</b></td>
   </tr>
   <tr>
-    <td><img src="client/public/screenshot-homepage.png" alt="Homepage" height="300"></td>
-    <td><img src="client/public/screenshot-dashboard.png" alt="Dashboard" height="300"></td>
+    <td><img src="public/screenshot-homepage.png" alt="Homepage" height="300"></td>
+    <td><img src="public/screenshot-dashboard.png" alt="Dashboard" height="300"></td>
   </tr>
 </table>
 
