@@ -1,199 +1,308 @@
-// ServiceDetails.jsx
-import React from "react";
+import React, { useState } from "react";
+import {
+  Tabs,
+  TabsHeader,
+  Tab,
+  TabsBody,
+  TabPanel,
+} from "@material-tailwind/react";
+import { Link } from "react-router";
 
-const ServiceDetails = ({
-  featureComparison,
-  pricingPlans,
-  faqs,
-}) => (
-  <>
-    {/* Feature Comparison */}
-    <section
-      className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto"
-      data-aos="fade-up"
-      data-aos-duration="800"
-    >
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-        Feature Comparison
-      </h2>
-      <div className="overflow-x-auto scrollbar-hide">
-        <table className="min-w-full bg-white rounded-xl shadow text-left">
-          <thead>
-            <tr>
-              <th className="py-3 px-4 border-b font-semibold">Feature</th>
-              <th className="py-3 px-4 border-b font-semibold">Basic</th>
-              <th className="py-3 px-4 border-b font-semibold">Pro</th>
-              <th className="py-3 px-4 border-b font-semibold">Enterprise</th>
-            </tr>
-          </thead>
-          <tbody>
-            {featureComparison.map((row, i) => (
-              <tr
-                key={row.feature}
-                data-aos="fade-up"
-                data-aos-delay={i * 80}
-                data-aos-duration="600"
+const ServiceDetails = () => {
+  const [activeTab, setActiveTab] = useState("pricing");
+
+  const pricingPlans = [
+    {
+      name: "Starter",
+      price: 29,
+      period: "month",
+      description: "Perfect for small teams getting started",
+      features: [
+        "Up to 25 employees",
+        "Basic payroll processing",
+        "Employee self-service portal",
+        "Email support",
+        "Basic reporting",
+      ],
+      popular: false,
+    },
+    {
+      name: "Professional",
+      price: 79,
+      period: "month",
+      description: "Ideal for growing businesses",
+      features: [
+        "Up to 100 employees",
+        "Advanced payroll & benefits",
+        "Time tracking & attendance",
+        "Performance management",
+        "Advanced analytics",
+        "Priority support",
+        "API access",
+      ],
+      popular: true,
+    },
+    {
+      name: "Enterprise",
+      price: 149,
+      period: "month",
+      description: "For large organizations with complex needs",
+      features: [
+        "Unlimited employees",
+        "Custom integrations",
+        "Advanced security features",
+        "Dedicated account manager",
+        "24/7 phone support",
+        "Custom reporting",
+        "White-label options",
+        "Multi-location support",
+      ],
+      popular: false,
+    },
+  ];
+
+  const featureComparison = [
+    {
+      feature: "Employee Management",
+      starter: true,
+      professional: true,
+      enterprise: true,
+    },
+    {
+      feature: "Basic Payroll",
+      starter: true,
+      professional: true,
+      enterprise: true,
+    },
+    {
+      feature: "Time Tracking",
+      starter: false,
+      professional: true,
+      enterprise: true,
+    },
+    {
+      feature: "Performance Reviews",
+      starter: false,
+      professional: true,
+      enterprise: true,
+    },
+    {
+      feature: "Advanced Analytics",
+      starter: false,
+      professional: true,
+      enterprise: true,
+    },
+    {
+      feature: "API Access",
+      starter: false,
+      professional: true,
+      enterprise: true,
+    },
+    {
+      feature: "Custom Integrations",
+      starter: false,
+      professional: false,
+      enterprise: true,
+    },
+    {
+      feature: "White-label Solution",
+      starter: false,
+      professional: false,
+      enterprise: true,
+    },
+    {
+      feature: "24/7 Support",
+      starter: false,
+      professional: false,
+      enterprise: true,
+    },
+    {
+      feature: "Dedicated Manager",
+      starter: false,
+      professional: false,
+      enterprise: true,
+    },
+  ];
+
+  const tabData = [
+    { label: "Pricing", value: "pricing" },
+    { label: "Features", value: "features" },
+  ];
+
+  return (
+    <section className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto bg-white">
+      <div className="">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Service Details
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about our services, pricing, and
+            features
+          </p>
+        </div>
+
+        <Tabs value={activeTab} className="w-full">
+          <TabsHeader
+            className="grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg mb-8"
+            indicatorProps={{
+              className: "bg-white rounded-md",
+            }}
+          >
+            {tabData.map(({ label, value }) => (
+              <Tab
+                key={value}
+                value={value}
+                onClick={() => setActiveTab(value)}
+                className={`font-medium transition-colors ${
+                  activeTab === value ? "text-gray-900" : "text-gray-600"
+                }`}
               >
-                <td className="py-2 px-4 border-b">{row.feature}</td>
-                <td className="py-2 px-4 border-b">{row.basic ? "✔️" : ""}</td>
-                <td className="py-2 px-4 border-b">{row.pro ? "✔️" : ""}</td>
-                <td className="py-2 px-4 border-b">
-                  {row.enterprise ? "✔️" : ""}
-                </td>
-              </tr>
+                {label}
+              </Tab>
             ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
+          </TabsHeader>
 
-    {/* Implementation Process */}
-    <section className="bg-gray-50">
-      <div
-        className="py-16 px-4 md:px-16 lg:px-24 xl:px-32"
-        data-aos="fade-up"
-        data-aos-duration="800"
-      >
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          How We Deliver
-        </h2>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-5xl mx-auto">
-          <div className="flex-1" data-aos="fade-right" data-aos-duration="700">
-            <ol className="list-decimal list-inside text-left text-gray-700 space-y-3">
-              <li>Consultation & Needs Assessment</li>
-              <li>Custom Solution Design</li>
-              <li>Implementation & Integration</li>
-              <li>Training & Onboarding</li>
-              <li>Ongoing Support & Optimization</li>
-            </ol>
-          </div>
-          <div
-            className="flex-end"
-            data-aos="fade-left"
-            data-aos-duration="700"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80"
-              alt="Implementation"
-              className="rounded-xl shadow mx-auto"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+          <TabsBody>
+            {/* Pricing Tab */}
+            <TabPanel value="pricing" className="p-0">
+              <div className="flex flex-wrap items-center justify-center gap-6 my-1">
+                {pricingPlans.map((plan, index) => (
+                  <div
+                    key={index}
+                    className={`w-80 text-center border border-gray-200 shadow p-6 ${
+                      plan.popular ? "pb-14" : "pb-16"
+                    } rounded-lg relative ${
+                      plan.popular
+                        ? "bg-blue-500 text-white border-gray-500/30"
+                        : "bg-white text-gray-800/80"
+                    }`}
+                  >
+                    {plan.popular && (
+                      <p className="absolute px-3 text-sm -top-3.5 left-3.5 py-1 bg-blue-400 rounded-full">
+                        Most Popular
+                      </p>
+                    )}
 
-    {/* Success Stories */}
-    <section className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-        Success Stories
-      </h2>
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-        <div
-          className="bg-white rounded-xl shadow p-7"
-          data-aos="fade-up"
-          data-aos-delay="0"
-          data-aos-duration="700"
-        >
-          <h3 className="font-semibold text-blue-600 mb-2">
-            TechCorp Solutions
-          </h3>
-          <p className="text-gray-700 text-sm mb-2">
-            “PayNode transformed our HR operations. Managing 150+ employees is
-            now effortless.”
-          </p>
-          <span className="text-xs text-gray-500">Sarah Chen, HR Manager</span>
-        </div>
-        <div
-          className="bg-white rounded-xl shadow p-7"
-          data-aos="fade-up"
-          data-aos-delay="100"
-          data-aos-duration="700"
-        >
-          <h3 className="font-semibold text-blue-600 mb-2">
-            BrightEdge Analytics
-          </h3>
-          <p className="text-gray-700 text-sm mb-2">
-            “With PayNode, our payroll and compliance processes are now fully
-            automated. The support team is outstanding.”
-          </p>
-          <span className="text-xs text-gray-500">
-            Priya Patel, Finance Lead
-          </span>
-        </div>
-        <div
-          className="bg-white rounded-xl shadow p-7"
-          data-aos="fade-up"
-          data-aos-delay="200"
-          data-aos-duration="700"
-        >
-          <h3 className="font-semibold text-blue-600 mb-2">
-            GrowthPartners Inc
-          </h3>
-          <p className="text-gray-700 text-sm mb-2">
-            “Payroll automation saved us 20+ hours per month. The analytics are
-            a game changer.”
-          </p>
-          <span className="text-xs text-gray-500">
-            Michael Rodriguez, Operations Lead
-          </span>
-        </div>
-      </div>
-    </section>
+                    <p
+                      className={`font-semibold ${plan.popular ? "pt-2" : ""}`}
+                    >
+                      {plan.name}
+                    </p>
 
-    {/* Pricing Plans */}
-    <section className="bg-gray-50 py-16 px-4 md:px-16 lg:px-24 xl:px-32">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-        Pricing Plans
-      </h2>
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-        {pricingPlans.map((plan, i) => (
-          <div
-            key={plan.name}
-            className="bg-white rounded-xl shadow p-7 flex flex-col items-center text-center hover:shadow-lg transition"
-            data-aos="zoom-in"
-            data-aos-delay={i * 120}
-            data-aos-duration="800"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">
-              {plan.name}
-            </h3>
-            <span className="text-2xl font-bold text-blue-600 mb-4">
-              {plan.price}
-            </span>
-            <ul className="text-gray-600 text-sm mb-4 space-y-1">
-              {plan.features.map((f) => (
-                <li key={f}>• {f}</li>
-              ))}
-            </ul>
-            <button className="bg-blue-500 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-600 transition cursor-pointer">
-              Choose Plan
-            </button>
-          </div>
-        ))}
-      </div>
-    </section>
+                    <h1 className="text-3xl font-semibold">
+                      ${plan.price}
+                      <span
+                        className={`text-sm font-normal ${
+                          plan.popular ? "text-white" : "text-gray-500"
+                        }`}
+                      >
+                        /{plan.period}
+                      </span>
+                    </h1>
 
-    {/* FAQ */}
-    <section className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-        Frequently Asked Questions
-      </h2>
-      <div className="space-y-6">
-        {faqs.map((faq, idx) => (
-          <div
-            key={idx}
-            className="bg-white rounded-xl shadow p-6"
-            data-aos="fade-up"
-            data-aos-delay={idx * 120}
-            data-aos-duration="800"
-          >
-            <h4 className="font-semibold text-gray-900 mb-2">{faq.q}</h4>
-            <p className="text-gray-600">{faq.a}</p>
-          </div>
-        ))}
+                    <ul
+                      className={`list-none text-sm mt-6 space-y-1 ${
+                        plan.popular ? "text-white" : "text-gray-500"
+                      }`}
+                    >
+                      {plan.features.map((feature, featureIndex) => (
+                        <li
+                          key={featureIndex}
+                          className="flex items-center gap-2"
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.162 13.5 2.887 9.225l1.07-1.069 3.205 3.207 6.882-6.882 1.069 1.07z"
+                              fill={plan.popular ? "currentColor" : "#6366F1"}
+                            />
+                          </svg>
+                          <p>{feature}</p>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link to="/contact-us">
+                      <button
+                        type="button"
+                        className={`text-sm w-full py-2 rounded font-medium mt-7 transition-all ${
+                          plan.popular
+                            ? "bg-white text-blue-500 hover:bg-gray-200"
+                            : "bg-blue-500 text-white hover:bg-blue-600"
+                        }`}
+                      >
+                        Get Started
+                      </button>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </TabPanel>
+
+            {/* Features Comparison Tab */}
+            <TabPanel value="features" className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-white rounded-lg shadow-sm">
+                  <thead>
+                    <tr className="bg-gray-50">
+                      <th className="text-left p-4 font-semibold text-gray-900">
+                        Feature
+                      </th>
+                      <th className="text-center p-4 font-semibold text-gray-900">
+                        Starter
+                      </th>
+                      <th className="text-center p-4 font-semibold text-gray-900">
+                        Professional
+                      </th>
+                      <th className="text-center p-4 font-semibold text-gray-900">
+                        Enterprise
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {featureComparison.map((row, index) => (
+                      <tr key={index} className="border-t border-gray-200">
+                        <td className="p-4 font-medium text-gray-900">
+                          {row.feature}
+                        </td>
+                        <td className="p-4 text-center">
+                          {row.starter ? (
+                            <span className="text-green-500 text-xl">✓</span>
+                          ) : (
+                            <span className="text-gray-300 text-xl">✗</span>
+                          )}
+                        </td>
+                        <td className="p-4 text-center">
+                          {row.professional ? (
+                            <span className="text-green-500 text-xl">✓</span>
+                          ) : (
+                            <span className="text-gray-300 text-xl">✗</span>
+                          )}
+                        </td>
+                        <td className="p-4 text-center">
+                          {row.enterprise ? (
+                            <span className="text-green-500 text-xl">✓</span>
+                          ) : (
+                            <span className="text-gray-300 text-xl">✗</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </TabPanel>
+          </TabsBody>
+        </Tabs>
       </div>
     </section>
-  </>
-);
+  );
+};
 
 export default ServiceDetails;

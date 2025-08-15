@@ -61,7 +61,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32">
         {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-2">
+        <NavLink to="/" className="flex items-center gap-2 ml-0 md:ml-2">
           <img src={logo} alt="logo" className="h-9" />
           <span
             className={`font-bold text-xl ${

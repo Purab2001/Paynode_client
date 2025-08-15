@@ -6,6 +6,8 @@ import HowItWorks from '../components/Home/HowItWorks'
 import Testimonial from '../components/Home/Testimonial'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Contact from '../components/Home/Contact'
+import FAQ from '../components/Home/FAQ'
 
 const Home = () => {
   useEffect(() => {
@@ -19,6 +21,8 @@ const Home = () => {
       <StatsHighlight />
       <HowItWorks />
       <Testimonial />
+      <FAQ />
+      <Contact />
     </div>
   );
 }
