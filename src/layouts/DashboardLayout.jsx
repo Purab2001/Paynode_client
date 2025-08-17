@@ -12,7 +12,7 @@ import {
   FiUser,
   FiFileText,
   FiDollarSign,
-  FiUsers
+  FiUsers,
 } from "react-icons/fi";
 import { Button } from "@material-tailwind/react";
 
@@ -108,7 +108,7 @@ const DashboardLayout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-dark-900 transition-colors duration-300">
       {/* React Hot Toast Container */}
       <Toaster
         position="top-right"
@@ -136,17 +136,19 @@ const DashboardLayout = ({ children }) => {
       />
 
       {/* Top Header */}
-      <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
+      <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-200 dark:border-dark-600 py-3 bg-white dark:bg-dark-800 transition-all duration-300">
         <Link to="/" className="flex items-center gap-2">
           <img className="h-9" src={logo} alt="PayNode Logo" />
-          <span className="text-xl font-bold text-gray-800">PayNode</span>
+          <span className="text-xl font-bold text-gray-800 dark:text-gray-200">
+            PayNode
+          </span>
         </Link>
-        <div className="flex items-center gap-4 text-gray-500">
+        <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full overflow-hidden">
               <ProfileImage user={user} size={32} />
             </div>
-            <p className="hidden md:block">
+            <p className="hidden md:block text-gray-800 dark:text-gray-200">
               Hi! {user?.displayName || user?.email}
             </p>
           </div>
@@ -154,7 +156,7 @@ const DashboardLayout = ({ children }) => {
             onClick={handleLogout}
             variant="outlined"
             size="sm"
-            className="rounded-full text-gray-500 border-gray-500"
+            className="rounded-full text-gray-500 dark:text-gray-400 border-gray-500 dark:border-gray-400 hover:bg-gray-100 dark:hover:bg-dark-700"
           >
             Logout
           </Button>
@@ -163,15 +165,15 @@ const DashboardLayout = ({ children }) => {
 
       <div className="flex">
         {/* Sidebar */}
-        <div className="md:w-64 w-16 border-r min-h-[calc(100vh-73px)] text-base border-gray-300 pt-4 flex flex-col transition-all duration-300 bg-white">
+        <div className="md:w-64 w-16 border-r min-h-[calc(100vh-73px)] text-base border-gray-200 dark:border-dark-600 pt-4 flex flex-col transition-all duration-300 bg-white dark:bg-dark-800">
           {sidebarLinks.map((item, index) => (
             <Link
               to={item.path}
               key={index}
               className={`flex items-center py-3 px-4 gap-3 transition-colors ${
                 location.pathname === item.path
-                  ? "border-r-4 md:border-r-[6px] bg-blue-500/10 border-blue-500 text-blue-500"
-                  : "hover:bg-gray-100/90 border-white text-gray-700"
+                  ? "border-r-4 md:border-r-[6px] bg-blue-500/10 dark:bg-blue-500/20 border-blue-500 text-blue-500"
+                  : "hover:bg-gray-100/90 dark:hover:bg-dark-700 border-white dark:border-dark-800 text-gray-700 dark:text-gray-300"
               }`}
             >
               {item.icon}
@@ -181,7 +183,7 @@ const DashboardLayout = ({ children }) => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-4 md:p-6 min-w-0 overflow-x-hidden">
+        <div className="flex-1 p-4 md:p-6 min-w-0 overflow-x-hidden bg-gray-50 dark:bg-dark-900">
           {children}
         </div>
       </div>

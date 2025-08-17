@@ -130,13 +130,13 @@ const ServiceDetails = () => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto bg-white">
-      <div className="">
+    <section className="bg-white dark:bg-dark-900">
+      <div className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Service Details
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Everything you need to know about our services, pricing, and
             features
           </p>
@@ -144,9 +144,9 @@ const ServiceDetails = () => {
 
         <Tabs value={activeTab} className="w-full">
           <TabsHeader
-            className="grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg mb-8"
+            className="grid w-full grid-cols-2 bg-gray-100 dark:bg-dark-800 p-1 rounded-lg mb-8"
             indicatorProps={{
-              className: "bg-white rounded-md",
+              className: "bg-white dark:bg-dark-700 rounded-md",
             }}
           >
             {tabData.map(({ label, value }) => (
@@ -155,7 +155,9 @@ const ServiceDetails = () => {
                 value={value}
                 onClick={() => setActiveTab(value)}
                 className={`font-medium transition-colors ${
-                  activeTab === value ? "text-gray-900" : "text-gray-600"
+                  activeTab === value
+                    ? "text-gray-900 dark:text-gray-100"
+                    : "text-gray-600 dark:text-gray-400"
                 }`}
               >
                 {label}
@@ -170,12 +172,12 @@ const ServiceDetails = () => {
                 {pricingPlans.map((plan, index) => (
                   <div
                     key={index}
-                    className={`w-80 text-center border border-gray-200 shadow p-6 ${
+                    className={`w-80 text-center border border-gray-200 dark:border-dark-700 shadow p-6 ${
                       plan.popular ? "pb-14" : "pb-16"
                     } rounded-lg relative ${
                       plan.popular
                         ? "bg-blue-500 text-white border-gray-500/30"
-                        : "bg-white text-gray-800/80"
+                        : "bg-white dark:bg-dark-800 text-gray-800/80 dark:text-gray-200"
                     }`}
                   >
                     {plan.popular && (
@@ -248,48 +250,57 @@ const ServiceDetails = () => {
             {/* Features Comparison Tab */}
             <TabPanel value="features" className="p-0">
               <div className="overflow-x-auto">
-                <table className="w-full border-collapse bg-white rounded-lg shadow-sm">
+                <table className="w-full border-collapse bg-white dark:bg-dark-800 rounded-lg shadow-sm">
                   <thead>
-                    <tr className="bg-gray-50">
-                      <th className="text-left p-4 font-semibold text-gray-900">
+                    <tr className="bg-gray-50 dark:bg-dark-700">
+                      <th className="text-left p-4 font-semibold text-gray-900 dark:text-gray-100">
                         Feature
                       </th>
-                      <th className="text-center p-4 font-semibold text-gray-900">
+                      <th className="text-center p-4 font-semibold text-gray-900 dark:text-gray-100">
                         Starter
                       </th>
-                      <th className="text-center p-4 font-semibold text-gray-900">
+                      <th className="text-center p-4 font-semibold text-gray-900 dark:text-gray-100">
                         Professional
                       </th>
-                      <th className="text-center p-4 font-semibold text-gray-900">
+                      <th className="text-center p-4 font-semibold text-gray-900 dark:text-gray-100">
                         Enterprise
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {featureComparison.map((row, index) => (
-                      <tr key={index} className="border-t border-gray-200">
-                        <td className="p-4 font-medium text-gray-900">
+                      <tr
+                        key={index}
+                        className="border-t border-gray-200 dark:border-dark-700"
+                      >
+                        <td className="p-4 font-medium text-gray-900 dark:text-gray-100">
                           {row.feature}
                         </td>
                         <td className="p-4 text-center">
                           {row.starter ? (
                             <span className="text-green-500 text-xl">✓</span>
                           ) : (
-                            <span className="text-gray-300 text-xl">✗</span>
+                            <span className="text-gray-300 dark:text-gray-600 text-xl">
+                              ✗
+                            </span>
                           )}
                         </td>
                         <td className="p-4 text-center">
                           {row.professional ? (
                             <span className="text-green-500 text-xl">✓</span>
                           ) : (
-                            <span className="text-gray-300 text-xl">✗</span>
+                            <span className="text-gray-300 dark:text-gray-600 text-xl">
+                              ✗
+                            </span>
                           )}
                         </td>
                         <td className="p-4 text-center">
                           {row.enterprise ? (
                             <span className="text-green-500 text-xl">✓</span>
                           ) : (
-                            <span className="text-gray-300 text-xl">✗</span>
+                            <span className="text-gray-300 dark:text-gray-600 text-xl">
+                              ✗
+                            </span>
                           )}
                         </td>
                       </tr>

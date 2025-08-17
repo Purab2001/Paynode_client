@@ -8,7 +8,6 @@ const Banner = () => {
 
   return (
     <div>
-      <section className="">
         <main className="flex flex-col md:flex-row items-center max-md:text-center justify-between py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto min-h-full lg:min-h-[calc(100vh-88px)]">
           <div className="flex flex-col items-center md:items-start">
             <button
@@ -22,7 +21,7 @@ const Banner = () => {
               </span>
             </button>
             <h1
-              className="text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight"
+              className="text-gray-900 dark:text-white font-bold text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -30,7 +29,7 @@ const Banner = () => {
               <span className="text-blue-500"> Solution</span>
             </h1>
             <p
-              className="mt-4 text-gray-600 max-w-md text-sm sm:text-lg leading-relaxed"
+              className="mt-4 text-gray-600 dark:text-gray-300 max-w-md text-sm sm:text-lg leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -56,7 +55,7 @@ const Banner = () => {
               {user ? (
                 <Link to="/dashboard">
                   <Button
-                    className="rounded-full normal-case text-sm shadow-none"
+                    className="rounded-full dark:bg-white dark:text-black normal-case text-sm shadow-none"
                     type="button"
                     ripple={true}
                   >
@@ -118,7 +117,6 @@ const Banner = () => {
             />
           </div>
         </main>
-      </section>
     </div>
   );
 };

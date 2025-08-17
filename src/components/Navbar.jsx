@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import ProfileImage from "../ui/ProfileImage";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../contexts/ThemeProvider";
 import logo from "../assets/logo.png";
 import { Link, NavLink, useLocation } from "react-router";
 import { useAuth } from "../hooks/useAuth";
@@ -8,6 +10,7 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
@@ -53,9 +56,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 bg-blue-500 w-full transition-all duration-500 z-50 ${
+      className={`fixed top-0 left-0 bg-blue-500 dark:bg-blue-600 w-full transition-all duration-500 z-50 ${
         isScrolled
-          ? "bg-white/80 shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4"
+          ? "bg-white/80 dark:bg-dark-900/80 shadow-md text-gray-700 dark:text-gray-200 backdrop-blur-lg py-3 md:py-4"
           : "py-4 md:py-6"
       }`}
     >
@@ -65,7 +68,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" className="h-9" />
           <span
             className={`font-bold text-xl ${
-              isScrolled ? "text-gray-700" : "text-white"
+              isScrolled ? "text-gray-700 dark:text-gray-200" : "text-white"
             }`}
           >
             PayNode
@@ -80,14 +83,14 @@ const Navbar = () => {
               to={link.path}
               className={({ isActive }) =>
                 `group flex flex-col gap-0.5 ${
-                  isScrolled ? "text-gray-700" : "text-white"
+                  isScrolled ? "text-gray-700 dark:text-gray-200" : "text-white"
                 } ${isActive ? "font-bold active" : ""}`
               }
             >
               {link.name}
               <div
                 className={`${
-                  isScrolled ? "bg-gray-700" : "bg-white"
+                  isScrolled ? "bg-gray-700 dark:bg-gray-200" : "bg-white"
                 } h-0.5 w-0 group-hover:w-full transition-all duration-300`}
               />
             </NavLink>
@@ -97,7 +100,7 @@ const Navbar = () => {
               <button
                 className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
                   isScrolled
-                    ? "text-black border-gray-700 hover:bg-gray-100"
+                    ? "text-black dark:text-white border-gray-700 dark:border-gray-300 hover:bg-gray-100 dark:hover:bg-dark-800"
                     : "text-white border-white hover:bg-white/10"
                 } transition-all`}
               >
@@ -108,7 +111,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Right */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-2">
           {user ? (
             <div className="relative profile-dropdown">
               <button
@@ -118,11 +121,14 @@ const Navbar = () => {
                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20">
                   <ProfileImage user={user} size={40} />
                 </div>
-                {/* Name beside profile icon intentionally removed for requirements compliance */}
                 <svg
                   className={`w-4 h-4 transition-transform duration-200 ${
                     isProfileDropdownOpen ? "rotate-180" : ""
-                  } ${isScrolled ? "text-gray-700" : "text-white"}`}
+                  } ${
+                    isScrolled
+                      ? "text-gray-700 dark:text-gray-200"
+                      : "text-white"
+                  }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -138,19 +144,20 @@ const Navbar = () => {
 
               {/* Dropdown Menu */}
               {isProfileDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                  <div className="px-4 py-3 border-b border-gray-200">
-                    <p className="text-sm font-medium text-gray-900">
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 py-2 z-50">
+                  <div className="px-4 py-3 border-b border-gray-200 dark:border-dark-700">
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {user.displayName || "User"}
                     </p>
-                    <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                      {user.email}
+                    </p>
                   </div>
 
                   <div className="py-1">
-
                     <Link
                       to="/profile"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
                       onClick={() => setIsProfileDropdownOpen(false)}
                     >
                       <svg
@@ -168,12 +175,46 @@ const Navbar = () => {
                       </svg>
                       Profile
                     </Link>
+
+                    <button
+                      onClick={toggleTheme}
+                      className="flex items-center justify-between w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
+                    >
+                      <div className="flex items-center">
+                        <svg
+                          className="w-4 h-4 mr-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          {theme === "light" ? (
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                            />
+                          ) : (
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                            />
+                          )}
+                        </svg>
+                        Theme
+                      </div>
+                      <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                        {theme}
+                      </span>
+                    </button>
                   </div>
 
-                  <div className="border-t border-gray-200 pt-1">
+                  <div className="border-t border-gray-200 dark:border-dark-700 pt-1">
                     <button
                       onClick={handleLogOut}
-                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                     >
                       <svg
                         className="w-4 h-4 mr-3"
@@ -196,7 +237,7 @@ const Navbar = () => {
             </div>
           ) : (
             <Link to="/login">
-              <button className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500 cursor-pointer hover:bg-gray-800">
+              <button className="bg-black dark:bg-white text-white dark:text-black px-8 py-2.5 rounded-full transition-all duration-500 cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-200">
                 Login
               </button>
             </Link>
@@ -205,9 +246,12 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-3 md:hidden">
+          <ThemeToggle />
           <svg
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`h-6 w-6 cursor-pointer ${isScrolled ? "invert" : ""}`}
+            className={`h-6 w-6 cursor-pointer ${
+              isScrolled ? "text-gray-700 dark:text-gray-200" : "text-white"
+            }`}
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -221,7 +265,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 z-50 ${
+          className={`fixed top-0 left-0 w-full h-screen bg-white dark:bg-dark-900 text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 dark:text-gray-200 transition-all duration-500 z-50 ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -243,16 +287,17 @@ const Navbar = () => {
 
           {/* User Profile Section for Mobile */}
           {user && (
-            <div className="flex flex-col items-center gap-3 mb-4 pb-4 border-b border-gray-200 w-full max-w-xs">
+            <div className="flex flex-col items-center gap-3 mb-4 pb-4 border-b border-gray-200 dark:border-dark-700 w-full max-w-xs">
               <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-blue-500">
                 <ProfileImage user={user} size={64} />
               </div>
-              {/* Name/email block intentionally left for mobile dropdown, as per requirements only desktop navbar should hide name */}
               <div className="text-center">
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {user.displayName || "User"}
                 </p>
-                <p className="text-sm text-gray-500">{user.email}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {user.email}
+                </p>
               </div>
             </div>
           )}
@@ -263,7 +308,9 @@ const Navbar = () => {
               to={link.path}
               onClick={() => setIsMenuOpen(false)}
               className={`${
-                location.pathname === link.path ? "font-bold underline underline-offset-4 active text-blue-600" : ""
+                location.pathname === link.path
+                  ? "font-bold underline underline-offset-4 active text-blue-600"
+                  : ""
               }`}
             >
               {link.name}
@@ -273,7 +320,7 @@ const Navbar = () => {
           {user ? (
             <>
               <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                <button className="border border-blue-500 text-blue-500 px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all hover:bg-blue-50 w-full">
+                <button className="border border-blue-500 text-blue-500 px-6 py-2 text-sm font-medium rounded-full cursor-pointer transition-all hover:bg-blue-50 dark:hover:bg-blue-900/20 w-full">
                   Dashboard
                 </button>
               </Link>
@@ -289,7 +336,7 @@ const Navbar = () => {
             </>
           ) : (
             <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-              <button className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500 cursor-pointer">
+              <button className="bg-black dark:bg-white text-white dark:text-black px-8 py-2.5 rounded-full transition-all duration-500 cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-200">
                 Login
               </button>
             </Link>

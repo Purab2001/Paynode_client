@@ -29,18 +29,27 @@ const EditModal = ({
   loading,
 }) => {
   return (
-    <Dialog size="sm" open={show} handler={onClose} className="p-4">
+    <Dialog
+      size="sm"
+      open={show}
+      handler={onClose}
+      className="p-4 bg-white dark:bg-dark-800 text-gray-900 dark:text-gray-100"
+    >
       <DialogHeader className="relative m-0 block">
-        <Typography variant="h4" color="blue-gray">
+        <Typography
+          variant="h4"
+          color="blue-gray"
+          className="dark:text-gray-100"
+        >
           Edit Work Entry
         </Typography>
-        <Typography className="mt-1 font-normal text-gray-600">
+        <Typography className="mt-1 font-normal text-gray-600 dark:text-gray-400">
           Update your worksheet entry details.
         </Typography>
         <IconButton
           size="sm"
           variant="text"
-          className="!absolute right-3.5 top-3.5"
+          className="!absolute right-3.5 top-3.5 text-gray-600 dark:text-gray-200"
           onClick={onClose}
         >
           <IoClose className="h-5 w-5" />
@@ -52,12 +61,12 @@ const EditModal = ({
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 text-left font-medium"
+              className="mb-2 text-left font-medium dark:text-gray-100"
             >
               Task
             </Typography>
             <Select
-              className="!w-full !border-[1.5px] !border-blue-gray-200/90 bg-white text-gray-800 placeholder:text-gray-600 focus:!border-primary"
+              className="!w-full !border-[1.5px] !border-blue-gray-200/90 bg-white dark:bg-dark-700 text-gray-800 dark:text-gray-200 placeholder:text-gray-600 dark:placeholder:text-gray-400 focus:!border-primary dark:focus:!border-blue-400"
               labelProps={{
                 className: "hidden",
               }}
@@ -67,13 +76,19 @@ const EditModal = ({
               }
             >
               {taskOptions.map((option) => (
-                <Option key={option} value={option}>
+                <Option
+                  key={option}
+                  value={option}
+                >
                   {option}
                 </Option>
               ))}
             </Select>
             {errors.task && (
-              <Typography color="red" className="text-xs mt-1 block">
+              <Typography
+                color="red"
+                className="text-xs mt-1 block dark:text-red-300"
+              >
                 Task is required
               </Typography>
             )}
@@ -82,7 +97,7 @@ const EditModal = ({
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 text-left font-medium"
+              className="mb-2 text-left font-medium dark:text-gray-100"
             >
               Hours Worked
             </Typography>
@@ -94,7 +109,7 @@ const EditModal = ({
               step={0.1}
               placeholder="0.0"
               {...register("hoursWorked", { required: true, min: 0.1 })}
-              className="!w-full !border-[1.5px] !border-blue-gray-200/90 bg-white text-gray-800 placeholder:text-gray-600 focus:!border-primary"
+              className="!w-full !border-[1.5px] !border-blue-gray-200/90 bg-white dark:bg-dark-700 text-gray-800 dark:text-gray-200 placeholder:text-gray-600 dark:placeholder:text-gray-400 focus:!border-primary dark:focus:!border-blue-400"
               containerProps={{
                 className: "!min-w-full",
               }}
@@ -103,7 +118,10 @@ const EditModal = ({
               }}
             />
             {errors.hoursWorked && (
-              <Typography color="red" className="text-xs mt-1 block">
+              <Typography
+                color="red"
+                className="text-xs mt-1 block dark:text-red-300"
+              >
                 Enter valid hours
               </Typography>
             )}
@@ -112,7 +130,7 @@ const EditModal = ({
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-2 text-left font-medium"
+              className="mb-2 text-left font-medium dark:text-gray-100"
             >
               Date
             </Typography>
@@ -121,7 +139,7 @@ const EditModal = ({
               onChange={(d) => setDate(d)}
               maxDate={new Date()}
               dateFormat="yyyy-MM-dd"
-              className="!w-full !border-[1.5px] !border-blue-gray-200/90 bg-white text-gray-800 placeholder:text-gray-600 focus:!border-primary rounded-md py-2 px-3"
+              className="!w-full !border-[1.5px] !border-blue-gray-200/90 bg-white dark:bg-dark-700 text-gray-800 dark:text-gray-200 placeholder:text-gray-600 dark:placeholder:text-gray-400 focus:!border-primary rounded-md py-2 px-3"
               placeholderText="Select date"
               showMonthDropdown
               showYearDropdown
@@ -133,7 +151,7 @@ const EditModal = ({
           <Button
             color="gray"
             variant="text"
-            className="mr-2"
+            className="mr-2 dark:text-white"
             onClick={onClose}
             type="button"
           >

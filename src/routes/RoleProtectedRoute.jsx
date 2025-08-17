@@ -11,7 +11,7 @@ const RoleProtectedRoute = ({ children, allowedRoles }) => {
 
   if (authLoading || roleLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-700">
         <Loader size={120} />
       </div>
     );

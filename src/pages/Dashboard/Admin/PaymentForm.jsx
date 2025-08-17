@@ -54,7 +54,10 @@ const PaymentForm = ({ payrollData, clientSecret, onPaymentSuccess }) => {
         if (res.status === 200) {
           toast.success("Payment successful and payroll updated!");
           // Invalidate employee payment history for bar chart update
-          queryClient.invalidateQueries(["payments", payrollData.employeeEmail]);
+          queryClient.invalidateQueries([
+            "payments",
+            payrollData.employeeEmail,
+          ]);
           if (onPaymentSuccess) onPaymentSuccess(result.paymentIntent);
         } else {
           toast.error("Payment succeeded but failed to update payroll status.");
@@ -70,8 +73,8 @@ const PaymentForm = ({ payrollData, clientSecret, onPaymentSuccess }) => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-600 to-blue-400 rounded-t-xl py-8">
+    <div className="bg-white dark:bg-dark-800 rounded-xl overflow-hidden">
+      <div className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-700 dark:to-blue-500 py-8">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -87,41 +90,71 @@ const PaymentForm = ({ payrollData, clientSecret, onPaymentSuccess }) => {
           ></path>
         </svg>
         <h5 className="text-white text-2xl font-bold tracking-wide">PayNode</h5>
-        <span className="text-blue-100 text-sm mt-1">Payroll Payment</span>
+        <span className="text-blue-100 dark:text-blue-200 text-sm mt-1">
+          Payroll Payment
+        </span>
       </div>
-      <div className="p-8">
+      <div className="p-8 bg-white dark:bg-dark-800">
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block mb-2 text-sm font-semibold text-gray-700">
+            <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Email
             </label>
             <input
               type="email"
-              className="w-full bg-gray-50 placeholder:text-gray-400 text-gray-700 text-sm border border-gray-300 rounded-md px-3 py-2 transition duration-300 focus:outline-none focus:border-blue-500 shadow-sm"
+              className="w-full bg-gray-50 dark:bg-dark-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-700 dark:text-gray-200 text-sm border border-gray-300 dark:border-dark-600 rounded-md px-3 py-2 transition duration-300 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 shadow-sm"
               placeholder="Your Email"
               value={payrollData?.employeeEmail || ""}
               readOnly
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-semibold text-gray-700">
+            <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Card Details
             </label>
-            <div className="w-full bg-gray-50 border border-gray-300 rounded-md px-3 py-2">
-              <CardElement options={{ hidePostalCode: true }} />
+            <div className="w-full bg-gray-50 dark:bg-dark-700 border border-gray-300 dark:border-dark-600 rounded-md px-3 py-2">
+              <CardElement
+                options={{
+                  hidePostalCode: true,
+                  style: {
+                    base: {
+                      fontSize: "14px",
+                      color: document.documentElement.classList.contains("dark")
+                        ? "#f5f6f7"
+                        : "#374151",
+                      backgroundColor:
+                        document.documentElement.classList.contains("dark")
+                          ? "#45494d"
+                          : "#f9fafb",
+                      "::placeholder": {
+                        color: document.documentElement.classList.contains(
+                          "dark"
+                        )
+                          ? "#9ea9b4"
+                          : "#9ca3af",
+                      },
+                    },
+                    invalid: {
+                      color: "#ef4444",
+                    },
+                  },
+                }}
+              />
             </div>
           </div>
           <button
-            className="w-full mt-2 rounded-md bg-blue-600 py-2 px-4 border border-transparent text-center text-sm font-semibold text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-700 hover:bg-blue-700 active:bg-blue-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="w-full mt-2 rounded-md bg-blue-600 dark:bg-blue-700 py-2 px-4 border border-transparent text-center text-sm font-semibold text-white transition-all shadow-md hover:shadow-lg focus:bg-blue-700 dark:focus:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-600 active:bg-blue-700 dark:active:bg-blue-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="submit"
             disabled={!stripe || processing}
           >
             {processing ? "Processing..." : "Pay Now"}
           </button>
           {error && (
-            <p className="text-red-500 text-xs mt-2">{error}</p>
+            <p className="text-red-500 dark:text-red-400 text-xs mt-2">
+              {error}
+            </p>
           )}
-          <p className="mt-2 flex items-center justify-center gap-2 text-xs text-gray-500 font-light">
+          <p className="mt-2 flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-light">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

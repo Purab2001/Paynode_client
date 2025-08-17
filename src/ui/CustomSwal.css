@@ -1,181 +1,203 @@
-/* Custom SweetAlert2 Styles with Blue Theme (#3B82F6) */
+/* Custom SweetAlert2 Styles with Dark Mode Support */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 
-/* Popup container */
+/* Light Theme (Default) */
 .custom-popup {
+  background-color: #ffffff !important;
   border-radius: 12px !important;
-  box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25) !important;
-  border: 1px solid rgba(59, 130, 246, 0.1) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #e5e7eb !important;
 }
 
-/* Title styling */
 .custom-title {
-  color: #1e40af !important;
+  color: #1f2937 !important;
   font-weight: 600 !important;
-  font-size: 1.5rem !important;
+  font-size: 1.25rem !important;
 }
 
-/* Content text styling */
 .custom-content {
-  color: #374151 !important;
-  font-size: 1rem !important;
+  color: #6b7280 !important;
+  font-size: 0.875rem !important;
 }
 
-/* Confirm button styling */
 .custom-confirm-btn {
   background-color: #3b82f6 !important;
   color: white !important;
   border: none !important;
   border-radius: 8px !important;
-  padding: 12px 24px !important;
+  padding: 10px 20px !important;
   font-weight: 500 !important;
-  font-size: 0.9rem !important;
+  font-size: 0.875rem !important;
   transition: all 0.2s ease !important;
-  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3) !important;
   cursor: pointer !important;
 }
 
 .custom-confirm-btn:hover {
   background-color: #2563eb !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 10px -1px rgba(59, 130, 246, 0.4) !important;
 }
 
-.custom-confirm-btn:active {
-  transform: translateY(0) !important;
-  box-shadow: 0 2px 4px -1px rgba(59, 130, 246, 0.3) !important;
-}
-
-.custom-confirm-btn:focus {
-  outline: none !important;
-  ring: 2px solid rgba(59, 130, 246, 0.5) !important;
-}
-
-/* Cancel button styling */
 .custom-cancel-btn {
   background-color: #f3f4f6 !important;
   color: #374151 !important;
   border: 1px solid #d1d5db !important;
   border-radius: 8px !important;
-  padding: 12px 24px !important;
+  padding: 10px 20px !important;
   font-weight: 500 !important;
-  font-size: 0.9rem !important;
+  font-size: 0.875rem !important;
   transition: all 0.2s ease !important;
-  margin-right: 8px !important;
   cursor: pointer !important;
+  margin-right: 10px !important;
 }
 
 .custom-cancel-btn:hover {
   background-color: #e5e7eb !important;
-  border-color: #9ca3af !important;
   transform: translateY(-1px) !important;
 }
 
-.custom-cancel-btn:active {
-  transform: translateY(0) !important;
+.custom-icon {
+  border: none !important;
 }
 
-.custom-cancel-btn:focus {
-  outline: none !important;
-  ring: 2px solid rgba(156, 163, 175, 0.5) !important;
+/* Dark Theme */
+.dark .custom-popup {
+  background-color: #393e46 !important;
+  border: 1px solid #5f6670 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Icon customizations */
-.swal2-icon.swal2-success {
-  border-color: #3b82f6 !important;
-  color: #3b82f6 !important;
+.dark .custom-title {
+  color: #f5f6f7 !important;
 }
 
-.swal2-icon.swal2-success .swal2-success-ring {
-  border-color: rgba(59, 130, 246, 0.3) !important;
+.dark .custom-content {
+  color: #d6d9dd !important;
 }
 
-.swal2-icon.swal2-success .swal2-success-fix {
-  background-color: white !important;
-}
-
-.swal2-icon.swal2-success [class^="swal2-success-line"] {
+.dark .custom-confirm-btn {
   background-color: #3b82f6 !important;
+  color: white !important;
 }
 
-.swal2-icon.swal2-info {
-  border-color: #3b82f6 !important;
-  color: #3b82f6 !important;
+.dark .custom-confirm-btn:hover {
+  background-color: #2563eb !important;
 }
 
-.swal2-icon.swal2-question {
-  border-color: #3b82f6 !important;
-  color: #3b82f6 !important;
+.dark .custom-cancel-btn {
+  background-color: #222831 !important;
+  color: #d6d9dd !important;
+  border: 1px solid #5f6670 !important;
 }
 
-.swal2-icon.swal2-warning {
-  border-color: #f59e0b !important;
-  color: #f59e0b !important;
+.dark .custom-cancel-btn:hover {
+  background-color: #45494d !important;
 }
 
-.swal2-icon.swal2-error {
-  border-color: #ef4444 !important;
+/* Success Icon Dark Mode */
+.dark .swal2-success-circular-line-left,
+.dark .swal2-success-circular-line-right,
+.dark .swal2-success-fix {
+  background-color: #393e46 !important;
+}
+
+/* Error Icon Dark Mode */
+.dark .swal2-x-mark {
   color: #ef4444 !important;
 }
 
-/* Timer progress bar */
-.swal2-timer-progress-bar {
+/* Warning Icon Dark Mode */
+.dark .swal2-warning {
+  color: #f59e0b !important;
+  border-color: #f59e0b !important;
+}
+
+/* Info Icon Dark Mode */
+.dark .swal2-info {
+  color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+/* Question Icon Dark Mode */
+.dark .swal2-question {
+  color: #8b5cf6 !important;
+  border-color: #8b5cf6 !important;
+}
+
+/* Toast Dark Mode */
+.dark .swal2-toast {
+  background-color: #393e46 !important;
+  color: #f5f6f7 !important;
+  border: 1px solid #5f6670 !important;
+}
+
+/* Progress Bar Dark Mode */
+.dark .swal2-timer-progress-bar {
   background-color: #3b82f6 !important;
 }
 
-/* Toast styling */
-.swal2-toast .swal2-title {
-  color: #374151 !important;
-  font-weight: 500 !important;
+/* Loading Spinner Dark Mode */
+.dark .swal2-loader {
+  border-color: #3b82f6 transparent #3b82f6 transparent !important;
 }
 
-.swal2-toast {
-  border-radius: 8px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+/* Input Fields Dark Mode */
+.dark .swal2-input,
+.dark .swal2-textarea {
+  background-color: #222831 !important;
+  color: #f5f6f7 !important;
+  border: 1px solid #5f6670 !important;
 }
 
-/* Loading spinner */
-.swal2-loader {
-  border-color: rgba(59, 130, 246, 0.2) rgba(59, 130, 246, 0.2)
-    rgba(59, 130, 246, 0.2) #3b82f6 !important;
+.dark .swal2-input::placeholder,
+.dark .swal2-textarea::placeholder {
+  color: #9ea9b4 !important;
 }
 
-/* Backdrop */
-.swal2-backdrop-show {
-  background-color: rgba(0, 0, 0, 0.4) !important;
+.dark .swal2-input:focus,
+.dark .swal2-textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 }
 
-/* Animation classes */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+/* Select Dark Mode */
+.dark .swal2-select {
+  background-color: #222831 !important;
+  color: #f5f6f7 !important;
+  border: 1px solid #5f6670 !important;
 }
 
-@keyframes fadeOutUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
+/* Checkbox and Radio Dark Mode */
+.dark .swal2-checkbox input,
+.dark .swal2-radio input {
+  background-color: #222831 !important;
+  border: 1px solid #5f6670 !important;
 }
 
-.animate__animated {
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
+/* Validation Message Dark Mode */
+.dark .swal2-validation-message {
+  background-color: #222831 !important;
+  color: #ef4444 !important;
+  border: 1px solid #ef4444 !important;
 }
 
-.animate__fadeInDown {
-  animation-name: fadeInDown;
+/* Backdrop Dark Mode */
+.dark .swal2-backdrop-show {
+  background-color: rgba(34, 40, 49, 0.8) !important;
 }
 
-.animate__fadeOutUp {
-  animation-name: fadeOutUp;
+/* Animation optimizations */
+.custom-popup {
+  animation-duration: 0.3s !important;
+}
+
+/* Focus states for accessibility */
+.custom-confirm-btn:focus,
+.custom-cancel-btn:focus {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+.dark .custom-confirm-btn:focus,
+.dark .custom-cancel-btn:focus {
+  outline-color: #60a5fa !important;
 }

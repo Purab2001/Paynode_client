@@ -29,7 +29,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#F5F7FF] to-[#E6EFFF] py-16">
+    <div className="bg-gradient-to-b from-[#F5F7FF] to-[#E6EFFF] dark:bg-none dark:bg-dark-900 py-16">
       <div className="px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto pt-10 md:pt-0">
         {/* Header Section */}
         <div
@@ -40,10 +40,10 @@ const ContactUs = () => {
           <p className="text-lg text-blue-600 font-medium mb-2">
             Contact PayNode
           </p>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Get in Touch with Our Team
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Have questions about employee management solutions? Need help with
             implementation? Our team is here to assist you in transforming your
             HR operations.
@@ -53,12 +53,12 @@ const ContactUs = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
           {/* Contact Information */}
           <div
-            className="bg-white rounded-xl shadow p-8"
+            className="bg-white dark:bg-dark-800 rounded-xl shadow p-8"
             data-aos="fade-right"
             data-aos-delay="100"
             data-aos-duration="800"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               Contact Information
             </h2>
 
@@ -66,10 +66,10 @@ const ContactUs = () => {
               <div className="flex items-start gap-4">
                 <FiMapPin className="text-blue-500 w-6 h-6 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                     Office Address
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-300">
                     PayNode Solutions Ltd.
                     <br />
                     123 Business District, Suite 456
@@ -84,32 +84,48 @@ const ContactUs = () => {
               <div className="flex items-start gap-4">
                 <FiPhone className="text-blue-500 w-6 h-6 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                  <p className="text-gray-600">+1 (555) 987-6543</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    Phone
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    +1 (555) 123-4567
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    +1 (555) 987-6543
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
                 <FiMail className="text-blue-500 w-6 h-6 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                  <p className="text-gray-600">support@paynode.com</p>
-                  <p className="text-gray-600">sales@paynode.com</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    Email
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    support@paynode.com
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    sales@paynode.com
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
                 <FiClock className="text-blue-500 w-6 h-6 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                     Business Hours
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-300">
                     Monday - Friday: 9:00 AM - 6:00 PM
                   </p>
-                  <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
-                  <p className="text-gray-600">Sunday: Closed</p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Saturday: 10:00 AM - 4:00 PM
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Sunday: Closed
+                  </p>
                 </div>
               </div>
             </div>
@@ -117,12 +133,12 @@ const ContactUs = () => {
 
           {/* Contact Form */}
           <div
-            className="bg-white rounded-xl shadow p-8"
+            className="bg-white dark:bg-dark-800 rounded-xl shadow p-8"
             data-aos="fade-left"
             data-aos-delay="200"
             data-aos-duration="800"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               Send us a Message
             </h2>
 
@@ -131,7 +147,7 @@ const ContactUs = () => {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   >
                     Your Name *
                   </label>
@@ -145,7 +161,7 @@ const ContactUs = () => {
                         message: "Name must be at least 2 characters",
                       },
                     })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition dark:bg-dark-900 ${
                       errors.name ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your full name"
@@ -160,7 +176,7 @@ const ContactUs = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   >
                     Your Email *
                   </label>
@@ -174,7 +190,7 @@ const ContactUs = () => {
                         message: "Please enter a valid email address",
                       },
                     })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition dark:bg-dark-900 ${
                       errors.email ? "border-red-500" : "border-gray-300"
                     }`}
                     placeholder="Enter your email address"
@@ -190,7 +206,7 @@ const ContactUs = () => {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Message *
                 </label>
@@ -204,7 +220,7 @@ const ContactUs = () => {
                     },
                   })}
                   rows="6"
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none transition ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none transition dark:bg-dark-900 ${
                     errors.message ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Tell us about your employee management needs, questions, or feedback..."
@@ -231,14 +247,14 @@ const ContactUs = () => {
 
         {/* Additional Information */}
         <div
-          className="mt-4 md:mt-8 bg-white rounded-xl shadow p-8 text-center"
+          className="mt-4 md:mt-8 bg-white dark:bg-dark-800 rounded-xl shadow p-8 text-center"
           data-aos="zoom-in"
           data-aos-duration="800"
         >
-          <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
             Need Immediate Assistance?
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             For urgent support or sales inquiries, don't hesitate to reach out
             directly. Our team is committed to helping you succeed with PayNode.
           </p>
@@ -257,7 +273,7 @@ const ContactUs = () => {
                 color="blue"
                 size="lg"
                 variant="outlined"
-                className="normal-case shadow-none rounded-full"
+                className="normal-case shadow-none rounded-full dark:bg-white"
               >
                 Email Support
               </Button>

@@ -49,26 +49,32 @@ const Progress = () => {
   if (roleLoading)
     return (
       <DashboardLayout>
-        <div>Loading...</div>
+        <div className="text-gray-900 dark:text-white">Loading...</div>
       </DashboardLayout>
     );
   if (role !== "HR")
     return (
       <DashboardLayout>
-        <div>Access denied</div>
+        <div className="text-gray-900 dark:text-white">Access denied</div>
       </DashboardLayout>
     );
 
   return (
     <DashboardLayout>
       <div className="max-w-6xl mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-6">Progress</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          Progress
+        </h1>
         <div className="flex gap-4 mb-6 flex-col sm:flex-row">
           <div className="flex-1">
             <Select
               label="Employee"
               value={selectedEmployee || ""}
               onChange={(val) => setSelectedEmployee(val || "")}
+              className="bg-white dark:bg-dark-700 text-gray-900 dark:text-gray-200"
+              labelProps={{
+                className: "text-gray-700 dark:text-gray-300",
+              }}
             >
               <Option value="">All Employees</Option>
               {employees.map((emp) => (
@@ -83,6 +89,10 @@ const Progress = () => {
               label="Month"
               value={selectedMonth || ""}
               onChange={(val) => setSelectedMonth(val || "")}
+              className="bg-white dark:bg-dark-700 text-gray-900 dark:text-gray-200"
+              labelProps={{
+                className: "text-gray-700 dark:text-gray-300",
+              }}
             >
               <Option value="">All Months</Option>
               {months.map((month) => (

@@ -1,4 +1,3 @@
-// ProgressTable.jsx - Responsive table for Progress page
 import React from "react";
 import {
   useReactTable,
@@ -43,7 +42,7 @@ const ProgressTable = ({ data, isLoading }) => {
 
   if (!data.length) {
     return (
-      <div className="text-center py-6 text-gray-500">
+      <div className="text-center py-6 text-gray-500 dark:text-gray-300">
         No progress records found.
       </div>
     );
@@ -56,11 +55,14 @@ const ProgressTable = ({ data, isLoading }) => {
         <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className="bg-gray-50 border-b">
+              <tr
+                key={headerGroup.id}
+                className="bg-gray-50 dark:bg-dark-800 border-b dark:border-dark-600"
+              >
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="py-3 px-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider"
+                    className="py-3 px-4 text-left text-sm font-medium text-gray-900 dark:text-white uppercase tracking-wider"
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -71,11 +73,17 @@ const ProgressTable = ({ data, isLoading }) => {
               </tr>
             ))}
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-dark-800 divide-y divide-gray-200 dark:divide-dark-600">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50">
+              <tr
+                key={row.id}
+                className="hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="py-3 px-4 text-sm">
+                  <td
+                    key={cell.id}
+                    className="py-3 px-4 text-sm text-gray-900 dark:text-gray-200"
+                  >
                     {flexRender(
                       cell.column.columnDef.cell ??
                         cell.column.columnDef.accessorKey,
@@ -94,30 +102,29 @@ const ProgressTable = ({ data, isLoading }) => {
         {data.map((entry, i) => (
           <div
             key={i}
-            className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+            className="bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-600 rounded-lg p-4 shadow-sm"
           >
             <div className="flex justify-between items-start mb-3">
               <div>
-                <h3 className="font-medium text-gray-900 text-lg">
+                <h3 className="font-medium text-gray-900 dark:text-white text-lg">
                   {entry.task}
                 </h3>
                 <p
-                  className="text-sm text-gray-500 mt-1 break-all"
+                  className="text-sm text-gray-500 dark:text-gray-300 mt-1 break-all"
                   title={entry.employeeEmail}
                 >
                   {entry.employeeEmail}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
                   Date: {entry.date ? entry.date.slice(0, 10) : ""}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
                   Hours: {entry.hoursWorked}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
                   Status: {entry.status || "Completed"}
                 </p>
               </div>
-              {/* ...existing code... (removed View button) */}
             </div>
           </div>
         ))}

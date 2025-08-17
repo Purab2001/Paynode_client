@@ -101,10 +101,12 @@ const GoogleSignIn = ({ text = "Google" }) => {
     <button
       type="button"
       onClick={handleGoogleSignIn}
-      className="w-full bg-gray-500/10 flex items-center justify-center h-11 rounded-full cursor-pointer transition-colors duration-200 hover:bg-gray-200"
+      className="group w-full bg-gray-500/10 flex items-center justify-center h-11 rounded-full cursor-pointer transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-dark-700"
     >
       <FcGoogle size={20} className="mr-1" />
-      <span className="font-medium text-gray-600">{text}</span>
+      <span className="font-medium text-gray-600 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-white transition-colors">
+        {text}
+      </span>
     </button>
   );
 };

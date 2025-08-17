@@ -34,10 +34,10 @@ const features = [
 const StatsHighlight = () => (
   <section className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto ">
     <div className="text-center mb-12">
-      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
         Why Choose PayNode?
       </h2>
-      <p className="text-gray-600 text-base sm:text-lg">
+      <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
         Trusted by leading businesses for secure, efficient, and scalable
         employee management.
       </p>
@@ -46,13 +46,13 @@ const StatsHighlight = () => (
       {stats.map((stat, idx) => (
         <div
           key={stat.label}
-          className="flex flex-col items-center bg-gray-50 rounded-xl p-6 shadow"
+          className="flex flex-col items-center bg-gray-50 dark:bg-dark-700 rounded-xl p-6 shadow"
           data-aos="fade-up"
           data-aos-delay={100 + idx * 100}
         >
           {stat.icon}
           <span className="text-2xl font-bold text-blue-600">{stat.value}</span>
-          <span className="text-gray-700 text-sm mt-1">{stat.label}</span>
+          <span className="text-gray-700 dark:text-gray-300 text-sm mt-1">{stat.label}</span>
         </div>
       ))}
     </div>
@@ -60,7 +60,7 @@ const StatsHighlight = () => (
       {features.map((feature, idx) => (
         <span
           key={feature}
-          className="bg-blue-50/80 text-blue-700 px-5 py-2 rounded-full text-sm font-medium shadow"
+          className="bg-blue-50/80 dark:bg-dark-100 text-blue-700 px-5 py-2 rounded-full text-sm font-medium shadow"
           data-aos="zoom-in"
           data-aos-delay={100 + idx * 100}
         >

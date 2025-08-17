@@ -1,4 +1,4 @@
- // EmployeeDetails.jsx
+// EmployeeDetails.jsx
 import React from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -75,13 +75,52 @@ const EmployeeDetails = () => {
     };
   }, [paymentsData]);
 
+  // Chart options
+  const chartOptions = React.useMemo(() => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    return {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          titleColor: isDark ? "#f3f4f6" : "#374151",
+          bodyColor: isDark ? "#f3f4f6" : "#374151",
+          backgroundColor: isDark ? "#374151" : "#ffffff",
+          borderColor: isDark ? "#6b7280" : "#d1d5db",
+          borderWidth: 1,
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: isDark ? "#d1d5db" : "#374151",
+          },
+          grid: {
+            color: isDark ? "#4b5563" : "#e5e7eb",
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: isDark ? "#d1d5db" : "#374151",
+          },
+          grid: {
+            color: isDark ? "#4b5563" : "#e5e7eb",
+          },
+        },
+      },
+    };
+  }, []);
+
   return (
     <DashboardLayout>
       <div className="max-w-7xl mx-auto py-8 px-2">
         {loadingEmployee ? (
           <DataLoader label="Loading employee details..." />
         ) : (
-          <Card className="mb-6">
+          <Card className="mb-6 dark:bg-dark-800">
             <CardBody>
               <div className="flex flex-col sm:flex-row items-center gap-6">
                 <img
@@ -89,14 +128,20 @@ const EmployeeDetails = () => {
                   alt={employeeData?.name}
                   className="w-24 h-24 rounded-full object-cover"
                 />
-                <div className="text-center sm:text-left">
+                <div className="text-center sm:text-left dark:text-gray-300">
                   <Typography variant="h4" className="break-words">
                     {employeeData?.name}
                   </Typography>
-                  <Typography color="gray" className="break-words">
+                  <Typography
+                    color="gray"
+                    className="break-words dark:text-gray-400"
+                  >
                     {employeeData?.designation}
                   </Typography>
-                  <Typography color="gray" className="break-words">
+                  <Typography
+                    color="gray"
+                    className="break-words dark:text-gray-400"
+                  >
                     {employeeData?.email}
                   </Typography>
                 </div>
@@ -104,36 +149,25 @@ const EmployeeDetails = () => {
             </CardBody>
           </Card>
         )}
-        <Card>
+        <Card className="dark:bg-dark-800">
           <CardBody>
-            <Typography variant="h6" className="mb-4">
+            <Typography variant="h6" className="mb-4 dark:text-gray-300">
               Salary (Last 12 Months)
             </Typography>
             {loadingPayments ? (
               <DataLoader label="Loading chart..." />
             ) : paymentsError && paymentsErrorObj?.response?.status === 403 ? (
-              <div className="text-center text-gray-500 py-4">
-                You do not have permission to view payment history for this employee.
+              <div className="text-center text-gray-600 dark:text-gray-300 py-4">
+                You do not have permission to view payment history for this
+                employee.
               </div>
             ) : paymentsData === null ? (
-              <div className="text-center text-gray-500 py-4">
+              <div className="text-center text-gray-600 dark:text-gray-300 py-4">
                 No payment history available.
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <Bar
-                  data={chartData}
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      legend: { display: false },
-                      tooltip: { enabled: true },
-                    },
-                    scales: {
-                      y: { beginAtZero: true },
-                    },
-                  }}
-                />
+                <Bar data={chartData} options={chartOptions} />
               </div>
             )}
           </CardBody>

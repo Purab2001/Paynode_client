@@ -22,7 +22,7 @@ const AdminEmployeeTable = ({
 
   if (!data.length) {
     return (
-      <div className="text-center py-6 text-gray-500">
+      <div className="text-center py-6 text-gray-600 dark:text-gray-300">
         No employees or HRs found.
       </div>
     );
@@ -34,8 +34,8 @@ const AdminEmployeeTable = ({
       <div className="hidden lg:block">
         <table className="w-full">
           <thead>
-            <tr className="bg-gray-50 border-b">
-              <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider w-1/12">
+            <tr className="bg-gray-50 dark:bg-dark-800 border-b">
+              <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 dark:text-white uppercase tracking-wider w-1/12">
                 Name
               </th>
               <th className="py-3 px-4 text-left w-2/12">Email</th>
@@ -48,7 +48,7 @@ const AdminEmployeeTable = ({
               <th className="py-3 px-4 text-center w-1/12">Details</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-dark-800 divide-y divide-gray-200">
             {data.map((emp) => (
               <tr key={emp.email} className={emp.fired ? "opacity-50" : ""}>
                 <td className="py-3 px-4 text-sm text-left w-1/12">
@@ -338,7 +338,7 @@ const AdminEmployeeTable = ({
       {/* Fire Modal */}
       {fireModal.open && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white p-6 rounded shadow-lg">
+          <div className="bg-white dark:bg-dark-900 p-6 rounded shadow-lg">
             <p>Are you sure you want to fire this employee?</p>
             <div className="mt-4 flex gap-2">
               <Button

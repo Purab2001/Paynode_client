@@ -93,8 +93,10 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="md:w-96 w-80 flex flex-col items-center justify-center"
         >
-          <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
-          <p className="text-sm text-gray-500/90 my-3">
+          <h2 className="text-4xl text-gray-900 dark:text-white font-medium">
+            Sign in
+          </h2>
+          <p className="text-sm text-gray-500/90 dark:text-gray-300 my-3">
             Welcome back! Please sign in to continue
           </p>
 
@@ -102,7 +104,7 @@ const Login = () => {
 
           <div className="flex items-center gap-4 w-full my-5">
             <div className="w-full h-px bg-gray-300/90"></div>
-            <p className="w-full text-nowrap text-sm text-gray-500/90">
+            <p className="w-full text-nowrap text-sm text-gray-500/90 dark:text-gray-300">
               or sign in with email
             </p>
             <div className="w-full h-px bg-gray-300/90"></div>
@@ -133,7 +135,7 @@ const Login = () => {
                 },
               })}
               placeholder="Email id"
-              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
+              className="bg-transparent text-gray-500/80 dark:text-gray-300 placeholder-gray-500/80 placeholder:dark:text-gray-400 outline-none text-sm w-full h-full"
             />
           </div>
           {errors.email && (
@@ -165,7 +167,7 @@ const Login = () => {
                 },
               })}
               placeholder="Password"
-              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full pr-10"
+              className="bg-transparent text-gray-500/80 dark:text-gray-300 placeholder-gray-500/80 placeholder:dark:text-gray-400 outline-none text-sm w-full h-full pr-10"
             />
             <button
               type="button"
@@ -185,7 +187,7 @@ const Login = () => {
             </p>
           )}
 
-          <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
+          <div className="w-full flex items-center justify-between mt-8 text-gray-500/80 dark:text-gray-400">
             <div className="flex items-center gap-2">
               <input className="h-5" type="checkbox" id="checkbox" />
               <label className="text-sm" htmlFor="checkbox">
@@ -204,7 +206,7 @@ const Login = () => {
           >
             {isLoading ? "Signing in..." : "Login"}
           </button>
-          <p className="text-gray-500/90 text-sm mt-4">
+          <p className="text-gray-500/90 dark:text-gray-300 text-sm mt-4">
             Don’t have an account?{" "}
             <Link to="/register" className="text-blue-600 hover:underline">
               Sign up

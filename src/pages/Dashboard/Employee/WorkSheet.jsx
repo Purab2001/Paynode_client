@@ -191,7 +191,9 @@ const WorkSheet = () => {
     return (
       <DashboardLayout>
         <div className="min-h-[60vh] flex items-center justify-center">
-          <div className="text-blue-600 text-lg font-semibold">Loading worksheet...</div>
+          <div className="text-blue-600 dark:text-blue-400 text-lg font-semibold">
+            Loading worksheet...
+          </div>
         </div>
       </DashboardLayout>
     );
@@ -201,20 +203,22 @@ const WorkSheet = () => {
     <DashboardLayout>
       <div className="max-w-6xl mx-auto">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Work Sheet</h2>
-          <p className="text-gray-600 mt-1">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Work Sheet
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">
             Track your daily work hours and tasks
           </p>
         </div>
 
         {/* Form */}
         <form
-          className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6"
+          className="bg-white dark:bg-dark-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-dark-600 mb-6"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 items-end">
             <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700">
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Tasks
               </label>
               <TaskDropdown
@@ -226,14 +230,14 @@ const WorkSheet = () => {
                 label="Select Task"
               />
               {errors.task && (
-                <span className="text-red-500 text-xs mt-1 block">
+                <span className="text-red-500 dark:text-red-400 text-xs mt-1 block">
                   Task is required
                 </span>
               )}
             </div>
 
             <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700">
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Hours Worked
               </label>
               <input
@@ -242,23 +246,23 @@ const WorkSheet = () => {
                 step="0.1"
                 placeholder="0.0"
                 {...register("hoursWorked", { required: true, min: 0.1 })}
-                className="w-full bg-white text-gray-900 border border-gray-300 px-3 py-2 rounded-md hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                className="w-full bg-white dark:bg-dark-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-dark-600 px-3 py-2 rounded-md hover:border-gray-400 dark:hover:border-dark-500 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-400 focus:border-blue-400 dark:focus:border-blue-400 placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
               {errors.hoursWorked && (
-                <span className="text-red-500 text-xs mt-1 block">
+                <span className="text-red-500 dark:text-red-400 text-xs mt-1 block">
                   Enter valid hours
                 </span>
               )}
             </div>
 
             <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700">
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Date
               </label>
               <DatePicker
                 selected={date}
                 onChange={(d) => setDate(d)}
-                className="w-full bg-white text-gray-900 border border-gray-300 px-3 py-2 rounded-md hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                className="w-full bg-white dark:bg-dark-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-dark-600 px-3 py-2 rounded-md hover:border-gray-400 dark:hover:border-dark-500 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-400 focus:border-blue-400 dark:focus:border-blue-400 placeholder:text-gray-500 dark:placeholder:text-gray-400"
                 dateFormat="yyyy-MM-dd"
                 maxDate={new Date()}
               />
@@ -279,9 +283,11 @@ const WorkSheet = () => {
         </form>
 
         {/* Table/Cards Container */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-dark-800 rounded-lg shadow-sm border border-gray-200 dark:border-dark-600">
           {isLoading ? (
-            <div className="text-center py-8 text-gray-500">Loading...</div>
+            <div className="text-center py-8 text-gray-500 dark:text-gray-300">
+              Loading...
+            </div>
           ) : (
             <WorksheetTable
               data={data || []}

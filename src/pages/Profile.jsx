@@ -46,30 +46,32 @@ const Profile = () => {
       <div className="space-y-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Profile
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-300">
             Manage your profile information and settings
           </p>
         </div>
 
         {/* Single Profile Card */}
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-dark-800 rounded-lg shadow-md p-6">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Profile Picture Section */}
             <div className="lg:col-span-1">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Profile Picture
               </h2>
               <div className="flex flex-col items-center">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 mb-4">
                   <ProfileImage user={user} size={128} />
                 </div>
-                <p className="text-sm text-gray-600 text-center mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300 text-center mb-4">
                   Your profile picture is managed through your authentication
                   provider.
                 </p>
                 {user?.providerData?.[0]?.providerId === "google.com" && (
-                  <p className="text-xs text-gray-500 text-center">
+                  <p className="text-xs text-gray-600 dark:text-gray-300 text-center">
                     To change your photo, update it in your Google account.
                   </p>
                 )}
@@ -78,7 +80,7 @@ const Profile = () => {
 
             {/* Profile Information */}
             <div className="lg:col-span-3">
-              <h2 className="text-lg font-medium text-gray-900 mb-6">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-6">
                 Personal Information
               </h2>
 
@@ -86,7 +88,7 @@ const Profile = () => {
                 <div>
                   <label
                     htmlFor="displayName"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
                   >
                     Full Name
                   </label>
@@ -100,7 +102,7 @@ const Profile = () => {
                         message: "Name must be at least 2 characters",
                       },
                     })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your full name"
                   />
                   {errors.displayName && (
@@ -113,7 +115,7 @@ const Profile = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1"
                   >
                     Email Address
                   </label>
@@ -122,10 +124,10 @@ const Profile = () => {
                     id="email"
                     {...register("email")}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-500 cursor-not-allowed"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm bg-gray-50 dark:bg-dark-700 text-gray-600 dark:text-gray-300 cursor-not-allowed"
                     placeholder="Enter your email"
                   />
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
                     Email cannot be changed as it's managed by your
                     authentication provider.
                   </p>
@@ -133,22 +135,22 @@ const Profile = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Account Type
                     </label>
                     <div className="mt-1">
-                      <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-50/80 rounded-full">
+                      <span className="inline-block px-3 py-1 text-sm font-medium text-blue-800 bg-blue-50/80 dark:bg-dark-200 rounded-full">
                         {roleLoading ? "..." : role}
                       </span>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
                       Authentication Provider
                     </label>
                     <div className="mt-1">
-                      <span className="inline-block px-3 py-1 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">
+                      <span className="inline-block px-3 py-1 text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-dark-700 rounded-full">
                         {user?.providerData?.[0]?.providerId === "google.com"
                           ? "Google"
                           : "Email/Password"}
@@ -172,26 +174,26 @@ const Profile = () => {
           </div>
 
           {/* Account Information Section */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
               Account Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Account Created
                 </label>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   {user?.metadata?.creationTime
                     ? new Date(user.metadata.creationTime).toLocaleDateString()
                     : "Unknown"}
                 </p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Last Sign In
                 </label>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   {user?.metadata?.lastSignInTime
                     ? new Date(
                         user.metadata.lastSignInTime

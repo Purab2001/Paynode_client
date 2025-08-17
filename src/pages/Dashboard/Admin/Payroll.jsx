@@ -63,7 +63,7 @@ const Payroll = () => {
               Approved
             </Button>
           </div>
-          <div className="text-center py-6 text-gray-500">
+          <div className="text-center py-6 text-gray-600 dark:text-gray-300">
             No payroll requests found.
           </div>
         </div>
@@ -96,8 +96,8 @@ const Payroll = () => {
         <div className="hidden lg:block">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 border-b">
-                <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 uppercase tracking-wider w-1/6">
+              <tr className="bg-gray-50 dark:bg-dark-800 border-b">
+                <th className="py-3 px-4 text-left text-sm font-medium text-gray-900 dark:text-white uppercase tracking-wider w-1/6">
                   Name
                 </th>
                 <th className="py-3 px-4 text-left w-1/6">Email</th>
@@ -109,13 +109,13 @@ const Payroll = () => {
                 <th className="py-3 px-4 text-center w-1/12">Pay</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-dark-800 divide-y divide-gray-200">
               {data
                 .filter((req) => req.status === filterStatus)
                 .map((req) => (
                   <tr
                     key={req._id}
-                    className={req.status === "approved" ? "opacity-70" : ""}
+                    className={req.status === "approved" ? "opacity-80" : ""}
                   >
                     <td className="py-3 px-4 text-sm text-left w-1/6">
                       {req.employeeName}
@@ -181,28 +181,28 @@ const Payroll = () => {
             .map((req) => (
               <div
                 key={req._id}
-                className={`bg-white border border-gray-200 rounded-lg p-4 shadow-sm ${
-                  req.status === "approved" ? "opacity-70" : ""
+                className={`bg-white dark:bg-dark-800 border border-gray-200 dark:border-gray-600 rounded-lg p-4 shadow-sm ${
+                  req.status === "approved" ? "opacity-80" : ""
                 }`}
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h3 className="font-medium text-gray-900 text-lg">
+                    <h3 className="font-medium text-gray-900 dark:text-white text-lg">
                       {req.employeeName}
                     </h3>
                     <p
-                      className="text-sm text-gray-500 mt-1 break-all"
+                      className="text-sm text-gray-600 dark:text-gray-300 mt-1 break-all"
                       title={req.employeeEmail}
                     >
                       {req.employeeEmail}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                       Month: {req.month}, Year: {req.year}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                       Salary: {req.salary}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                       Status:{" "}
                       <span
                         className={
@@ -214,7 +214,7 @@ const Payroll = () => {
                         {req.status}
                       </span>
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                       Payment Date:{" "}
                       {req.status === "approved" && req.processedAt
                         ? new Date(req.processedAt).toLocaleDateString()

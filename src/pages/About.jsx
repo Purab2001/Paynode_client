@@ -44,17 +44,17 @@ const values = [
 ];
 
 const About = () => (
-  <main className="pt-10 pb-20 bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF]">
+  <main className="pt-10 pb-20 bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] dark:bg-none dark:bg-dark-800">
     {/* Hero Section */}
     <section
       className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 text-center py-16"
       data-aos="fade-down"
       data-aos-duration="800"
     >
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
         About PayNode
       </h1>
-      <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
+      <p className="text-lg md:text-xl text-gray-700 dark:text-gray-400 max-w-2xl mx-auto mb-8">
         Founded in 2020 by a team of tech entrepreneurs and HR experts, PayNode
         is on a mission to streamline employee management for organizations of
         all sizes.
@@ -68,15 +68,17 @@ const About = () => (
       data-aos-duration="800"
     >
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-3">Our Mission</h2>
-        <p className="text-gray-700 text-base mb-4">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+          Our Mission
+        </h2>
+        <p className="text-gray-700 dark:text-gray-400 text-base mb-4">
           To empower organizations with seamless, secure, and intelligent
           employee management solutions that drive efficiency and growth.
         </p>
-        <h2 className="text-2xl font-bold text-gray-900 mb-3 mt-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 mt-8">
           Our Founding Story
         </h2>
-        <p className="text-gray-700 text-base">
+        <p className="text-gray-700 dark:text-gray-400 text-base">
           In 2020, a group of passionate engineers and HR professionals came
           together to tackle the inefficiencies plaguing traditional workforce
           management. Frustrated by outdated systems and siloed data, they
@@ -84,10 +86,10 @@ const About = () => (
           analytics—making work easier for everyone. Today, PayNode continues to
           deliver reliability, transparency, and innovation at scale.
         </p>
-        <h2 className="text-2xl font-bold text-gray-900 mb-3 mt-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 mt-8">
           Our Vision
         </h2>
-        <p className="text-gray-700 text-base">
+        <p className="text-gray-700 dark:text-gray-400 text-base">
           To be the global standard for modern, people-centric workforce
           management—trusted by organizations to empower their teams and unlock
           new levels of productivity.
@@ -103,14 +105,14 @@ const About = () => (
 
     {/* Team Profiles */}
     <section className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 py-12">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
         Meet Our Leadership Team
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
         {team.map((member, i) => (
           <div
             key={member.name}
-            className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center"
+            className="bg-white dark:bg-dark-700 rounded-xl shadow p-6 flex flex-col items-center text-center"
             data-aos="zoom-in"
             data-aos-delay={i * 100}
             data-aos-duration="700"
@@ -121,13 +123,15 @@ const About = () => (
               className="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-100"
               loading="lazy"
             />
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {member.name}
             </h3>
             <span className="text-blue-600 text-sm font-medium mb-2">
               {member.role}
             </span>
-            <p className="text-gray-700 text-sm">{member.bio}</p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
+              {member.bio}
+            </p>
           </div>
         ))}
       </div>
@@ -135,14 +139,14 @@ const About = () => (
 
     {/* Core Values */}
     <section className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 py-12">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
         Our Core Values
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
         {values.map((value, i) => (
           <div
             key={value.title}
-            className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center"
+            className="bg-white dark:bg-dark-700 rounded-xl shadow p-6 flex flex-col items-center text-center"
             data-aos="fade-up"
             data-aos-delay={i * 120}
             data-aos-duration="700"
@@ -150,7 +154,9 @@ const About = () => (
             <h3 className="text-lg font-semibold text-blue-600 mb-2">
               {value.title}
             </h3>
-            <p className="text-gray-700 text-sm">{value.desc}</p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
+              {value.desc}
+            </p>
           </div>
         ))}
       </div>
@@ -158,21 +164,28 @@ const About = () => (
 
     {/* Certifications & Achievements */}
     <section className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 py-12">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
         Certifications & Achievements
       </h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            className="bg-white rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center"
+            className="bg-white dark:bg-dark-700 rounded-xl shadow p-4 sm:p-5 lg:p-6 flex flex-col items-center text-center"
             data-aos="zoom-in"
             data-aos-delay={i * 100}
             data-aos-duration="700"
           >
             <FiAward className="text-blue-500 w-6 h-6 sm:w-7 sm:h-7" />
             <span className="text-blue-600 font-semibold mt-3 text-sm sm:text-base">
-              {["Best HR Tech 2025", "ISO 27001 Compliant", "SOC 2 Certified", "GDPR Ready"][i]}
+              {
+                [
+                  "Best HR Tech 2025",
+                  "ISO 27001 Compliant",
+                  "SOC 2 Certified",
+                  "GDPR Ready",
+                ][i]
+              }
             </span>
           </div>
         ))}
@@ -181,33 +194,41 @@ const About = () => (
 
     {/* Contact & Locations */}
     <section className="container mx-auto px-4 md:px-16 lg:px-24 xl:px-32 py-12">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
         Contact & Office Locations
       </h2>
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-stretch">
         <div
-          className="flex items-center gap-3 bg-white rounded-xl shadow p-6 w-full md:w-1/2 h-24"
+          className="flex items-center gap-3 bg-white dark:bg-dark-700 rounded-xl shadow p-6 w-full md:w-1/2 h-24"
           data-aos="fade-right"
           data-aos-duration="700"
         >
           <FiMapPin className="text-blue-500 w-7 h-7" />
           <div>
-            <h3 className="font-semibold text-gray-900">Global HQ</h3>
-            <p className="text-gray-700 text-sm">
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Global HQ
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
               123 Innovation Drive, San Francisco, CA, USA
             </p>
           </div>
         </div>
         <div
-          className="flex items-center gap-3 bg-white rounded-xl shadow p-6 w-full md:w-1/2 h-24"
+          className="flex items-center gap-3 bg-white dark:bg-dark-700 rounded-xl shadow p-6 w-full md:w-1/2 h-24"
           data-aos="fade-left"
           data-aos-duration="700"
         >
           <FiMail className="text-blue-500 w-7 h-7" />
           <div>
-            <h3 className="font-semibold text-gray-900">Contact</h3>
-            <p className="text-gray-700 text-sm">support@paynode.com</p>
-            <p className="text-gray-700 text-sm">+1-234-567-890</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Contact
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
+              support@paynode.com
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
+              +1-234-567-890
+            </p>
           </div>
         </div>
       </div>

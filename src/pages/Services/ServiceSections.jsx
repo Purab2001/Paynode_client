@@ -124,13 +124,13 @@ const ServiceSections = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF]">
+    <section className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] dark:bg-none dark:bg-dark-800">
       <div className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Service Categories
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Explore our organized service categories designed to meet every
             aspect of your HR needs
           </p>
@@ -146,7 +146,7 @@ const ServiceSections = () => {
                 >
                   <h3 className="text-xl font-bold">{category.title}</h3>
                 </div>
-                <p className="text-gray-600 max-w-xl mx-auto">
+                <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
                   {category.description}
                 </p>
               </div>
@@ -156,26 +156,26 @@ const ServiceSections = () => {
                 {category.services.map((service, serviceIndex) => (
                   <Card
                     key={serviceIndex}
-                    className="h-full shadow hover:shadow-lg transition-shadow duration-300"
+                    className="h-full dark:bg-dark-600 shadow hover:shadow-lg transition-shadow duration-300"
                   >
                     <CardBody className="p-6 flex flex-col h-full">
-                      <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                         {service.title}
                       </h4>
 
-                      <p className="text-gray-600 text-sm mb-4 flex-grow">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 flex-grow">
                         {service.description}
                       </p>
 
                       <div className="space-y-2 mb-6">
-                        <h5 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+                        <h5 className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                           Key Features
                         </h5>
                         <ul className="space-y-1">
                           {service.features.map((feature, featureIndex) => (
                             <li
                               key={featureIndex}
-                              className="text-sm text-gray-600 flex items-center"
+                              className="text-sm text-gray-600 dark:text-gray-300 flex items-center"
                             >
                               <span className="text-green-500 mr-2">✓</span>
                               {feature}

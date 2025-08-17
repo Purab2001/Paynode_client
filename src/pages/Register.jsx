@@ -155,9 +155,8 @@ const Register = () => {
       </div>
 
       {/* Right side - Registration Form */}
-      <div className="w-full md:w-2/3 flex items-center justify-center bg-gray-50 p-4">
+      <div className="w-full md:w-2/3 flex items-center justify-center bg-gray-50 dark:bg-dark-900 p-4">
         <div className="w-full max-w-4xl">
-
           {/* Logo at the top, links to home */}
           <Link to="/" className="mb-3 flex items-center justify-center gap-2">
             <img src={logo} alt="logo" className="h-8" />
@@ -165,10 +164,10 @@ const Register = () => {
           </Link>
 
           <div className="text-center mb-8">
-            <h2 className="text-4xl text-gray-900 font-medium">
+            <h2 className="text-4xl text-gray-900 dark:text-white font-medium">
               Create Account
             </h2>
-            <p className="text-sm text-gray-500/90 mt-3">
+            <p className="text-sm text-gray-500/90 dark:text-gray-300 mt-3">
               Join our employee management system
             </p>
           </div>
@@ -181,7 +180,7 @@ const Register = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Name Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Full Name
                 </label>
                 <input
@@ -193,14 +192,14 @@ const Register = () => {
                       message: "Name must be at least 2 characters",
                     },
                   })}
-                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your full name"
                 />
               </div>
 
               {/* Email Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Email Address
                 </label>
                 <input
@@ -212,14 +211,14 @@ const Register = () => {
                       message: "Invalid email address",
                     },
                   })}
-                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your email"
                 />
               </div>
 
               {/* Password Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Password
                 </label>
                 <div className="relative">
@@ -229,7 +228,7 @@ const Register = () => {
                       required: "Password is required",
                       validate: validatePassword,
                     })}
-                    className="w-full px-3 py-2 pr-10 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 pr-10 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your password"
                   />
                   <button
@@ -248,7 +247,7 @@ const Register = () => {
 
               {/* Role Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Role
                 </label>
                 <div className="flex flex-col w-full text-sm relative">
@@ -259,7 +258,7 @@ const Register = () => {
                   <button
                     type="button"
                     onClick={() => setIsRoleOpen(!isRoleOpen)}
-                    className="w-full text-left px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 outline-none hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full text-left px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 outline-none hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <span>{watchedRole || "Select your role"}</span>
                     <svg
@@ -281,11 +280,11 @@ const Register = () => {
                   </button>
 
                   {isRoleOpen && (
-                    <ul className="absolute top-full left-0 w-full bg-white border border-gray-300/60 rounded-lg shadow-md mt-1 py-2 z-10">
+                    <ul className="absolute top-full left-0 w-full bg-white dark:bg-dark-800 border border-gray-300/60 rounded-lg shadow-md mt-1 py-2 z-10">
                       {roles.map((role) => (
                         <li
                           key={role}
-                          className="px-3 py-2 hover:bg-blue-500 hover:text-white cursor-pointer text-gray-500/80"
+                          className="px-3 py-2 hover:bg-blue-500 hover:text-white cursor-pointer text-gray-500/80 dark:text-gray-400"
                           onClick={() => handleRoleSelect(role)}
                         >
                           {role}
@@ -298,7 +297,7 @@ const Register = () => {
 
               {/* Bank Account Number */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Bank Account Number
                 </label>
                 <input
@@ -315,14 +314,14 @@ const Register = () => {
                       message: "Bank account number must be at least 8 digits",
                     },
                   })}
-                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your bank account number"
                 />
               </div>
 
               {/* Salary */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Expected Salary
                 </label>
                 <input
@@ -338,14 +337,14 @@ const Register = () => {
                       message: "Salary cannot exceed 1,000,000",
                     },
                   })}
-                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter expected salary"
                 />
               </div>
 
               {/* Designation */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Designation
                 </label>
                 <input
@@ -357,14 +356,14 @@ const Register = () => {
                       message: "Designation must be at least 2 characters",
                     },
                   })}
-                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 placeholder-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g. Sales Assistant, Marketer"
                 />
               </div>
 
               {/* Photo Upload */}
               <div>
-                <label className="block text-sm font-medium text-gray-500/90 mb-1">
+                <label className="block text-sm font-medium text-gray-500/90 dark:text-gray-300 mb-1">
                   Profile Photo
                 </label>
                 <input
@@ -395,7 +394,7 @@ const Register = () => {
                     },
                   })}
                   accept="image/*"
-                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  className="w-full px-3 py-2 border border-gray-300/60 rounded-lg bg-transparent text-gray-500/80 dark:text-gray-400 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:dark:bg-dark-200 file:text-blue-700 hover:file:bg-blue-100"
                 />
               </div>
             </div>
@@ -413,7 +412,7 @@ const Register = () => {
           {/* Divider */}
           <div className="flex items-center gap-4 w-full my-3">
             <div className="w-full h-px bg-gray-300/90"></div>
-            <p className="w-full text-center text-sm text-gray-500/90">
+            <p className="w-full text-center text-sm text-gray-500/90 dark:text-gray-300">
               or continue with
             </p>
             <div className="w-full h-px bg-gray-300/90"></div>
@@ -424,7 +423,7 @@ const Register = () => {
 
           {/* Login Link */}
           <div className="mt-4 text-center">
-            <p className="text-gray-500/90 text-sm">
+            <p className="text-gray-500/90 dark:text-gray-300 text-sm">
               Already have an account?{" "}
               <Link to="/login" className="text-blue-600 hover:underline">
                 Sign in

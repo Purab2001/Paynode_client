@@ -26,7 +26,7 @@ const TaskDropdown = ({ options, value, onChange, label = "Select" }) => {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full text-left px-3 py-2 border rounded-md bg-white text-gray-900 border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+        className="w-full text-left px-3 py-2 border rounded-md bg-white dark:bg-dark-700 text-gray-900 dark:text-gray-200 border-gray-300 dark:border-dark-600 hover:border-gray-400 dark:hover:border-dark-500 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-400 focus:border-blue-400 dark:focus:border-blue-400"
       >
         <span className="block truncate">{value || label}</span>
         <svg
@@ -36,26 +36,27 @@ const TaskDropdown = ({ options, value, onChange, label = "Select" }) => {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="#6B7280"
+          stroke="currentColor"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
             d="M19 9l-7 7-7-7"
+            className="text-gray-600 dark:text-gray-400"
           />
         </svg>
       </button>
 
       {isOpen && (
-        <ul className="absolute z-50 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-1 py-1 max-h-60 overflow-auto">
+        <ul className="absolute z-50 w-full bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-600 rounded-md shadow-lg mt-1 py-1 max-h-60 overflow-auto">
           {options.map((option) => (
             <li
               key={option}
-              className={`px-3 py-2 hover:bg-blue-50 hover:text-blue-700 cursor-pointer text-sm ${
+              className={`px-3 py-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 cursor-pointer text-sm ${
                 value === option
-                  ? "bg-blue-50 text-blue-700 font-medium"
-                  : "text-gray-900"
+                  ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium"
+                  : "text-gray-900 dark:text-gray-200"
               }`}
               onClick={() => handleSelect(option)}
             >

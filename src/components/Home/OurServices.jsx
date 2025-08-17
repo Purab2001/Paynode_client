@@ -59,13 +59,13 @@ const benefits = [
 
 const OurServices = () => {
   return (
-    <section className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF]">
+    <section className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] dark:bg-none dark:bg-dark-800">
       <div className="container mx-auto py-16 px-4 md:px-16 lg:px-24 xl:px-32">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             Our Services
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
             Employee management made simple. Discover how PayNode empowers your
             team and streamlines HR operations.
           </p>
@@ -74,15 +74,15 @@ const OurServices = () => {
           {services.map((service, idx) => (
             <div
               key={service.title}
-              className="bg-white rounded-xl shadow p-7 flex flex-col items-center text-center hover:shadow-lg transition"
+              className="bg-white dark:bg-dark-600 rounded-xl shadow p-7 flex flex-col items-center text-center hover:shadow-lg transition"
               data-aos="fade-up"
               data-aos-delay={100 + idx * 100}
             >
               {service.icon}
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                 {service.title}
               </h3>
-              <p className="text-gray-600 text-sm">{service.desc}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">{service.desc}</p>
             </div>
           ))}
         </div>
@@ -90,7 +90,7 @@ const OurServices = () => {
           {benefits.map((b, idx) => (
             <div
               key={b.label}
-              className="flex items-center gap-2 bg-white rounded-full px-5 py-2 shadow text-gray-700 font-medium text-sm"
+              className="flex items-center gap-2 bg-white rounded-full px-5 py-2 shadow text-gray-700 dark:text-black font-medium text-sm"
               data-aos="zoom-in"
               data-aos-delay={100 + idx * 100}
             >

@@ -123,15 +123,15 @@ const Services = () => {
     <div className="bg-white pt-10 md:pt-0">
       {/* Hero Section */}
       <section
-        className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] py-16 px-4 md:px-16 lg:px-24 xl:px-32 text-center"
+        className="bg-gradient-to-b from-[#E6EFFF] to-[#F5F7FF] dark:bg-none dark:bg-dark-800 py-16 px-4 md:px-16 lg:px-24 xl:px-32 text-center"
         data-aos="fade-up"
         data-aos-duration="800"
       >
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             All PayNode Services
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
             Discover our comprehensive suite of employee management solutions.
             Use our advanced filtering and sorting to find the perfect services
             for your business needs.
@@ -204,26 +204,26 @@ const Services = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="">
+      <section className="dark:bg-dark-900">
         <div className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredAndSortedServices.map((service, idx) => (
               <div
                 key={service.id}
-                className="bg-white rounded-xl border border-gray-50 shadow hover:shadow-xl transition-all duration-300 flex flex-col h-96 group"
+                className="bg-white dark:bg-dark-700 rounded-xl shadow hover:shadow-xl transition-all duration-300 flex flex-col h-96 group"
                 data-aos="fade-up"
                 data-aos-delay={idx * 50}
               >
                 {/* Header */}
                 <div className="p-6 flex-shrink-0">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-50/80 dark:bg-dark-100 rounded-full">
                       {service.category}
                     </span>
                     <div className="text-2xl">{service.icon}</div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">
                     {service.title}
                   </h3>
 
@@ -231,21 +231,23 @@ const Services = () => {
                     <span className="text-2xl font-bold text-blue-600">
                       ${service.price}
                     </span>
-                    <span className="text-gray-500 text-sm">/month</span>
+                    <span className="text-gray-600 dark:text-gray-300 text-sm">
+                      /month
+                    </span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="px-6 flex-grow">
-                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 leading-relaxed">
                     {service.desc}
                   </p>
 
                   <div className="space-y-2">
-                    <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+                    <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                       Key Features
                     </h4>
-                    <ul className="text-xs text-gray-600 space-y-1">
+                    <ul className="text-xs text-gray-600 dark:text-gray-300 space-y-1">
                       {service.features.map((feature, index) => (
                         <li key={index} className="flex items-center">
                           <span className="text-green-500 mr-2">✓</span>
@@ -275,10 +277,10 @@ const Services = () => {
           {filteredAndSortedServices.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">
+              <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 No services found
               </h3>
-              <p className="text-gray-500">
+              <p className="text-gray-600 dark:text-gray-300">
                 Try adjusting your filters to see more results.
               </p>
             </div>

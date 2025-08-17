@@ -18,35 +18,37 @@ const AdminEmployeeCardGrid = ({
 
   if (!data || data.length === 0) {
     return (
-      <div className="text-center py-4 text-gray-500">No employees found.</div>
+      <div className="text-center py-4 text-gray-600 dark:text-gray-300">
+        No employees found.
+      </div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
       {data.map((employee) => (
-        <Card key={employee._id} className="w-full shadow-md p-2">
+        <Card key={employee._id} className="w-full dark:bg-dark-800 shadow-md p-2">
           <CardBody className="p-3">
             <Typography
               variant="h6"
               color="blue-gray"
-              className="mb-1 text-base"
+              className="mb-1 text-base dark:text-white"
             >
               {employee.name}
             </Typography>
-            <Typography className="font-normal text-gray-700 text-xs break-all">
+            <Typography className="font-normal text-gray-600 dark:text-gray-300 text-xs break-all">
               Email: {employee.email}
             </Typography>
-            <Typography className="font-normal text-gray-700 text-xs">
+            <Typography className="font-normal text-gray-600 dark:text-gray-300 text-xs">
               Role: {employee.role}
             </Typography>
-            <Typography className="font-normal text-gray-700 text-xs">
+            <Typography className="font-normal text-gray-600 dark:text-gray-300 text-xs">
               Salary: ${employee.salary}
             </Typography>
-            <Typography className="font-normal text-gray-700 text-xs">
+            <Typography className="font-normal text-gray-600 dark:text-gray-300 text-xs">
               Verified: {employee.isVerified ? "Yes" : "No"}
             </Typography>
-            <Typography className="font-normal text-gray-700 text-xs">
+            <Typography className="font-normal text-gray-600 dark:text-gray-300 text-xs">
               Status: {employee.status}
             </Typography>
 

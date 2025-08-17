@@ -46,7 +46,7 @@ const Testimonial = () => {
 
   const CreateCard = ({ card, idx }) => (
     <div
-      className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-white"
+      className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-white dark:bg-dark-700"
       data-aos="fade-up"
       data-aos-delay={100 + (idx % 4) * 100}
     >
@@ -58,7 +58,7 @@ const Testimonial = () => {
         />
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
-            <p className="font-medium text-gray-900">{card.name}</p>
+            <p className="font-medium text-gray-900 dark:text-white">{card.name}</p>
             <svg
               className="mt-0.5"
               width="12"
@@ -81,7 +81,7 @@ const Testimonial = () => {
           </span>
         </div>
       </div>
-      <p className="text-sm py-4 text-gray-800 leading-relaxed">
+      <p className="text-sm py-4 text-gray-800 dark:text-gray-400 leading-relaxed">
         {card.testimonial}
       </p>
       <div className="flex items-center justify-between text-slate-500 text-xs">
@@ -114,10 +114,10 @@ const Testimonial = () => {
   return (
     <div className="py-16 px-4 md:px-16 lg:px-24 xl:px-32 container mx-auto">
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
           What Our Clients Say
         </h2>
-        <p className="text-gray-600 text-base sm:text-lg">
+        <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
           Discover how PayNode is transforming employee management for
           businesses worldwide
         </p>
@@ -139,23 +139,23 @@ const Testimonial = () => {
         `}</style>
 
       <div className="marquee-row w-full mx-auto overflow-hidden relative">
-        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-50 to-transparent"></div>
+        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-50 dark:from-dark-900 to-transparent"></div>
         <div className="marquee-inner flex transform-gpu min-w-[200%] pt-10 pb-5">
           {[...cardsData, ...cardsData].map((card, index) => (
             <CreateCard key={index} card={card} idx={index} />
           ))}
         </div>
-        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-gray-50 to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-gray-50 dark:from-dark-900 to-transparent"></div>
       </div>
 
       <div className="marquee-row w-full mx-auto overflow-hidden relative">
-        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-50 to-transparent"></div>
+        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-gray-50 dark:from-dark-900 to-transparent"></div>
         <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-10 pb-5">
           {[...cardsData, ...cardsData].map((card, index) => (
             <CreateCard key={index} card={card} idx={index} />
           ))}
         </div>
-        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-gray-50 to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-gray-50 dark:from-dark-900 to-transparent"></div>
       </div>
     </div>
   );
