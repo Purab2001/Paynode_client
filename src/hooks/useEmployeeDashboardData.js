@@ -3,29 +3,29 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import { useAuth } from "./useAuth";
 
-export function useEmployeeDashboardStats() {
+export function useEmployeeDashboardData() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   return useQuery({
-    queryKey: ["employeeDashboardStats", user?.email],
+    queryKey: ["employeeDashboard", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/api/employee/stats/${user.email}`);
+      const res = await axiosSecure.get(`/api/employee/dashboard/${user.email}`);
       return res.data;
     },
   });
 }
 
-export function useEmployeeRecentActivity() {
+export function useEmployeeOverviewData() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   return useQuery({
-    queryKey: ["employeeRecentActivity", user?.email],
+    queryKey: ["employeeOverview", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/api/employee/recent-activity/${user.email}`);
+      const res = await axiosSecure.get(`/api/employee/overview/${user.email}`);
       return res.data;
     },
   });

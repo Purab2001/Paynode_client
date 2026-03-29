@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
@@ -7,20 +7,28 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import RoleProtectedRoute from "../routes/RoleProtectedRoute";
 import Dashboard from "../pages/Dashboard/Dashboard";
-import Overview from "../pages/Dashboard/Overview";
-import EmployeeList from "../pages/Dashboard/HR/EmployeeList";
-import AllEmployeeList from "../pages/Dashboard/Admin/AllEmployeeList";
-import Payroll from "../pages/Dashboard/Admin/Payroll";
-import EmployeeDetails from "../pages/Dashboard/HR/EmployeeDetails";
-import Progress from "../pages/Dashboard/HR/Progress";
-import Chat from "../pages/Dashboard/Chat";
 import ContactUs from "../pages/ContactUs";
 import About from "../pages/About";
 import Forbidden from "../pages/Forbidden";
 import Error from "../pages/Error";
-import PaymentHistory from "../pages/Dashboard/Employee/PaymentHistory";
-import WorkSheet from "../pages/Dashboard/Employee/WorkSheet";
 import Services from "../pages/Services/Services";
+import Loader from "../ui/Loader";
+
+const Overview = lazy(() => import("../pages/Dashboard/Overview"));
+const EmployeeList = lazy(() => import("../pages/Dashboard/HR/EmployeeList"));
+const AllEmployeeList = lazy(() => import("../pages/Dashboard/Admin/AllEmployeeList"));
+const Payroll = lazy(() => import("../pages/Dashboard/Admin/Payroll"));
+const EmployeeDetails = lazy(() => import("../pages/Dashboard/HR/EmployeeDetails"));
+const Progress = lazy(() => import("../pages/Dashboard/HR/Progress"));
+const Chat = lazy(() => import("../pages/Dashboard/Chat"));
+const PaymentHistory = lazy(() => import("../pages/Dashboard/Employee/PaymentHistory"));
+const WorkSheet = lazy(() => import("../pages/Dashboard/Employee/WorkSheet"));
+
+const LazyRoute = ({ component: Component }) => (
+  <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-700"><Loader size={60} /></div>}>
+    <Component />
+  </Suspense>
+);
 
 export const router = createBrowserRouter([
   {
@@ -72,83 +80,47 @@ export const router = createBrowserRouter([
   },
   {
     path: "work-sheet",
-    element: (
-      <RoleProtectedRoute>
-        <WorkSheet />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={WorkSheet} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "payment-history",
-    element: (
-      <RoleProtectedRoute>
-        <PaymentHistory />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={PaymentHistory} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "overview",
-    element: (
-      <RoleProtectedRoute>
-        <Overview />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={Overview} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "chat",
-    element: (
-      <RoleProtectedRoute>
-        <Chat />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={Chat} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "employees",
-    element: (
-      <RoleProtectedRoute>
-        <EmployeeList />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={EmployeeList} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "admin/all-employee-list",
-    element: (
-      <RoleProtectedRoute>
-        <AllEmployeeList />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={AllEmployeeList} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "admin/payroll",
-    element: (
-      <RoleProtectedRoute>
-        <Payroll />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={Payroll} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "details/:slug",
-    element: (
-      <RoleProtectedRoute>
-        <EmployeeDetails />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={EmployeeDetails} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {
     path: "progress",
-    element: (
-      <RoleProtectedRoute>
-        <Progress />
-      </RoleProtectedRoute>
-    ),
+    element: <RoleProtectedRoute><LazyRoute component={Progress} /></RoleProtectedRoute>,
     errorElement: <Error />,
   },
   {

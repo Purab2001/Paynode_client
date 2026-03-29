@@ -4,10 +4,7 @@ import useUserRole from "../../hooks/useUserRole";
 import { useAuth } from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import {
-  useEmployeeOverviewMetrics,
-  useEmployeeRecentWork,
-} from "../../hooks/useEmployeeOverviewData";
+import { useEmployeeOverviewData } from "../../hooks/useEmployeeDashboardData";
 import AdminOverview from "./Admin/AdminOverview";
 import EmployeeOverview from "./Employee/EmployeeOverview";
 import HROverview from "./HR/HROverview";
@@ -17,10 +14,9 @@ const Overview = () => {
   const { loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  // Employee hooks
-  const { data: metrics, isLoading: metricsLoading } =
-    useEmployeeOverviewMetrics();
-  const { data: recentWork, isLoading: workLoading } = useEmployeeRecentWork();
+  // Employee combined overview hook
+  const { data: overviewData, isLoading: overviewLoading } =
+    useEmployeeOverviewData();
 
   // Admin & HR hooks
   const { data: orgStats, isLoading: orgStatsLoading } = useQuery({
@@ -133,10 +129,15 @@ const Overview = () => {
       )}
       {role === "Employee" && (
         <EmployeeOverview
-          metrics={metrics}
-          metricsLoading={metricsLoading}
-          recentWork={recentWork}
-          workLoading={workLoading}
+          metrics={{
+            hoursThisWeek: overviewData?.hoursThisWeek,
+            hoursThisMonth: overviewData?.hoursThisMonth,
+            tasksCompleted: overviewData?.tasksCompleted,
+            efficiency: overviewData?.efficiency,
+          }}
+          metricsLoading={overviewLoading}
+          recentWork={overviewData?.recentWork}
+          workLoading={overviewLoading}
         />
       )}
     </DashboardLayout>

@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  getIdTokenResult,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
 import { AuthContext } from "./AuthContext";
@@ -15,6 +16,7 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
@@ -42,8 +44,19 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        try {
+          const tokenResult = await getIdTokenResult(currentUser);
+          setRole(tokenResult.claims.role || "Employee");
+        } catch (error) {
+          console.error("Error getting custom claims:", error);
+          setRole("Employee");
+        }
+      } else {
+        setRole(null);
+      }
       setLoading(false);
     });
 
@@ -54,6 +67,7 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    role,
     loading,
     createUser,
     signIn,

@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { Outlet, useLocation, useNavigate } from "react-router";
-import { useEmployeeDashboardStats, useEmployeeRecentActivity } from "../../hooks/useEmployeeDashboardData";
+import { useEmployeeDashboardData } from "../../hooks/useEmployeeDashboardData";
 import useUserRole from "../../hooks/useUserRole";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -16,9 +16,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { role, roleLoading } = useUserRole();
 
-  // Employee hooks
-  const { data: stats, isLoading: statsLoading } = useEmployeeDashboardStats();
-  const { data: activity, isLoading: activityLoading } = useEmployeeRecentActivity();
+  // Employee combined dashboard hook
+  const { data: employeeData, isLoading: employeeLoading } = useEmployeeDashboardData();
 
   // Admin & HR hooks
   const axiosSecure = useAxiosSecure();
@@ -103,10 +102,10 @@ const Dashboard = () => {
       {role === "Employee" && (
         <EmployeeDashboard
           user={user}
-          stats={stats}
-          statsLoading={statsLoading}
-          activity={activity}
-          activityLoading={activityLoading}
+          stats={employeeData}
+          statsLoading={employeeLoading}
+          activity={employeeData?.activity}
+          activityLoading={employeeLoading}
           navigate={navigate}
         />
       )}
