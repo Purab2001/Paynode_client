@@ -25,11 +25,7 @@ const PaymentHistory = lazy(() => import("../pages/Dashboard/Employee/PaymentHis
 const WorkSheet = lazy(() => import("../pages/Dashboard/Employee/WorkSheet"));
 
 const LazyRoute = ({ component: Component }) => (
-<<<<<<< HEAD
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-700"><Loader size={60} /></div>}>
-=======
-  <Suspense fallback={<div className="flex items-center justify-center p-10"><Loader size={40} /></div>}>
->>>>>>> 51a74fe06d00e80094429798842425d370b72ed8
+  <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-700"><Loader size={60} /></div>}>
     <Component />
   </Suspense>
 );
