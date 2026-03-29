@@ -1,12 +1,10 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router";
 import { useAuth } from "../hooks/useAuth";
-import useUserRole from "../hooks/useUserRole";
 import Loader from "../ui/Loader";
 
 const RoleProtectedRoute = ({ children, allowedRoles }) => {
-  const { user, loading: authLoading } = useAuth();
-  const { role, roleLoading } = useUserRole();
+  const { user, loading: authLoading, roleLoading, role } = useAuth();
   const location = useLocation();
 
   if (authLoading || roleLoading) {
@@ -21,7 +19,7 @@ const RoleProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate state={{ from: location.pathname }} to="/login" replace />;
   }
 
-  if (!roleLoading && allowedRoles && !allowedRoles.includes(role)) {
+  if (allowedRoles && !allowedRoles.includes(role)) {
     return (
       <Navigate state={{ from: location.pathname }} to="/forbidden" replace />
     );
