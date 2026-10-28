@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/* Dark mode is class-based: <html class="dark"> (set by ThemeProvider before first paint). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Colour tokens.
+ *  - Theme-aware tokens (card, surface, fg, line, …) are redefined under .dark below.
+ *  - ink / ink-2 / ink-line are the always-dark surfaces (sidebar, hero bands) and never change.
+ *  - brand never changes; brand-dark / brand-soft are the text and tint companions and do change.
+ */
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Always-dark surfaces */
+  --color-ink: #0b1324;
+  --color-ink-2: #1b2a44;
+  --color-ink-line: #26324a;
+  --color-on-ink: #c9d3e3;
+  --color-on-ink-accent: #7db3ff;
+
+  /* Surfaces */
+  --color-card: #ffffff;
+  --color-surface: #f5f7fb;
+  --color-subtle: #f8fafc;
+  --color-track: #e9edf4;
+
+  /* Lines */
+  --color-divider: #eef1f6;
+  --color-line: #e3e8f0;
+  --color-line-strong: #cbd3df;
+
+  /* Text */
+  --color-fg: #0b1324;
+  --color-body: #3a4558;
+  --color-muted: #556070;
+  --color-faint: #8a94a6;
+
+  /* Brand */
+  --color-brand: #2563eb;
+  --color-brand-dark: #1d4ed8;
+  --color-brand-soft: #eaf1ff;
+
+  /* Status */
+  --color-ok: #166534;
+  --color-ok-soft: #e8f6ee;
+  --color-warn: #9a4a07;
+  --color-warn-soft: #fef3e2;
+  --color-bad: #b91c1c;
+  --color-bad-soft: #fdecec;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --scrollbar-thumb: #b9c2d0;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --scrollbar-thumb: #3b4b6b;
+
+    --color-card: #121a2c;
+    --color-surface: #0a101d;
+    --color-subtle: #0f1727;
+    --color-track: #1a2438;
+
+    --color-divider: #1c2740;
+    --color-line: #26324a;
+    --color-line-strong: #3a4a68;
+
+    --color-fg: #e9eef8;
+    --color-body: #b9c4d8;
+    --color-muted: #8c9ab1;
+    --color-faint: #7a89a3;
+
+    --color-brand-dark: #7db3ff;
+    --color-brand-soft: #15244a;
+
+    --color-ok: #4ade80;
+    --color-ok-soft: #0f2a1c;
+    --color-warn: #fbbf24;
+    --color-warn-soft: #2b1d08;
+    --color-bad: #f87171;
+    --color-bad-soft: #321416;
+  }
+
+  .scrollbar-dark {
+    --scrollbar-thumb: #3b4b6b;
+  }
+
+  /* Scrollbars: thin, rounded, quiet. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  /* No scroll-behavior: smooth. Route changes must jump to the top instantly. */
+  body {
+    @apply bg-card font-sans text-fg antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}
+
+/* Tables become stacked cards on phones: header hidden, each cell shows its column name (set by TableWrap). */
+@media (max-width: 639px) {
+  .stack-table table,
+  .stack-table tbody,
+  .stack-table tr,
+  .stack-table td {
+    display: block;
+    min-width: 0;
+  }
+  .stack-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .stack-table tbody tr {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--color-divider);
+  }
+  .stack-table tbody tr:first-child {
+    border-top: 0;
+  }
+  .stack-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 0;
+    padding: 0.5rem 1.25rem;
+    text-align: right;
+  }
+  .stack-table td[data-label]::before {
+    content: attr(data-label);
+    flex: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+    text-align: left;
+  }
+  .stack-table td:first-child {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .stack-table td:not([data-label]):not(:first-child) {
+    justify-content: flex-end;
+  }
+  .stack-table td[colspan] {
+    display: table-cell;
+  }
+}
