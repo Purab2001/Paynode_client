@@ -18,7 +18,7 @@ import { useActivity, useMyStats, usePayrollStats } from "@/features/stats/api";
 import { trendChange, trendData, weekChartData } from "@/features/stats/trend";
 import { usePageState } from "@/hooks/usePagination";
 import { MONTHS } from "@/config/constants";
-import { money, shortDate, timeAgo } from "@/lib/format";
+import { money, periodLabel, shortDate, timeAgo } from "@/lib/format";
 
 const greeting = () => {
   const h = new Date().getHours();
@@ -28,7 +28,6 @@ const firstName = (name = "") => name.split(" ")[0];
 const pct = (part, total) => (total ? Math.round((part / total) * 100) : 0);
 const show = (stats, key) => (stats.isPending ? "—" : stats.isError ? "!" : stats.data[key]);
 const compactK = (v) => `$${(v / 1000).toFixed(v % 1000 ? 1 : 0)}k`;
-const periodLabel = (p) => `${MONTHS[p.month - 1]} ${p.year}`;
 const count = (n, one, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 // Back wave first (lighter), front wave last.
@@ -148,8 +147,6 @@ function ApprovalStrip({ pending }) {
   );
 }
 
-const MONTH_NOW = MONTHS[new Date().getMonth()];
-
 function ActivityCard() {
   const feed = useActivity();
   const pg = usePageState({ initialSize: 4 });
@@ -220,7 +217,7 @@ export function AdminDashboard({ user }) {
 
       <div className={mainGrid}>
         <ActivityCard />
-        <StatusBreakdown title={`${MONTH_NOW} requests`} parts={partsFromTotals(payroll.data?.thisMonth)} link={{ to: "/dashboard/payroll", label: "Open payroll" }} />
+        <StatusBreakdown title={payroll.data ? `${MONTHS[payroll.data.period.month - 1]} requests` : "This month's requests"} parts={partsFromTotals(payroll.data?.thisMonth)} link={{ to: "/dashboard/payroll", label: "Open payroll" }} />
       </div>
     </>
   );

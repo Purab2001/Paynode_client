@@ -1,3 +1,8 @@
+import { MONTHS } from "@/config/constants";
+
+/** "October 2026" for a payroll period `{ year, month }` (month is 1–12). */
+export const periodLabel = ({ month, year }) => `${MONTHS[month - 1]} ${year}`;
+
 export const money = (n, { cents = false } = {}) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",

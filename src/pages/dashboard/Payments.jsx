@@ -8,8 +8,7 @@ import { IconButton } from "@/components/ui/Button";
 import { Mono, Pagination, TableEmpty, TableError, TableLoading, TableWrap, Td, Th } from "@/components/ui/Table";
 import { useMyPayments } from "@/features/payments/api";
 import { usePageState } from "@/hooks/usePagination";
-import { MONTHS } from "@/config/constants";
-import { money, shortDate } from "@/lib/format";
+import { money, periodLabel, shortDate } from "@/lib/format";
 
 async function copy(text) {
   try {
@@ -19,8 +18,6 @@ async function copy(text) {
     toast.error("Couldn't copy. Select the ID and copy it manually.");
   }
 }
-
-const periodLabel = (p) => `${MONTHS[p.month - 1]} ${p.year}`;
 
 export default function Payments() {
   const pg = usePageState({ initialSize: 5 });

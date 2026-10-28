@@ -6,9 +6,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import { payrollKeys, useCreatePaymentIntent, usePayrollRequest } from "@/features/payroll/api";
-import { MONTHS } from "@/config/constants";
 import { stripePromise } from "@/lib/stripe";
-import { money } from "@/lib/format";
+import { money, periodLabel } from "@/lib/format";
 
 const APPEARANCE = { variables: { colorPrimary: "#2563eb", fontFamily: "Manrope, system-ui, sans-serif", borderRadius: "10px" } };
 const GIVE_UP_AFTER_MS = 30_000;
@@ -75,7 +74,7 @@ function PayBody({ request, onClose }) {
   return (
     <>
       <dl className="flex flex-col gap-2.5 rounded-xl bg-surface p-4 text-sm">
-        <div className="flex justify-between"><dt className="text-muted">Pay period</dt><dd className="font-bold">{MONTHS[request.period.month - 1]} {request.period.year}</dd></div>
+        <div className="flex justify-between"><dt className="text-muted">Pay period</dt><dd className="font-bold">{periodLabel(request.period)}</dd></div>
         <div className="flex justify-between"><dt className="text-muted">Requested by</dt><dd className="font-bold">{request.requestedBy.name}</dd></div>
         <div className="my-1 h-px bg-line" />
         <div className="flex items-baseline justify-between"><dt className="font-bold">Amount</dt><dd className="font-mono text-2xl font-semibold">{money(request.amount, { cents: true })}</dd></div>

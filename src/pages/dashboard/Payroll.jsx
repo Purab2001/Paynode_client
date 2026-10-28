@@ -10,8 +10,7 @@ import { Mono, Pagination, TableEmpty, TableError, TableLoading, TableWrap, Td, 
 import PayModal from "@/components/payroll/PayModal";
 import { useRejectPayroll, usePayrollRequests } from "@/features/payroll/api";
 import { usePageState } from "@/hooks/usePagination";
-import { MONTHS } from "@/config/constants";
-import { money, shortDate } from "@/lib/format";
+import { money, periodLabel, shortDate } from "@/lib/format";
 
 const emptyText = {
   pending: ["You're all caught up", "New requests from HR will appear here."],
@@ -77,7 +76,7 @@ export default function Payroll() {
             {rows.map((r) => (
               <tr key={r.id}>
                 <Td><UserCell name={r.employee?.name ?? "Former employee"} sub={r.employee?.email} src={r.employee?.photoUrl} /></Td>
-                <Td>{MONTHS[r.period.month - 1]} {r.period.year}</Td>
+                <Td>{periodLabel(r.period)}</Td>
                 <Td className="text-body">{r.requestedBy?.name}</Td>
                 <Td className="text-right"><Mono>{money(r.amount, { cents: true })}</Mono></Td>
                 <Td className="whitespace-nowrap text-right">
@@ -119,7 +118,7 @@ export default function Payroll() {
         {rejecting && (
           <form onSubmit={confirmReject} className="flex flex-col gap-4">
             <p className="text-body">
-              The {MONTHS[rejecting.period.month - 1]} {rejecting.period.year} request for {rejecting.employee?.name} ({money(rejecting.amount)}) will be rejected. HR can send a new request afterwards.
+              The {periodLabel(rejecting.period)} request for {rejecting.employee?.name} ({money(rejecting.amount)}) will be rejected. HR can send a new request afterwards.
             </p>
             <Field label="Reason" optional hint="HR will see this note.">
               <Textarea rows={3} maxLength={200} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Hours for this month haven't been approved yet" />

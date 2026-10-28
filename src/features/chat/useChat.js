@@ -1,10 +1,22 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
 import toast from "react-hot-toast";
+import { auth } from "@/lib/firebase";
 import { getSocket, request } from "@/lib/socket";
 import { initialState, reducer } from "@/features/chat/chatState";
 
 const TYPING_VISIBLE_MS = 4000;
 const TYPING_REFRESH_MS = 2500;
+const TOKEN_REFRESH_MARGIN_MS = 2 * 60 * 1000;
+
+/** Resolves on the socket's next (re)connect, or after a timeout. */
+const nextConnect = (socket, timeoutMs = 8000) =>
+  new Promise((resolve) => {
+    const timer = setTimeout(resolve, timeoutMs);
+    socket.once("connect", () => {
+      clearTimeout(timer);
+      resolve();
+    });
+  });
 
 /**
  * Connects to the chat server while the chat screen is open and keeps its state in step with it.
@@ -32,9 +44,24 @@ export function useChat(selfId) {
 
   useEffect(() => {
     const socket = getSocket();
+    let refreshTimer;
+
+    // The server only checks the Firebase ID token when we connect, and those last an hour. Reconnect a little
+    // before it lapses (the handshake picks up a fresh token) so a long session never has an action refused.
+    const scheduleTokenRefresh = async () => {
+      clearTimeout(refreshTimer);
+      const token = await auth.currentUser?.getIdTokenResult();
+      if (!token) return;
+      const wait = Date.parse(token.expirationTime) - Date.now() - TOKEN_REFRESH_MARGIN_MS;
+      refreshTimer = setTimeout(() => {
+        socket.disconnect();
+        socket.connect();
+      }, Math.max(wait, 30_000));
+    };
 
     const onConnect = async () => {
       dispatch({ type: "status", status: "online" });
+      scheduleTokenRefresh().catch(() => {});
       try {
         await loadLists();
         // After a reconnect, catch up on whatever was missed in the open conversation.
@@ -78,6 +105,7 @@ export function useChat(selfId) {
 
     return () => {
       clearInterval(prune);
+      clearTimeout(refreshTimer);
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("connect_error", onConnectError);
@@ -127,11 +155,20 @@ export function useChat(selfId) {
   }, []);
 
   const deliver = useCallback(async (channel, text, clientId) => {
-    try {
-      const { message } = await request("message:send", { channel, text });
-      dispatch({ type: "message/sent", channel, clientId, message });
-    } catch (err) {
-      dispatch({ type: "message/failed", channel, clientId, error: err.message });
+    for (let attempt = 0; ; attempt += 1) {
+      try {
+        const { message } = await request("message:send", { channel, text });
+        dispatch({ type: "message/sent", channel, clientId, message });
+        return;
+      } catch (err) {
+        // The server drops the connection when the token has lapsed. Send once more after the client reconnects.
+        if (err.code === "TOKEN_EXPIRED" && attempt === 0) {
+          await nextConnect(getSocket());
+          continue;
+        }
+        dispatch({ type: "message/failed", channel, clientId, error: err.message });
+        return;
+      }
     }
   }, []);
 

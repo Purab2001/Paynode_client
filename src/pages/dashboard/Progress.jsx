@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Calendar, CalendarDays, CircleDot, Clock, Check, SearchX, Tag, User, Users, X } from "lucide-react";
+import { Calendar, CalendarDays, CircleDot, Clock, Check, SearchX, Tag, User, X } from "lucide-react";
 import PageHeader from "@/components/ui/PageHeader";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button, { IconButton } from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
+import { SearchInput } from "@/components/ui/Field";
 import { Mono, Pagination, TableEmpty, TableError, TableLoading, TableWrap, Td, Th, UserCell } from "@/components/ui/Table";
-import { useEmployees } from "@/features/employees/api";
 import { useReviewWorksheet, useTeamWorksheets } from "@/features/worksheets/api";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { usePageState } from "@/hooks/usePagination";
 import { shortDate } from "@/lib/format";
 import { STATUS_BADGE } from "@/features/worksheets/status";
@@ -32,16 +33,14 @@ const STATUS_OPTIONS = [
 ];
 
 export default function Progress() {
-  const [employee, setEmployee] = useState("");
+  const [name, setName] = useState("");
   const [month, setMonth] = useState("");
   const [status, setStatus] = useState("");
-  const pg = usePageState({ initialSize: 10, resetKey: `${employee}|${month}|${status}` });
-
-  const people = useEmployees({ role: "Employee", limit: 100 });
-  const peopleOptions = [{ value: "", label: "All employees" }, ...(people.data?.items ?? []).map((p) => ({ value: p.id, label: p.name }))];
+  const q = useDebouncedValue(name.trim());
+  const pg = usePageState({ initialSize: 10, resetKey: `${q}|${month}|${status}` });
 
   const list = useTeamWorksheets({
-    employee: employee || undefined,
+    q: q || undefined,
     month: month || undefined,
     status: status || undefined,
     page: pg.page,
@@ -49,7 +48,7 @@ export default function Progress() {
   });
   const review = useReviewWorksheet();
   const rows = list.data?.items ?? [];
-  const filtered = employee || month || status;
+  const filtered = name || month || status;
 
   return (
     <>
@@ -58,10 +57,10 @@ export default function Progress() {
         subtitle="Work logged across the team. Approve entries to lock them."
         actions={
           <div className="flex flex-wrap items-center gap-2.5">
-            <div className="w-56"><Select aria-label="Filter by employee" icon={Users} value={employee} onChange={setEmployee} options={peopleOptions} className="py-2.5 text-sm" /></div>
+            <SearchInput value={name} onChange={setName} placeholder="Search employee name" label="Search by employee name" className="w-56" />
             <div className="w-52"><Select aria-label="Filter by month" icon={CalendarDays} value={month} onChange={setMonth} options={MONTH_OPTIONS} className="py-2.5 text-sm" /></div>
             <div className="w-44"><Select aria-label="Filter by status" icon={CircleDot} value={status} onChange={setStatus} options={STATUS_OPTIONS} className="py-2.5 text-sm" /></div>
-            {filtered && <Button variant="ghost" size="sm" onClick={() => { setEmployee(""); setMonth(""); setStatus(""); }}>Clear</Button>}
+            {filtered && <Button variant="ghost" size="sm" onClick={() => { setName(""); setMonth(""); setStatus(""); }}>Clear</Button>}
           </div>
         }
       />
