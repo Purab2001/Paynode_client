@@ -13,7 +13,7 @@ import { useSendContact } from "@/features/contact/api";
 import { reportError } from "@/lib/reportError";
 
 const topics = [
-  { value: "sales", label: "Sales and pricing", description: "Plans, demos and Enterprise" },
+  { value: "sales", label: "Sales and demos", description: "Setup help and walkthroughs" },
   { value: "support", label: "Product support", description: "Help with your account" },
   { value: "billing", label: "Billing", description: "Invoices and payments" },
   { value: "other", label: "Something else" },
@@ -32,7 +32,7 @@ const schema = z.object({
 });
 
 const channels = [
-  { icon: Briefcase, title: "Sales", text: "Pricing, demos and Enterprise plans.", email: site.emails.sales },
+  { icon: Briefcase, title: "Sales", text: "Demos and help getting your team set up.", email: site.emails.sales },
   { icon: LifeBuoy, title: "Support", text: "Help with your account or a payroll run.", email: site.emails.support },
   { icon: ShieldCheck, title: "Security", text: "Report a vulnerability or ask about data handling.", email: site.emails.security },
 ];
@@ -65,7 +65,7 @@ export default function Contact() {
       <PageHero
         eyebrow="Contact"
         title="Talk to the PayNode team."
-        description={`Questions about plans, setup or a payroll run? Send us a message and a real person will reply ${site.responseTime}.`}
+        description={`Questions about setup or a payroll run? Send us a message and a real person will reply ${site.responseTime}.`}
       />
       <Section containerClassName="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5 rounded-2xl border border-line p-6 sm:p-8">

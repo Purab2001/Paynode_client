@@ -16,7 +16,6 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", Component: Home },
       { path: "/features", lazy: lazyPage(() => import("@/pages/public/Features")) },
-      { path: "/pricing", lazy: lazyPage(() => import("@/pages/public/Pricing")) },
       { path: "/security", lazy: lazyPage(() => import("@/pages/public/Security")) },
       { path: "/about", lazy: lazyPage(() => import("@/pages/public/About")) },
       { path: "/contact", lazy: lazyPage(() => import("@/pages/public/Contact")) },

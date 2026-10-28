@@ -33,7 +33,7 @@ export default function Features() {
         actions={
           <>
             <TrialButton />
-            <Button to="/pricing" variant="secondary" size="lg">View pricing</Button>
+            <Button to="/security" variant="secondary" size="lg">How we keep it safe</Button>
           </>
         }
       />

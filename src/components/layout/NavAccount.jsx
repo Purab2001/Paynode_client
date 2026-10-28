@@ -17,7 +17,7 @@ export function NavAccount() {
     return (
       <>
         <Button to="/login" variant="ghost" size="sm" className="text-fg">Sign in</Button>
-        <Button to="/register" size="sm">Start free trial</Button>
+        <Button to="/register" size="sm">Get started</Button>
       </>
     );
   }
@@ -62,7 +62,7 @@ export function MobileNavAccount() {
     return (
       <div className="mt-3 grid grid-cols-2 gap-3">
         <Button to="/login" variant="secondary">Sign in</Button>
-        <Button to="/register">Start free trial</Button>
+        <Button to="/register">Get started</Button>
       </div>
     );
   }
@@ -110,7 +110,7 @@ export function FooterAccount() {
       {kind === "signedOut" && (
         <>
           <Link to="/login" className={linkClass}>Sign in</Link>
-          <Link to="/register" className={linkClass}>Start free trial</Link>
+          <Link to="/register" className={linkClass}>Get started</Link>
         </>
       )}
       {kind === "needsProfile" && (

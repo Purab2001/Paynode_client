@@ -1,18 +1,16 @@
 import { ArrowRight, Check, LayoutGrid } from "lucide-react";
 import Button from "@/components/ui/Button";
-import Badge from "@/components/ui/Badge";
 import { useAccount } from "@/hooks/useAccount";
 import { cn } from "@/lib/cn";
-import { site } from "@/config/site";
 
 const placeholderHeight = { sm: "h-9", md: "h-12", lg: "h-[52px]" };
 
 /**
  * Primary call to action that follows the visitor's session:
- * "Start free trial" when signed out, "Finish setup" when the profile is incomplete,
+ * "Get started" when signed out, "Finish setup" when the profile is incomplete,
  * "Go to dashboard" when signed in. Holds its space while the session loads.
  */
-export function TrialButton({ size = "lg", variant = "primary", className, label = "Start free trial", arrow = false }) {
+export function TrialButton({ size = "lg", variant = "primary", className, label = "Get started", arrow = false }) {
   const { kind } = useAccount();
 
   if (kind === "loading") {
@@ -199,45 +197,10 @@ export function Steps({ items, dark }) {
   );
 }
 
-export function PricingCards({ plans }) {
-  return (
-    <div className="grid gap-5 md:grid-cols-3">
-      {plans.map((p) => (
-        <div
-          key={p.name}
-          className={cn(
-            "flex flex-col gap-5 rounded-[18px] bg-card p-8",
-            p.popular ? "border-2 border-brand shadow-[0_20px_50px_-28px_rgba(37,99,235,0.6)]" : "border border-line",
-          )}
-        >
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h3 className="text-xl font-extrabold">{p.name}</h3>
-              <p className="mt-1.5 text-[15px] leading-snug text-muted">{p.blurb}</p>
-            </div>
-            {p.popular && <Badge tone="brand">Most popular</Badge>}
-          </div>
-          <div>
-            <p>
-              <span className="text-[44px] font-extrabold tracking-tight">${p.price}</span>
-              <span className="text-[15px] text-muted"> / month</span>
-            </p>
-            <p className="text-sm font-bold text-body">{p.limit}</p>
-          </div>
-          <CheckList items={p.features} />
-          <Button to={p.name === "Enterprise" ? "/contact?topic=sales" : "/register"} variant={p.popular ? "primary" : "secondary"} className="mt-auto">
-            {p.cta}
-          </Button>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /** Closing call-to-action band. */
 export function CtaBand({
   title = "Run your next payroll on PayNode.",
-  description = `Try every feature free for ${site.trialDays} days. No card required.`,
+  description = "Create your account, log your first hours and send your first pay request.",
 }) {
   const { kind } = useAccount();
   const signedIn = kind === "signedIn";
@@ -250,7 +213,7 @@ export function CtaBand({
         </div>
         <div className="flex flex-wrap gap-3">
           <TrialButton variant="light" arrow className="min-w-44" />
-          <Button to="/contact?topic=sales" size="lg" className="border border-white/40 bg-transparent hover:bg-white/10">Talk to sales</Button>
+          <Button to="/contact?topic=sales" size="lg" className="border border-white/40 bg-transparent hover:bg-white/10">Contact us</Button>
         </div>
       </div>
     </section>

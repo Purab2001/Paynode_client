@@ -5,9 +5,8 @@ import { useSession } from "@/app/providers/AuthProvider";
 import PageHeader from "@/components/ui/PageHeader";
 import Card, { CardHeader, TableCard } from "@/components/ui/Card";
 import StatCard from "@/components/ui/StatCard";
-import Badge, { statusTone } from "@/components/ui/Badge";
+import Badge, { statusLabel, statusTone } from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
-import Avatar from "@/components/ui/Avatar";
 import { Tabs } from "@/components/ui/Field";
 import StatusBreakdown, { partsFromTotals } from "@/components/dashboard/StatusBreakdown";
 import WaveChart, { ChartLegend } from "@/components/charts/WaveChart";
@@ -85,44 +84,6 @@ function PayrollWaveCard({ stats }) {
           summary={`Payroll requested and paid over the last ${range} months.${latest ? ` ${latest.label}: ${money(latest.paid)} paid.` : ""}`}
         />
       )}
-    </Card>
-  );
-}
-
-function ApprovalCard({ stats }) {
-  const shown = usePayrollRequests({ status: "pending", limit: 3 });
-  const pending = stats.data?.pending ?? { count: 0, amount: 0 };
-  const more = pending.count - (shown.data?.items.length ?? 0);
-  return (
-    <Card className="flex flex-col gap-4 p-6">
-      <CardHeader
-        title="Needs your approval"
-        action={<Link to="/dashboard/payroll" className="inline-flex min-h-9 items-center text-sm font-bold text-brand-dark hover:underline">View all</Link>}
-      />
-      <div className="flex items-baseline justify-between rounded-xl bg-surface px-4 py-3">
-        <span className="text-sm font-bold">{count(pending.count, "request")}</span>
-        <Mono className="text-xl">{money(pending.amount)}</Mono>
-      </div>
-      {pending.count === 0 && !stats.isPending ? (
-        <p className="py-6 text-center text-sm text-muted">You're all caught up. New requests from HR will show up here.</p>
-      ) : (
-        <ul>
-          {(shown.data?.items ?? []).map((p) => (
-            <li key={p.id} className="flex items-center gap-3 border-b border-divider py-3 last:border-0">
-              <Avatar name={p.employee?.name ?? "?"} src={p.employee?.photoUrl} />
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-bold">{p.employee?.name}</p>
-                <p className="truncate text-[13px] text-muted">{periodLabel(p.period)} · by {p.requestedBy?.name}</p>
-              </div>
-              <Mono>{money(p.amount)}</Mono>
-            </li>
-          ))}
-        </ul>
-      )}
-      {more > 0 && <p className="-mt-2 text-[13px] font-semibold text-muted">+ {more} more waiting</p>}
-      <Button to="/dashboard/payroll" className="mt-auto">
-        {pending.count ? <>Review &amp; pay {money(pending.amount)} <ArrowRight size={16} aria-hidden="true" /></> : "Open payroll"}
-      </Button>
     </Card>
   );
 }
@@ -212,13 +173,10 @@ export function AdminDashboard({ user }) {
 
       <div className={mainGrid}>
         <PayrollWaveCard stats={payroll} />
-        <ApprovalCard stats={payroll} />
-      </div>
-
-      <div className={mainGrid}>
-        <ActivityCard />
         <StatusBreakdown title={payroll.data ? `${MONTHS[payroll.data.period.month - 1]} requests` : "This month's requests"} parts={partsFromTotals(payroll.data?.thisMonth)} link={{ to: "/dashboard/payroll", label: "Open payroll" }} />
       </div>
+
+      <ActivityCard />
     </>
   );
 }
@@ -252,7 +210,7 @@ export function HRDashboard({ user }) {
       <TableCard
         title="Recent payroll requests"
         subtitle="What you've sent to an admin"
-        action={<Link to="/dashboard/employees" className="inline-flex min-h-9 items-center text-sm font-bold text-brand-dark hover:underline">Request more</Link>}
+        action={<Link to="/dashboard/employees" className="inline-flex min-h-11 items-center text-sm font-bold text-brand-dark hover:underline">Request more</Link>}
       >
         <TableWrap minWidth={560} caption="Recent payroll requests">
           <thead>
@@ -271,7 +229,7 @@ export function HRDashboard({ user }) {
                 <Td><UserCell name={p.employee?.name ?? "Former employee"} sub={p.employee?.email} src={p.employee?.photoUrl} /></Td>
                 <Td>{periodLabel(p.period)}</Td>
                 <Td className="text-right"><Mono>{money(p.amount)}</Mono></Td>
-                <Td className="text-right"><Badge tone={statusTone[p.status]} className="capitalize">{p.status}</Badge></Td>
+                <Td className="text-right"><Badge tone={statusTone[p.status]}>{statusLabel[p.status]}</Badge></Td>
               </tr>
             ))}
             {requests.isSuccess && rows.length === 0 && <TableEmpty colSpan={4} icon={Banknote} title="No requests yet">Request pay for a verified employee from the Employees page.</TableEmpty>}
@@ -307,7 +265,7 @@ export function EmployeeDashboard({ user }) {
           value={s ? (last ? money(last.amount) : "—") : "—"}
           hint={last ? `Paid for ${periodLabel(last.period)}` : "Nothing paid yet"}
         />
-        <StatCard icon={CalendarDays} iconTone="warn" label="Hours this week" value={s ? s.weekHours.toFixed(1) : "—"} hint="Monday to Friday" />
+        <StatCard icon={CalendarDays} iconTone="warn" label="Hours this week" value={s ? s.weekHours.toFixed(1) : "—"} hint="Monday to Sunday" />
       </div>
       {stats.isError && <p role="alert" className="text-sm text-bad">We couldn't load your numbers. {stats.error.message}</p>}
       <div className={mainGrid}>
@@ -315,7 +273,7 @@ export function EmployeeDashboard({ user }) {
           <CardHeader
             title="Latest entries"
             subtitle="Your most recent work sheet entries"
-            action={<Link to="/dashboard/worksheet" className="inline-flex min-h-9 items-center text-sm font-bold text-brand-dark hover:underline">View all</Link>}
+            action={<Link to="/dashboard/worksheet" className="inline-flex min-h-11 items-center text-sm font-bold text-brand-dark hover:underline">View all</Link>}
           />
           {s && s.latestEntries.length === 0 ? (
             <p className="py-6 text-center text-sm text-muted">No entries yet. Log your first hours from the work sheet.</p>

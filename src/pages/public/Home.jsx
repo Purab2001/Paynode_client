@@ -7,7 +7,6 @@ import {
   Check,
   CreditCard,
   ChartColumn,
-  Users,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
@@ -16,7 +15,6 @@ import {
   CtaBand,
   FactStrip,
   FeatureGrid,
-  PricingCards,
   Section,
   SectionHeading,
   SplitFeature,
@@ -25,8 +23,6 @@ import {
 } from "@/components/marketing";
 import DashboardPreview from "@/components/marketing/DashboardPreview";
 import PayrollPreview from "@/components/marketing/PayrollPreview";
-import { useAccount } from "@/hooks/useAccount";
-import { plans, site } from "@/config/site";
 
 const roles = [
   { icon: FileText, title: "Employees log their work", text: "Record tasks and hours each day, fix mistakes, and see every salary payment with its receipt." },
@@ -35,14 +31,14 @@ const roles = [
 ];
 
 const facts = [
-  { value: "Stripe", label: "confirms every payout before it is marked paid" },
+  { value: "Stripe", label: "confirms every payment before it is marked paid" },
   { value: "AES-256", label: "encryption on stored bank account numbers" },
   { value: "1 per month", label: "payroll request per person, duplicates blocked" },
   { value: "3 roles", label: "Employee, HR and Admin, each with its own view" },
 ];
 
 const features = [
-  { icon: CreditCard, title: "Stripe payouts", text: "Salaries are only marked paid after Stripe confirms the payment, and the transaction ID is saved to the employee's history.", featured: true },
+  { icon: CreditCard, title: "Stripe payments", text: "Salaries are only marked paid after Stripe confirms the payment, and the transaction ID is saved to the employee's history.", featured: true },
   { icon: ShieldCheck, title: "Role-based access", text: "Employees, HR and admins each see only what their role needs." },
   { icon: FileText, title: "Work sheets", text: "Daily entries with task, hours and date, plus weekly and monthly totals." },
   { icon: Check, title: "Payroll approvals", text: "One request per person per month. Duplicate requests are blocked automatically." },
@@ -52,26 +48,25 @@ const features = [
 const steps = [
   { title: "HR requests pay", text: "The month, year and salary are recorded with the request." },
   { title: "Admin reviews", text: "Approve or reject each request from the payroll queue." },
-  { title: "Stripe pays", text: "Payment is confirmed by Stripe before anything is marked paid." },
+  { title: "Stripe confirms", text: "The admin pays by card through Stripe, and nothing is marked paid until Stripe confirms." },
   { title: "History updates", text: "The employee sees the payment and transaction ID right away." },
 ];
 
 const faqs = [
   { q: "How long does setup take?", a: "Most teams are running in an afternoon. Invite your HR lead, have employees create their accounts, and verify them from the Employees page." },
   { q: "Do employees need to be trained?", a: "Rarely. Logging time is a single form, and the dashboard only shows the pages each role can use." },
-  { q: "Can I change plans later?", a: "Yes. Upgrade or downgrade at any time and the change applies from your next billing cycle." },
+  { q: "Who can pay salaries?", a: "Only admins. HR sends a request, and the admin reviews the amount and pays it through Stripe." },
   { q: "Where are payments processed?", a: "All card payments run through Stripe. PayNode never sees or stores full card numbers." },
 ];
 
 export default function Home() {
-  const { kind } = useAccount();
   return (
     <>
       <section className="border-b border-line bg-surface">
         <div className="mx-auto grid max-w-[1200px] items-center gap-14 px-6 py-20 lg:grid-cols-2 lg:py-24">
           <div className="flex flex-col gap-6">
             <Badge tone="brand" className="gap-2 self-start px-3 py-1.5 text-[13px]">
-              <ShieldCheck size={14} aria-hidden="true" /> Salary payouts secured by Stripe
+              <ShieldCheck size={14} aria-hidden="true" /> Salary payments confirmed by Stripe
             </Badge>
             <h1 className="text-[44px] font-extrabold leading-[1.05] tracking-[-0.035em] sm:text-6xl">
               Payroll and people ops, run from one ledger.
@@ -83,7 +78,6 @@ export default function Home() {
               <TrialButton arrow />
               <Button to="/features" variant="secondary" size="lg">See how it works</Button>
             </div>
-            {kind !== "signedIn" && <p className="text-sm text-muted">{site.trialDays}-day free trial · No card required · Cancel anytime</p>}
           </div>
           <PayrollPreview />
         </div>
@@ -127,14 +121,6 @@ export default function Home() {
           <Button to="/security" variant="light">How we keep it safe</Button>
         </div>
         <div className="mt-12"><Steps items={steps} dark /></div>
-      </Section>
-
-      <Section>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading eyebrow="Pricing" title="Plans that grow with your team" description={`Every plan starts with a ${site.trialDays}-day free trial.`} />
-          <Button to="/pricing" variant="ghost" className="text-brand-dark"><Users size={16} aria-hidden="true" /> Compare plans in detail</Button>
-        </div>
-        <div className="mt-12"><PricingCards plans={plans} /></div>
       </Section>
 
       <Section tone="surface" containerClassName="max-w-[820px]">

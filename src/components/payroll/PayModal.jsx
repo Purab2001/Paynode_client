@@ -10,7 +10,7 @@ import { stripePromise } from "@/lib/stripe";
 import { money, periodLabel } from "@/lib/format";
 
 const APPEARANCE = { variables: { colorPrimary: "#2563eb", fontFamily: "Manrope, system-ui, sans-serif", borderRadius: "10px" } };
-const GIVE_UP_AFTER_MS = 30_000;
+const SLOW_AFTER_MS = 30_000;
 
 /** The card form. Stripe confirms the charge; our server marks the request paid when Stripe's webhook arrives. */
 function CardForm({ request, onDone }) {
@@ -19,24 +19,33 @@ function CardForm({ request, onDone }) {
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const startedAt = useRef(0);
-  const qc = useQueryClient();
+    const qc = useQueryClient();
 
   // After Stripe accepts the card, poll our own API until the webhook has flipped the request to paid.
   const latest = usePayrollRequest(request.id, { poll: confirmed });
 
   const finished = useRef(false);
+  const [slow, setSlow] = useState(false);
 
+  // The card is charged once Stripe accepts it, so the modal stays on screen until our webhook marks the request paid.
   useEffect(() => {
-    if (!confirmed || finished.current) return;
-    const paid = latest.data?.status === "paid";
-    if (!paid && Date.now() - startedAt.current <= GIVE_UP_AFTER_MS) return;
+    if (!confirmed || finished.current || latest.data?.status !== "paid") return;
     finished.current = true; // the effect re-runs on every render; announce the result once
     qc.invalidateQueries({ queryKey: payrollKeys.all });
-    if (paid) toast.success(`Paid ${request.employee.name} ${money(request.amount, { cents: true })}`);
-    else toast("Stripe accepted the payment. It will show as paid in a moment.");
+    toast.success(`Paid ${request.employee.name} ${money(request.amount, { cents: true })}`);
     onDone();
-  }, [confirmed, latest.data, latest.dataUpdatedAt, request, qc, onDone]);
+  }, [confirmed, latest.data, request, qc, onDone]);
+
+  useEffect(() => {
+    if (!confirmed) return;
+    const t = setTimeout(() => setSlow(true), SLOW_AFTER_MS);
+    return () => clearTimeout(t);
+  }, [confirmed]);
+
+  const closeWhileWaiting = () => {
+    qc.invalidateQueries({ queryKey: payrollKeys.all });
+    onDone();
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -49,7 +58,6 @@ function CardForm({ request, onDone }) {
       setSubmitting(false);
       return;
     }
-    startedAt.current = Date.now();
     setConfirmed(true);
   };
 
@@ -60,6 +68,12 @@ function CardForm({ request, onDone }) {
       <Button type="submit" size="lg" disabled={!stripe || submitting}>
         {confirmed ? "Waiting for confirmation…" : submitting ? "Processing…" : `Pay ${money(request.amount, { cents: true })}`}
       </Button>
+      {confirmed && slow && (
+        <div role="status" className="flex flex-col gap-3 rounded-xl bg-surface p-4 text-sm">
+          <p>Stripe has accepted this payment and it is not charged twice. Confirmation is taking longer than usual, so the request will show as paid once it arrives.</p>
+          <Button type="button" variant="secondary" onClick={closeWhileWaiting}>Close and check later</Button>
+        </div>
+      )}
       <p className="flex items-center justify-center gap-2 text-[13px] text-muted">
         <Lock size={14} aria-hidden="true" /> Processed by Stripe. Marked paid once Stripe confirms.
       </p>

@@ -74,7 +74,7 @@ export function Tabs({ value, onChange, items, label }) {
           aria-selected={value === item.value}
           onClick={() => onChange(item.value)}
           className={cn(
-            "flex flex-1 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[9px] px-4 py-2 text-sm font-bold transition-colors",
+            "flex flex-1 cursor-pointer items-center justify-center gap-2 whitespace-nowrap min-h-10 rounded-[9px] px-4 py-2 text-sm font-bold transition-colors",
             value === item.value ? "bg-card text-fg shadow-sm" : "text-body hover:text-fg",
           )}
         >

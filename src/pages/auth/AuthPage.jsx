@@ -187,7 +187,7 @@ export default function AuthPage({ mode: initial = "register" }) {
 
           <p className="text-center text-sm text-muted">
             {isRegister ? "Already have an account? " : "New to PayNode? "}
-            <button type="button" onClick={() => setMode(isRegister ? "login" : "register")} className="cursor-pointer font-bold text-brand-dark hover:underline">
+            <button type="button" onClick={() => setMode(isRegister ? "login" : "register")} className="inline-flex min-h-11 cursor-pointer items-center px-1 font-bold text-brand-dark hover:underline">
               {isRegister ? "Sign in" : "Create an account"}
             </button>
           </p>
@@ -201,7 +201,7 @@ export default function AuthPage({ mode: initial = "register" }) {
           <CheckList dark items={["Log tasks and hours from any device", "See every salary payment with its Stripe receipt", "Bank details encrypted and never shown in full"]} />
         </div>
         <p className="text-[13px] text-[#9aa8bf]">
-          <Link to="/" className="hover:text-white">← Back to home</Link> · © {YEAR} PayNode
+          <Link to="/" className="inline-flex min-h-11 items-center hover:text-white">← Back to home</Link> · © {YEAR} PayNode
         </p>
       </aside>
     </div>

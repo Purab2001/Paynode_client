@@ -15,9 +15,9 @@ export default function PayrollPreview() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-[13px] font-semibold text-muted">Payroll · October 2026</p>
-          <p className="mt-1 font-mono text-3xl font-semibold tracking-tight">$48,250.00</p>
+          <p className="mt-1 font-mono text-3xl font-semibold tracking-tight">$15,750.00</p>
         </div>
-        <Badge tone="warn" className="px-3 py-1.5 text-[13px]">4 awaiting approval</Badge>
+        <Badge tone="warn" className="px-3 py-1.5 text-[13px]">2 awaiting approval</Badge>
       </div>
       <div className="h-px bg-line" />
       <ul className="flex flex-col gap-3.5">
@@ -29,7 +29,7 @@ export default function PayrollPreview() {
           </li>
         ))}
       </ul>
-      <Button variant="dark" tabIndex={-1}>Approve &amp; pay 4 employees</Button>
+      <Button variant="dark" tabIndex={-1}>Review &amp; pay $10,350</Button>
     </div>
   );
 }

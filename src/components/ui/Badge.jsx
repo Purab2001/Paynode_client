@@ -9,6 +9,7 @@ const tones = {
 };
 
 export const statusTone = { approved: "ok", paid: "ok", pending: "warn", rejected: "bad" };
+export const statusLabel = { approved: "Approved", paid: "Paid", pending: "Pending", rejected: "Rejected" };
 
 export default function Badge({ tone = "neutral", className, children }) {
   return (

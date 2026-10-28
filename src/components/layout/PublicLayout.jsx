@@ -26,7 +26,6 @@ const footerColumns = [
     title: "Product",
     links: [
       { to: "/features", label: "Features" },
-      { to: "/pricing", label: "Pricing" },
       { to: "/security", label: "Security" },
     ],
   },

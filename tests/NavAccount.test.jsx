@@ -30,11 +30,11 @@ const link = (name) => screen.queryAllByRole("link", { name });
 describe("auth-aware public navigation", () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it("signed out: offers sign in and start trial everywhere, never the dashboard", () => {
+  it("signed out: offers sign in and get started everywhere, never the dashboard", () => {
     session.current = states.signedOut;
     renderAll();
     expect(link("Sign in")).toHaveLength(3);
-    expect(link("Start free trial")).toHaveLength(3);
+    expect(link("Get started")).toHaveLength(3);
     expect(link(/dashboard/i)).toHaveLength(0);
   });
 
@@ -49,7 +49,7 @@ describe("auth-aware public navigation", () => {
     session.current = states.signedIn;
     renderAll();
     expect(link("Sign in")).toHaveLength(0);
-    expect(link("Start free trial")).toHaveLength(0);
+    expect(link("Get started")).toHaveLength(0);
     // The desktop navbar has no separate Dashboard link: it lives inside the account menu.
     expect(link(/dashboard/i)).toHaveLength(2); // mobile menu + footer
     expect(screen.getByRole("button", { name: /account menu for abir shahadat purab/i })).toBeInTheDocument();
@@ -83,17 +83,17 @@ describe("TrialButton", () => {
     return render(<MemoryRouter><TrialButton /></MemoryRouter>);
   };
 
-  it("invites visitors to start a trial", async () => {
+  it("invites visitors to get started", async () => {
     session.current = states.signedOut;
     await renderCta();
-    expect(screen.getByRole("link", { name: /start free trial/i })).toHaveAttribute("href", "/register");
+    expect(screen.getByRole("link", { name: /get started/i })).toHaveAttribute("href", "/register");
   });
 
   it("sends signed-in users to their dashboard", async () => {
     session.current = states.signedIn;
     await renderCta();
     expect(screen.getByRole("link", { name: /go to dashboard/i })).toHaveAttribute("href", "/dashboard");
-    expect(screen.queryByRole("link", { name: /start free trial/i })).toBeNull();
+    expect(screen.queryByRole("link", { name: /get started/i })).toBeNull();
   });
 
   it("keeps the white background of the light variant on the blue banner, signed in or out", async () => {
